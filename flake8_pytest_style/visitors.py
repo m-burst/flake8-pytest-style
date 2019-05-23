@@ -10,12 +10,14 @@ from .errors import (
     MissingFixtureParentheses,
     ParametrizeNamesWrongType,
     ParametrizeValuesWrongType,
+    PatchWithLambda,
 )
 from .utils import (
     AnyFunctionDef,
     extract_parametrize_call_args,
     get_fixture_decorator,
     get_qualname,
+    get_simple_call_args,
     is_parametrize_call,
 )
 
@@ -131,6 +133,27 @@ class PytestStyleVisitor(Visitor):
         :param node: patch call node
         :param new_arg_number: number of `new` positional argument of patch func
         """
+        args = get_simple_call_args(node)
+        if args.get_argument('return_value') is not None:
+            return
+
+        new_arg = args.get_argument('new', new_arg_number)
+        if not isinstance(new_arg, ast.Lambda):
+            return
+
+        lambda_argnames = {
+            arg.arg for arg in new_arg.args.args + new_arg.args.kwonlyargs
+        }
+        if new_arg.args.vararg:
+            lambda_argnames.add(new_arg.args.vararg.arg)
+        if new_arg.args.kwarg:
+            lambda_argnames.add(new_arg.args.kwarg.arg)
+
+        for child_node in ast.walk(new_arg.body):
+            if isinstance(child_node, ast.Name) and child_node.id in lambda_argnames:
+                break
+        else:
+            self.error_from_node(PatchWithLambda, node)
 
     def visit_FunctionDef(self, node: AnyFunctionDef) -> None:  # noqa: N802
         fixture_decorator = get_fixture_decorator(node)
