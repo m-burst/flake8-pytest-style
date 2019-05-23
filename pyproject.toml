@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flake8-pytest-style"
-version = "0.0.0"
+version = "0.1.0"
 description = ""
 authors = ["Mikhail Burshteyn <mdburshteyn@gmail.com>"]
 license = "MIT"
