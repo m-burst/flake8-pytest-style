@@ -62,7 +62,7 @@ MIT
 
 ## Change Log
 
-### Unreleased
+### 0.1.1 - 2019-05-23
 
 * update PyPI description
 
