@@ -36,7 +36,7 @@ def test_error_only_args():
         def my_fixture():
             return 0
     """
-    assert_error(PytestStyleVisitor, code, FixturePositionalArgs)
+    assert_error(PytestStyleVisitor, code, FixturePositionalArgs, name='my_fixture')
 
 
 def test_error_mixed():
@@ -47,4 +47,4 @@ def test_error_mixed():
         def my_fixture():
             return 0
     """
-    assert_error(PytestStyleVisitor, code, FixturePositionalArgs)
+    assert_error(PytestStyleVisitor, code, FixturePositionalArgs, name='my_fixture')
