@@ -62,7 +62,15 @@ MIT
 
 ## Change Log
 
-### 0.1.2 - 2019-05-23 - 2019-05-23
+### Unreleased
+
+* fix changelog entry for 0.1.2
+
+### 0.1.2 - 2019-05-23
+
+* fix parametrize checkers not working in decorators
+
+### 0.1.1 - 2019-05-23
 
 * update PyPI description
 
