@@ -1,10 +1,13 @@
 import ast
-from typing import Union, NamedTuple, Optional
+from typing import NamedTuple, Optional, Union
 
 AnyFunctionDef = Union[ast.AsyncFunctionDef, ast.FunctionDef]
 
 
-def _check_qualname(node: ast.Attribute, qualname: str) -> bool:
+def _check_qualname(node: ast.AST, qualname: str) -> bool:
+    """
+    Checks if the node represents an attribute access with given qualified name.
+    """
     parts = qualname.split('.')
 
     while len(parts) > 1:
@@ -18,6 +21,7 @@ def _check_qualname(node: ast.Attribute, qualname: str) -> bool:
 
 
 def is_parametrize_call(node: ast.Call) -> bool:
+    """Checks if given call is to `pytest.mark.parametrize`."""
     return _check_qualname(node.func, 'pytest.mark.parametrize')
 
 
@@ -28,6 +32,7 @@ class ParametrizeArgs(NamedTuple):
 
 
 def extract_parametrize_call_args(node: ast.Call) -> Optional[ParametrizeArgs]:
+    """Extracts argnames, argvalues and ids from a parametrize call."""
     # list of leading non-starred args
     args = []
     for arg in node.args:
@@ -57,12 +62,9 @@ def extract_parametrize_call_args(node: ast.Call) -> Optional[ParametrizeArgs]:
     return ParametrizeArgs(names_arg, values_arg, ids_arg)
 
 
-def is_test_function(node: AnyFunctionDef) -> bool:
-    return node.name.startswith('test_')
-
-
-def is_pytest_fixture(node: ast.AST) -> bool:
-    return isinstance(node, ast.Attribute) and _check_qualname(node, 'pytest.fixture')
+def _is_pytest_fixture(node: ast.AST) -> bool:
+    """Checks if node is a `pytest.fixture` attribute access."""
+    return _check_qualname(node, 'pytest.fixture')
 
 
 def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute, None]:
@@ -78,10 +80,10 @@ def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute
         if (
             isinstance(decorator, ast.Call)
             and isinstance(decorator.func, ast.Attribute)
-            and is_pytest_fixture(decorator.func)
+            and _is_pytest_fixture(decorator.func)
         ):
             return decorator
-        if isinstance(decorator, ast.Attribute) and is_pytest_fixture(decorator):
+        if isinstance(decorator, ast.Attribute) and _is_pytest_fixture(decorator):
             return decorator
 
     return None
