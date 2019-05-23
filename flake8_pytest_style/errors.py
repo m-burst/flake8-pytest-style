@@ -3,37 +3,41 @@ from ._vendor.flake8_plugin_utils import Error
 
 class MissingFixtureParentheses(Error):
     code = 'PT001'
-    message = 'you should use @pytest.fixture() over @pytest.fixture()'
+    message = 'use @pytest.fixture() over @pytest.fixture'
+
+
+class FixturePositionalArgs(Error):
+    code = 'PT002'
+    message = (
+        "configuration for fixture '{name}' specified via positional args, use kwargs"
+    )
 
 
 class ExtraneousScopeFunction(Error):
-    code = 'PT002'
+    code = 'PT003'
     message = "scope='function' is implied in @pytest.fixture()"
 
 
 class MissingFixtureNameUnderscore(Error):
-    code = 'PT003'
+    code = 'PT004'
     message = "fixture '{name}' does not return anything, add leading underscore"
 
 
 class IncorrectFixtureNameUnderscore(Error):
-    code = 'PT004'
+    code = 'PT005'
     message = "fixture '{name}' returns a value, remove leading underscore"
 
 
-class ParametrizeMultipleWithoutTuple(Error):
-    code = 'PT005'
-    message = (
-        "test function '{name}' has comma-separated names "
-        'in @pytest.mark.parametrize, use a tuple'
-    )
-
-
-class ParametrizeWrongType(Error):
+class ParametrizeNamesWrongType(Error):
     code = 'PT006'
-    message = 'use only tuples in @pytest.mark.parametrize'
+    message = 'wrong name(s) type in @pytest.mark.parametrize, expected {expected_type}'
+
+
+class ParametrizeValuesWrongType(Error):
+    code = 'PT007'
+    message = 'wrong values type in @pytest.mark.parametrize, expected {expected_type}'
 
 
 class PatchWithLambda(Error):
-    code = 'PT007'
+    code = 'PT008'
     message = 'use return_value= instead of patching with lambda'
