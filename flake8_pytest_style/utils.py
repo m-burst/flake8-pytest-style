@@ -1,5 +1,5 @@
 import ast
-from typing import Union
+from typing import Union, NamedTuple, Optional
 
 AnyFunctionDef = Union[ast.AsyncFunctionDef, ast.FunctionDef]
 
@@ -19,6 +19,42 @@ def _check_qualname(node: ast.Attribute, qualname: str) -> bool:
 
 def is_parametrize_call(node: ast.Call) -> bool:
     return _check_qualname(node.func, 'pytest.mark.parametrize')
+
+
+class ParametrizeArgs(NamedTuple):
+    names: ast.AST
+    values: Optional[ast.AST]
+    ids: Optional[ast.AST]
+
+
+def extract_parametrize_call_args(node: ast.Call) -> Optional[ParametrizeArgs]:
+    # list of leading non-starred args
+    args = []
+    for arg in node.args:
+        if isinstance(arg, ast.Starred):
+            break
+        args.append(arg)
+
+    # dict of keyword args
+    keywords = {}
+    for keyword in node.keywords:
+        if keyword.arg is not None:
+            keywords[keyword.arg] = keyword.value
+
+    names_arg = keywords.get('argnames')
+    if names_arg is None:
+        if len(args) >= 1:
+            names_arg = args[0]
+        else:
+            return None
+
+    values_arg = keywords.get('argvalues')
+    if values_arg is None and len(args) >= 2:
+        values_arg = args[1]
+
+    ids_arg = keywords.get('ids')
+
+    return ParametrizeArgs(names_arg, values_arg, ids_arg)
 
 
 def is_test_function(node: AnyFunctionDef) -> bool:

@@ -2,7 +2,7 @@ from flake8_pytest_style._vendor.flake8_plugin_utils import (
     assert_error,
     assert_not_error,
 )
-from flake8_pytest_style.errors import MissingFixtureNameUnderscore
+from flake8_pytest_style.errors import IncorrectFixtureNameUnderscore
 from flake8_pytest_style.visitors import PytestStyleVisitor
 
 
@@ -26,5 +26,5 @@ def test_error():
             return 0
     """
     assert_error(
-        PytestStyleVisitor, code, MissingFixtureNameUnderscore, name='_my_fixture'
+        PytestStyleVisitor, code, IncorrectFixtureNameUnderscore, name='_my_fixture'
     )
