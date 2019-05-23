@@ -45,6 +45,22 @@ def test_error_single_tuple():
     )
 
 
+def test_error_single_tuple_as_decorator():
+    code = """
+        import pytest
+
+        @pytest.mark.parametrize(
+            'name',
+            ('a', 'b', 'c'),
+        )
+        def test_smth(name):
+            pass
+    """
+    assert_error(
+        PytestStyleVisitor, code, ParametrizeValuesWrongType, expected_type='list'
+    )
+
+
 def test_error_multiple_tuple():
     code = """
         import pytest

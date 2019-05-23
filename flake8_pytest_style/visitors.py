@@ -162,6 +162,8 @@ class PytestStyleVisitor(Visitor):
             self._check_fixture_decorator(fixture_decorator, node)
             self._check_fixture_returns(node)
 
+        self.generic_visit(node)
+
     visit_AsyncFunctionDef = visit_FunctionDef  # noqa: N815
 
     def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
