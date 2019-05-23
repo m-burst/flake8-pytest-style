@@ -141,10 +141,10 @@ description = "Flake8 plugin that check forgotten breakpoints"
 name = "flake8-breakpoint"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "1.0.0"
+version = "1.1.0"
 
 [package.dependencies]
-flake8-plugin-utils = ">=0.2.1,<0.3.0"
+flake8-plugin-utils = ">=1.0,<2.0"
 
 [[package]]
 category = "dev"
@@ -182,14 +182,14 @@ flake8 = ">=3.5,<4.0"
 
 [[package]]
 category = "dev"
-description = "Check for if expression (ternary operator)"
+description = "The plugin checks `if expressions` (ternary operator)"
 name = "flake8-if-expr"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "0.2.1"
+version = "1.0.0"
 
 [package.dependencies]
-flake8-plugin-utils = ">=0.2.0,<0.3.0"
+flake8-plugin-utils = ">=1.0,<2.0"
 
 [[package]]
 category = "dev"
@@ -213,12 +213,12 @@ python-versions = "*"
 version = "0.6.0"
 
 [[package]]
-category = "dev"
-description = "Package provide base classes and utils for flake8 plugin writing"
+category = "main"
+description = "The package provides base classes and utils for flake8 plugin writing"
 name = "flake8-plugin-utils"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "0.2.1"
+version = "1.0.0"
 
 [[package]]
 category = "dev"
@@ -261,10 +261,10 @@ description = "Flake8 plugin that checks return values"
 name = "flake8-return"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "1.0.0"
+version = "1.1.0"
 
 [package.dependencies]
-flake8-plugin-utils = ">=0.2.0,<0.3.0"
+flake8-plugin-utils = ">=1.0,<2.0"
 
 [[package]]
 category = "dev"
@@ -395,7 +395,7 @@ six = ">=1.10.0"
 wcwidth = "*"
 
 [package.dependencies.more-itertools]
-python = ">2.7"
+python = ">=2.8"
 version = ">=4.0.0"
 
 [[package]]
@@ -500,7 +500,7 @@ python-versions = "*"
 version = "1.11.1"
 
 [metadata]
-content-hash = "3d2436cfbcc8416a21a5dc0850bbd711425c7149cf83af821b8e77b4367be6d0"
+content-hash = "43533ee530af1e07b385f68123ba8c35ddce729f70000909927184546847e745"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -517,18 +517,18 @@ entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19
 eradicate = ["f9af01c544ccd8f71bc2f7f3fa39dc363d842cfcb9c730a83676a59026ab5f24"]
 flake8 = ["859996073f341f2670741b51ec1e67a01da142831aa1fdc6242dbf88dffbe661", "a796a115208f5c03b18f332f7c11729812c8c3ded6c46319c59b53efd3819da8"]
 flake8-awesome = ["1b9084eb61c2f136778e87f05325f8ad7970e8fe6d2c12a228432c022b374f16", "ef3399e683d978fbe402c9655ba058705d5a231759b9381f5e9a556438204f37"]
-flake8-breakpoint = ["bc21e46c1c3ff5ef41429fa9e9993214f97eee78904c5e350b1dfe8434a5deac", "e64338548c789cf4378728943705dae6a0b148454b19a94b0cd070da8b61fe94"]
+flake8-breakpoint = ["27e0cb132647f9ef348b4a3c3126e7350bedbb22e8e221cd11712a223855ea0b", "5bc70d478f0437a3655d094e1d2fca81ddacabaa84d99db45ad3630bf2004064"]
 flake8-builtins = ["8d806360767947c0035feada4ddef3ede32f0a586ef457e62d811b8456ad9a51", "cd7b1b7fec4905386a3643b59f9ca8e305768da14a49a7efb31fe9364f33cd04"]
 flake8-comprehensions = ["35f826956e87f230415cde9c3b8b454e785736cf5ff0be551c441b41b937f699", "f0b61d983d608790abf3664830d68efd3412265c2d10f6a4ba1a353274dbeb64"]
 flake8-eradicate = ["37d0daeb395584be5110253cc7260e3ecc947065f089d559a9b7219f5ddb66ff", "7a68d6e371b4602172b0f2310be427f571aa945a59c05a2abbc792e5de01c47f"]
-flake8-if-expr = ["36492e32f84fef3aa636c9016e8263bb0c8e648c47bd0a8c19aa49e80114241a", "3e29d7399d77d55df48046b5ef98498dfec1c31444363c2adf14144244b00fb7"]
+flake8-if-expr = ["173f6ceefdecbff532180aafe0360f6d1dd4da8b4a9b10193ddc1781291d580e", "890c5bd0103c864492e7088bfaf4f9f5a987c336b03b2b285178456d08db3025"]
 flake8-isort = ["1e67b6b90a9b980ac3ff73782087752d406ce0a729ed928b92797f9fa188917e", "81a8495eefed3f2f63f26cd2d766c7b1191e923a15b9106e6233724056572c68"]
 flake8-logging-format = ["ca5f2b7fc31c3474a0aa77d227e022890f641a025f0ba664418797d979a779f8"]
-flake8-plugin-utils = ["a46e95fcb745b72fa7e7528f76a38045af569da1609d2fcf90c0970735dab624", "e6f830555436f7ed34ec8fd6c1d3f2a0cc5765ca53d25e242a14b330655b68c8"]
+flake8-plugin-utils = ["1ac5eb19773d5c7fdde60b0d901ae86be9c751bf697c61fdb6609b86872f3c6e", "24b4a3b216ad588951d3d7adef4645dcb3b32a33b878e03baa790b5a66bf3a73"]
 flake8-polyfill = ["12be6a34ee3ab795b19ca73505e7b55826d5f6ad7230d31b18e106400169b9e9", "e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"]
 flake8-print = ["5010e6c138b63b62400da4b06afa33becc5e08bd1fcce9af3752445cf3342f54"]
 flake8-pytest = ["61686128a79e1513db575b2bcac351081d5a293811ddce2d5dfc25e8c762d33e", "b4d6703f7d7b646af1e2660809e795886dd349df11843613dbe6515efa82c0f3"]
-flake8-return = ["04d8e367ef135a1dc2e823d32c502c89169a42db1eee177953b000789a91d134", "fbd68fdeba82e29de03119551159526f96a47fff10c004cf2bc9b9bddf45f83d"]
+flake8-return = ["6af2665ec37aab4ca72941cac3fe1263749310832bf8906b2ab2023d0fc1f02b", "bebd739bb111d095fe53a5d638cda59496ad950745949cef67f1cad8cd9a85d5"]
 isort = ["c40744b6bc5162bbb39c1257fe298b7a393861d50978b565f3ccd9cb9de0182a", "f57abacd059dc3bd666258d1efb0377510a89777fda3e3274e3c01f7c03ae22d"]
 lazy-object-proxy = ["159a745e61422217881c4de71f9eafd9d703b93af95618635849fe469a283661", "23f63c0821cc96a23332e45dfaa83266feff8adc72b9bcaef86c202af765244f", "3b11be575475db2e8a6e11215f5aa95b9ec14de658628776e10d96fa0b4dac13", "3f447aff8bc61ca8b42b73304f6a44fa0d915487de144652816f950a3f1ab821", "4ba73f6089cd9b9478bc0a4fa807b47dbdb8fad1d8f31a0f0a5dbf26a4527a71", "4f53eadd9932055eac465bd3ca1bd610e4d7141e1278012bd1f28646aebc1d0e", "64483bd7154580158ea90de5b8e5e6fc29a16a9b4db24f10193f0c1ae3f9d1ea", "6f72d42b0d04bfee2397aa1862262654b56922c20a9bb66bb76b6f0e5e4f9229", "7c7f1ec07b227bdc561299fa2328e85000f90179a2f44ea30579d38e037cb3d4", "7c8b1ba1e15c10b13cad4171cfa77f5bb5ec2580abc5a353907780805ebe158e", "8559b94b823f85342e10d3d9ca4ba5478168e1ac5658a8a2f18c991ba9c52c20", "a262c7dfb046f00e12a2bdd1bafaed2408114a89ac414b0af8755c696eb3fc16", "acce4e3267610c4fdb6632b3886fe3f2f7dd641158a843cf6b6a68e4ce81477b", "be089bb6b83fac7f29d357b2dc4cf2b8eb8d98fe9d9ff89f9ea6012970a853c7", "bfab710d859c779f273cc48fb86af38d6e9210f38287df0069a63e40b45a2f5c", "c10d29019927301d524a22ced72706380de7cfc50f767217485a912b4c8bd82a", "dd6e2b598849b3d7aee2295ac765a578879830fb8966f70be8cd472e6069932e", "e408f1eacc0a68fed0c08da45f31d0ebb38079f043328dce69ff133b95c29dc1"]
 mccabe = ["ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42", "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"]

@@ -1,4 +1,4 @@
-from ._vendor.flake8_plugin_utils import Error
+from flake8_plugin_utils import Error
 
 
 class MissingFixtureParentheses(Error):

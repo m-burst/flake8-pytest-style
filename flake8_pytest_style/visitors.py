@@ -1,7 +1,8 @@
 import ast
 from typing import Optional, Union
 
-from ._vendor.flake8_plugin_utils import Visitor
+from flake8_plugin_utils import Visitor
+
 from .errors import (
     ExtraneousScopeFunction,
     FixturePositionalArgs,
