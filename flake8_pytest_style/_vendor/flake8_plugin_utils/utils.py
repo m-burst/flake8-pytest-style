@@ -1,6 +1,6 @@
 import ast
 from textwrap import dedent
-from typing import Optional, Type
+from typing import Any, Optional, Type
 
 from .plugin import Error, Visitor
 
@@ -32,19 +32,16 @@ def _error_from_src(visitor_cls: Type[Visitor], src: str) -> Optional[Error]:
 
 
 def assert_error(
-    visitor_cls: Type[Visitor],
-    src: str,
-    expected: Type[Error],
-    *,
-    message: Optional[str] = None,
+    visitor_cls: Type[Visitor], src: str, expected: Type[Error], **kwargs: Any
 ) -> None:
     err = _error_from_src(visitor_cls, src)
     assert err, f'Error "{expected.message}" not found in\n{src}'
     assert isinstance(err, expected)
-    if message:
-        assert (
-            message == err.message
-        ), f'Expected error with message "{message}", got "{err.message}"'
+
+    expected_message = expected.formatted_message(**kwargs)
+    assert (
+        expected_message == err.message
+    ), f'Expected error with message "{expected_message}", got "{err.message}"'
 
 
 def assert_not_error(visitor_cls: Type[Visitor], src: str) -> None:

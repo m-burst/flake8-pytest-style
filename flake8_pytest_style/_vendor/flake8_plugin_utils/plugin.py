@@ -1,6 +1,6 @@
 import ast
 import re
-from typing import Iterable, List, Tuple, Type
+from typing import Any, Iterable, List, Tuple, Type
 
 FLAKE8_ERROR = Tuple[int, int, str, 'Plugin']
 NOQA_REGEXP = re.compile(r'#.*noqa\s*($|[^:\s])', re.I)
@@ -13,17 +13,23 @@ class Error:
     lineno: int
     col_offset: int
 
-    def __init__(self, lineno: int, col_offset: int, **kwargs: str) -> None:
+    def __init__(self, lineno: int, col_offset: int, **kwargs: Any) -> None:
         self.lineno = lineno
         self.col_offset = col_offset
-        self.message = self.message.format(**kwargs)
+        self.message = self.formatted_message(**kwargs)
+
+    @classmethod
+    def formatted_message(cls, **kwargs: Any) -> str:
+        return cls.message.format(**kwargs)
 
 
 class Visitor(ast.NodeVisitor):
     def __init__(self) -> None:
         self.errors: List[Error] = []
 
-    def error_from_node(self, error: Type[Error], node: ast.AST, **kwargs: str) -> None:
+    def error_from_node(
+        self, error: Type[Error], node: ast.AST, **kwargs: Any
+    ) -> None:
         self.errors.append(error(node.lineno, node.col_offset, **kwargs))
 
 
@@ -56,7 +62,12 @@ class Plugin:
         self._tree = ast.parse(''.join(self._lines))
 
     def _error(self, error: Error) -> FLAKE8_ERROR:
-        return (error.lineno, error.col_offset, f'{error.code} {error.message}', self)
+        return (
+            error.lineno,
+            error.col_offset,
+            f'{error.code} {error.message}',
+            self,
+        )
 
     @classmethod
     def add_visitor(cls, visitor_cls: Type[Visitor]) -> Type[Visitor]:
