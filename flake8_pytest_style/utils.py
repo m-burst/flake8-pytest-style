@@ -1,28 +1,66 @@
 import ast
-from typing import NamedTuple, Optional, Union
+from typing import Dict, NamedTuple, Optional, Tuple, Union
 
 AnyFunctionDef = Union[ast.AsyncFunctionDef, ast.FunctionDef]
 
 
-def _check_qualname(node: ast.AST, qualname: str) -> bool:
+def get_qualname(node: ast.AST) -> Optional[str]:
     """
-    Checks if the node represents an attribute access with given qualified name.
+    If node represents a chain of attribute accesses, return is qualified name.
     """
-    parts = qualname.split('.')
+    parts = []
+    while True:
+        if isinstance(node, ast.Name):
+            parts.append(node.id)
+            break
+        elif isinstance(node, ast.Attribute):
+            parts.append(node.attr)
+            node = node.value
+        else:
+            return None
+    return '.'.join(reversed(parts))
 
-    while len(parts) > 1:
-        part = parts.pop()
-        if not isinstance(node, ast.Attribute) or node.attr != part:
-            return False
 
-        node = node.value
+class SimpleCallArgs(NamedTuple):
+    args: Tuple[ast.AST, ...]
+    kwargs: Dict[str, ast.AST]
 
-    return isinstance(node, ast.Name) and node.id == parts[0]
+    def get_argument(
+        self, name: str, position: Optional[int] = None
+    ) -> Optional[ast.AST]:
+        """Get argument by name in kwargs or position in args."""
+        kwarg = self.kwargs.get(name)
+        if kwarg is not None:
+            return kwarg
+        if position is not None and len(self.args) > position:
+            return self.args[position]
+        return None
+
+
+def get_simple_call_args(node: ast.Call) -> SimpleCallArgs:
+    """
+    Get call arguments which are specified explicitly (positional and keyword).
+    """
+
+    # list of leading non-starred args
+    args = []
+    for arg in node.args:
+        if isinstance(arg, ast.Starred):
+            break
+        args.append(arg)
+
+    # dict of keyword args
+    keywords: Dict[str, ast.AST] = {}
+    for keyword in node.keywords:
+        if keyword.arg is not None:
+            keywords[keyword.arg] = keyword.value
+
+    return SimpleCallArgs(tuple(args), keywords)
 
 
 def is_parametrize_call(node: ast.Call) -> bool:
     """Checks if given call is to `pytest.mark.parametrize`."""
-    return _check_qualname(node.func, 'pytest.mark.parametrize')
+    return get_qualname(node.func) == 'pytest.mark.parametrize'
 
 
 class ParametrizeArgs(NamedTuple):
@@ -33,38 +71,20 @@ class ParametrizeArgs(NamedTuple):
 
 def extract_parametrize_call_args(node: ast.Call) -> Optional[ParametrizeArgs]:
     """Extracts argnames, argvalues and ids from a parametrize call."""
-    # list of leading non-starred args
-    args = []
-    for arg in node.args:
-        if isinstance(arg, ast.Starred):
-            break
-        args.append(arg)
+    args = get_simple_call_args(node)
 
-    # dict of keyword args
-    keywords = {}
-    for keyword in node.keywords:
-        if keyword.arg is not None:
-            keywords[keyword.arg] = keyword.value
-
-    names_arg = keywords.get('argnames')
+    names_arg = args.get_argument('argnames', 0)
     if names_arg is None:
-        if len(args) >= 1:
-            names_arg = args[0]
-        else:
-            return None
+        return None
 
-    values_arg = keywords.get('argvalues')
-    if values_arg is None and len(args) >= 2:
-        values_arg = args[1]
-
-    ids_arg = keywords.get('ids')
-
+    values_arg = args.get_argument('argvalues', 1)
+    ids_arg = args.get_argument('ids')
     return ParametrizeArgs(names_arg, values_arg, ids_arg)
 
 
 def _is_pytest_fixture(node: ast.AST) -> bool:
     """Checks if node is a `pytest.fixture` attribute access."""
-    return _check_qualname(node, 'pytest.fixture')
+    return get_qualname(node) == 'pytest.fixture'
 
 
 def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute, None]:

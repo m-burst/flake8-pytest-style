@@ -15,8 +15,12 @@ from .utils import (
     AnyFunctionDef,
     extract_parametrize_call_args,
     get_fixture_decorator,
+    get_qualname,
     is_parametrize_call,
 )
+
+_PATCH_NAMES = ('mocker.patch', 'mock.patch', 'unittest.mock.patch', 'patch')
+_PATCH_OBJECT_NAMES = tuple(f'{name}.object' for name in _PATCH_NAMES)
 
 
 class PytestStyleVisitor(Visitor):
@@ -120,6 +124,14 @@ class PytestStyleVisitor(Visitor):
 
         self._check_parametrize_values(node, args.values, multiple_names)
 
+    def _check_patch_call(self, node: ast.Call, new_arg_number: int) -> None:
+        """
+        Checks for PT008.
+
+        :param node: patch call node
+        :param new_arg_number: number of `new` positional argument of patch func
+        """
+
     def visit_FunctionDef(self, node: AnyFunctionDef) -> None:  # noqa: N802
         fixture_decorator = get_fixture_decorator(node)
         if fixture_decorator:
@@ -131,3 +143,11 @@ class PytestStyleVisitor(Visitor):
     def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
         if is_parametrize_call(node):
             self._check_parametrize_call(node)
+
+        if get_qualname(node.func) in _PATCH_NAMES:
+            # attributes are (target, new, ...)
+            self._check_patch_call(node, 1)
+
+        if get_qualname(node.func) in _PATCH_OBJECT_NAMES:
+            # attributes are (target, attribute, new, ...)
+            self._check_patch_call(node, 2)
