@@ -28,7 +28,19 @@ def test_ok_with_return():
     assert_not_error(PytestStyleVisitor, code)
 
 
-def test_error():
+def test_ok_with_yield():
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def _activate_context():
+            with context:
+                yield
+    """
+    assert_not_error(PytestStyleVisitor, code)
+
+
+def test_error_simple():
     code = """
         import pytest
 
@@ -38,4 +50,18 @@ def test_error():
     """
     assert_error(
         PytestStyleVisitor, code, MissingFixtureNameUnderscore, name='patch_something'
+    )
+
+
+def test_error_with_yield():
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def activate_context():
+            with context:
+                yield
+    """
+    assert_error(
+        PytestStyleVisitor, code, MissingFixtureNameUnderscore, name='activate_context'
     )

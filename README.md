@@ -20,20 +20,20 @@ Currently the following errors are reported:
 e.g. `@pytest.fixture(scope='module')` is OK, and `@pytest.fixture('module')` is an error
 
 * `PT003 scope='function' is implied in @pytest.fixture()`  
-e.g. `@pytest.fixture(scope='function')` should be replaced with `@pytest.fixture()` 
- 
+e.g. `@pytest.fixture(scope='function')` should be replaced with `@pytest.fixture()`
+
 * `PT004 fixture '{name}' does not return anything, add leading underscore`
- 
+
 * `PT005 fixture '{name}' returns a value, remove leading underscore`
- 
+
 * `PT006 wrong name(s) type in @pytest.mark.parametrize, expected {expected_type}`  
 e.g. `@pytest.mark.parametrize(('name1', 'name2'), ...)` is ok,
 and `@pytest.mark.parametrize('name1,name2', ...)` is an error
- 
+
 * `PT007 wrong values type in @pytest.mark.parametrize, expected {expected_type}`
- 
+
 * `PT008 use return_value= instead of patching with lambda`  
-e.g. `mocker.patch('target', return_value=7)` is OK, 
+e.g. `mocker.patch('target', return_value=7)` is OK,
 and `mocker.patch('target', lambda *args: 7)` is an error
 
 ## Installation
@@ -64,6 +64,7 @@ MIT
 
 ### Unreleased
 
+* add `yield` fixtures support
 * fix changelog entry for 0.1.2
 
 ### 0.1.2 - 2019-05-23

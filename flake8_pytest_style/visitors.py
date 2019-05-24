@@ -56,7 +56,7 @@ class PytestStyleVisitor(Visitor):
         """Checks for PT004, PT005."""
         has_return_with_value = False
         for child in ast.walk(node):
-            if isinstance(child, ast.Return) and child.value is not None:
+            if isinstance(child, (ast.Return, ast.Yield)) and child.value is not None:
                 has_return_with_value = True
                 break
 

@@ -4,7 +4,7 @@ from flake8_pytest_style.errors import IncorrectFixtureNameUnderscore
 from flake8_pytest_style.visitors import PytestStyleVisitor
 
 
-def test_ok():
+def test_ok_with_return():
     code = """
         import pytest
 
@@ -15,7 +15,19 @@ def test_ok():
     assert_not_error(PytestStyleVisitor, code)
 
 
-def test_error():
+def test_ok_with_yield():
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def activate_context():
+            with get_context() as context:
+                yield context
+    """
+    assert_not_error(PytestStyleVisitor, code)
+
+
+def test_error_with_return():
     code = """
         import pytest
 
@@ -25,4 +37,21 @@ def test_error():
     """
     assert_error(
         PytestStyleVisitor, code, IncorrectFixtureNameUnderscore, name='_my_fixture'
+    )
+
+
+def test_error_with_yield():
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def _activate_context():
+            with get_context() as context:
+                yield context
+    """
+    assert_error(
+        PytestStyleVisitor,
+        code,
+        IncorrectFixtureNameUnderscore,
+        name='_activate_context',
     )
