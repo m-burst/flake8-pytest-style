@@ -62,7 +62,7 @@ MIT
 
 ## Change Log
 
-### Unreleased
+### 0.1.3 - 2019-05-24
 
 * add `yield` fixtures support
 * fix changelog entry for 0.1.2

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flake8-pytest-style"
-version = "0.1.2"
+version = "0.1.3"
 description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
 authors = ["Mikhail Burshteyn <mdburshteyn@gmail.com>"]
 license = "MIT"
