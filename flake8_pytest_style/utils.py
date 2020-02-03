@@ -13,7 +13,7 @@ def get_qualname(node: ast.AST) -> Optional[str]:
         if isinstance(node, ast.Name):
             parts.append(node.id)
             break
-        elif isinstance(node, ast.Attribute):
+        if isinstance(node, ast.Attribute):
             parts.append(node.attr)
             node = node.value
         else:
