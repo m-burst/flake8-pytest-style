@@ -41,3 +41,8 @@ class ParametrizeValuesWrongType(Error):
 class PatchWithLambda(Error):
     code = 'PT008'
     message = 'use return_value= instead of patching with lambda'
+
+
+class NoBareRaises(Error):
+    code = 'PT009'
+    message = 'set the match parameter in pytest.raises'
