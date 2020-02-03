@@ -4,7 +4,7 @@ from flake8_pytest_style.errors import NoBareRaises
 from flake8_pytest_style.visitors import PytestStyleVisitor
 
 
-def test_ok_single():
+def test_ok():
     code = """
         import pytest
 
