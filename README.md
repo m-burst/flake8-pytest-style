@@ -36,6 +36,10 @@ and `@pytest.mark.parametrize('name1,name2', ...)` is an error
 e.g. `mocker.patch('target', return_value=7)` is OK,
 and `mocker.patch('target', lambda *args: 7)` is an error
 
+* `PT009 set the match parameter in pytest.raises`  
+e.g. `pytest.raises(ValueError, match='exception text')` is OK,
+and `pytest.raises(ValueError)` is an error
+
 ## Installation
 
     pip install flake8-pytest-style

@@ -63,6 +63,11 @@ def is_parametrize_call(node: ast.Call) -> bool:
     return get_qualname(node.func) == 'pytest.mark.parametrize'
 
 
+def is_raises_call(node: ast.Call) -> bool:
+    """Checks if given call is to `pytest.raises`."""
+    return get_qualname(node.func) == 'pytest.raises'
+
+
 class ParametrizeArgs(NamedTuple):
     names: ast.AST
     values: Optional[ast.AST]

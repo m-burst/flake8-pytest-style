@@ -9,6 +9,7 @@ from .errors import (
     IncorrectFixtureNameUnderscore,
     MissingFixtureNameUnderscore,
     MissingFixtureParentheses,
+    NoBareRaises,
     ParametrizeNamesWrongType,
     ParametrizeValuesWrongType,
     PatchWithLambda,
@@ -20,6 +21,7 @@ from .utils import (
     get_qualname,
     get_simple_call_args,
     is_parametrize_call,
+    is_raises_call,
 )
 
 _PATCH_NAMES = ('mocker.patch', 'mock.patch', 'unittest.mock.patch', 'patch')
@@ -127,6 +129,17 @@ class PytestStyleVisitor(Visitor):
 
         self._check_parametrize_values(node, args.values, multiple_names)
 
+    def _check_raises_call(self, node: ast.Call) -> None:
+        """Checks for all violations regarding `pytest.raises` calls."""
+        args = get_simple_call_args(node)
+        if not args:
+            return
+        match = args.get_argument('match')
+        if match is None or (
+            isinstance(match, ast.NameConstant) and match.value is None
+        ):
+            self.error_from_node(NoBareRaises, node)
+
     def _check_patch_call(self, node: ast.Call, new_arg_number: int) -> None:
         """
         Checks for PT008.
@@ -169,6 +182,9 @@ class PytestStyleVisitor(Visitor):
     def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
         if is_parametrize_call(node):
             self._check_parametrize_call(node)
+
+        if is_raises_call(node):
+            self._check_raises_call(node)
 
         if get_qualname(node.func) in _PATCH_NAMES:
             # attributes are (target, new, ...)
