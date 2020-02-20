@@ -4,13 +4,15 @@ cache: pip
 
 python:
   - "3.6"
+  - "3.7"
+  - "3.8"
 
 install:
   - pip install poetry codecov
   - poetry install
 
 script:
-  - make lint test BIN=""
+  - make lint test
 
 after_success:
   - codecov

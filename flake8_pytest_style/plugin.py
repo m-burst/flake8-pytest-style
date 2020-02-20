@@ -6,6 +6,6 @@ __version__ = '0.1.3'
 
 
 class PytestStylePlugin(Plugin):
-    name = 'flake8-return'
+    name = 'flake8-pytest-style'
     version = __version__
     visitors = [PytestStyleVisitor]
