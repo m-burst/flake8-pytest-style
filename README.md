@@ -36,6 +36,8 @@ and `@pytest.mark.parametrize('name1,name2', ...)` is an error
 e.g. `mocker.patch('target', return_value=7)` is OK,
 and `mocker.patch('target', lambda *args: 7)` is an error
 
+* `PT009 use a regular assert instead of unittest-style '{assertion}'`
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -61,6 +63,10 @@ and `mocker.patch('target', lambda *args: 7)` is an error
 MIT
 
 ## Change Log
+
+### Unreleased
+
+* add `PT009` (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
 
 ### 0.1.3 - 2019-05-24
 
