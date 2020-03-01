@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flake8-pytest-style"
-version = "0.1.3"
+version = "0.2.0"
 description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
 authors = ["Mikhail Burshteyn <mdburshteyn@gmail.com>"]
 license = "MIT"
@@ -25,17 +25,17 @@ python = "^3.6"
 flake8-plugin-utils = "^1.0"
 
 [tool.poetry.dev-dependencies]
-black = {version = "^19.3-beta.0",allows-prereleases = true}
+black = {version = "^19.3-beta.0",allow-prereleases = true}
 bumpversion = "^0.5.3"
 flake8-awesome = ">=0.2.0"
-mypy = "^0.701.0"
+mypy = "^0.761.0"
 pylint = "^2.2"
-pytest = "^4.0"
+pytest = "^5.0"
 pytest-cov = "^2.6"
 pytest-deadfixtures = "^2.1"
-pytest-mock = "^1.10"
-unify = "^0.4.0"
 flake8 = "^3.7.9"
+pytest-mock = "^2.0"
+unify = "^0.5.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

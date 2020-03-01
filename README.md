@@ -36,7 +36,9 @@ and `@pytest.mark.parametrize('name1,name2', ...)` is an error
 e.g. `mocker.patch('target', return_value=7)` is OK,
 and `mocker.patch('target', lambda *args: 7)` is an error
 
-* `PT009 set the match parameter in pytest.raises`  
+* `PT009 use a regular assert instead of unittest-style '{assertion}'`
+
+* `PT010 set the match parameter in pytest.raises`  
 e.g. `pytest.raises(ValueError, match='exception text')` is OK,
 and `pytest.raises(ValueError)` is an error
 
@@ -65,6 +67,14 @@ and `pytest.raises(ValueError)` is an error
 MIT
 
 ## Change Log
+
+### Unreleased
+
+...
+
+%### 0.2.0 - 2020-03-01
+
+* add `PT009` (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
 
 ### 0.1.3 - 2019-05-24
 
