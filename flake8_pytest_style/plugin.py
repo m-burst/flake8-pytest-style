@@ -20,7 +20,7 @@ class PytestStylePlugin(Plugin[Config]):
         pass
 
     @classmethod
-    def parse_options_to_config(
+    def parse_options_to_config(  # pylint: disable=unused-argument
         cls, option_manager: OptionManager, options: argparse.Namespace, args: List[str]
     ) -> Config:  # pragma: no cover
         return Config()
