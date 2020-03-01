@@ -41,3 +41,8 @@ class ParametrizeValuesWrongType(Error):
 class PatchWithLambda(Error):
     code = 'PT008'
     message = 'use return_value= instead of patching with lambda'
+
+
+class UnittestAssertion(Error):
+    code = 'PT009'
+    message = "use a regular assert instead of unittest-style '{assertion}'"
