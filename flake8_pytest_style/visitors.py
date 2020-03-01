@@ -3,6 +3,7 @@ from typing import Optional, Union
 
 from flake8_plugin_utils import Visitor
 
+from .config import Config
 from .errors import (
     ExtraneousScopeFunction,
     FixturePositionalArgs,
@@ -13,6 +14,7 @@ from .errors import (
     ParametrizeNamesWrongType,
     ParametrizeValuesWrongType,
     PatchWithLambda,
+    UnittestAssertion,
 )
 from .utils import (
     AnyFunctionDef,
@@ -26,9 +28,44 @@ from .utils import (
 
 _PATCH_NAMES = ('mocker.patch', 'mock.patch', 'unittest.mock.patch', 'patch')
 _PATCH_OBJECT_NAMES = tuple(f'{name}.object' for name in _PATCH_NAMES)
+_UNITTEST_ASSERT_NAMES = (
+    'assertAlmostEqual',
+    'assertAlmostEquals',
+    'assertDictEqual',
+    'assertEqual',
+    'assertEquals',
+    'assertFalse',
+    'assertGreater',
+    'assertGreaterEqual',
+    'assertIn',
+    'assertIs',
+    'assertIsInstance',
+    'assertIsNone',
+    'assertIsNot',
+    'assertIsNotNone',
+    'assertItemsEqual',
+    'assertLess',
+    'assertLessEqual',
+    'assertMultiLineEqual',
+    'assertNotAlmostEqual',
+    'assertNotAlmostEquals',
+    'assertNotContains',
+    'assertNotEqual',
+    'assertNotEquals',
+    'assertNotIn',
+    'assertNotIsInstance',
+    'assertNotRegexpMatches',
+    'assertRaises',
+    'assertRaisesMessage',
+    'assertRaisesRegexp',
+    'assertRegexpMatches',
+    'assertSetEqual',
+    'assertTrue',
+    'assert_',
+)
 
 
-class PytestStyleVisitor(Visitor):
+class PytestStyleVisitor(Visitor[Config]):
     def _check_fixture_decorator(
         self,
         fixture_decorator: Union[ast.Call, ast.Attribute],
@@ -169,6 +206,13 @@ class PytestStyleVisitor(Visitor):
         else:
             self.error_from_node(PatchWithLambda, node)
 
+    def _check_assert_call(self, node: ast.Call) -> None:
+        if (
+            isinstance(node.func, ast.Attribute)
+            and node.func.attr in _UNITTEST_ASSERT_NAMES
+        ):
+            self.error_from_node(UnittestAssertion, node, assertion=node.func.attr)
+
     def visit_FunctionDef(self, node: AnyFunctionDef) -> None:  # noqa: N802
         fixture_decorator = get_fixture_decorator(node)
         if fixture_decorator:
@@ -193,3 +237,5 @@ class PytestStyleVisitor(Visitor):
         if get_qualname(node.func) in _PATCH_OBJECT_NAMES:
             # attributes are (target, attribute, new, ...)
             self._check_patch_call(node, 2)
+
+        self._check_assert_call(node)

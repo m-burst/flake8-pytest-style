@@ -138,7 +138,7 @@ description = "Flake8 awesome plugins pack"
 name = "flake8-awesome"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "1.2.0"
+version = "1.2.1"
 
 [package.dependencies]
 flake8 = "*"
@@ -151,7 +151,7 @@ flake8-isort = "*"
 flake8-logging-format = "*"
 flake8-print = "*"
 flake8-pytest = "*"
-flake8-pytest-style = ">=0.1.3,<0.2.0"
+flake8-pytest-style = ">=0.1.3"
 flake8-return = "*"
 pep8-naming = "*"
 
@@ -252,7 +252,7 @@ description = "The package provides base classes and utils for flake8 plugin wri
 name = "flake8-plugin-utils"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "1.0.0"
+version = "1.1.0"
 
 [[package]]
 category = "dev"
@@ -720,8 +720,8 @@ flake8 = [
     {file = "flake8-3.7.9.tar.gz", hash = "sha256:45681a117ecc81e870cbf1262835ae4af5e7a8b08e40b944a8a6e6b895914cfb"},
 ]
 flake8-awesome = [
-    {file = "flake8-awesome-1.2.0.tar.gz", hash = "sha256:17a3a5a7d55b8690c57b1afa0d9a64d030e6aed17edc04bbb7c134aac88c8629"},
-    {file = "flake8_awesome-1.2.0-py3-none-any.whl", hash = "sha256:988f693c1c6246ad227a7f56b1748fb7eccb87259c4556694c36a3f776cfd1cc"},
+    {file = "flake8-awesome-1.2.1.tar.gz", hash = "sha256:bada1eef925b93234ebc0293179f0e85d79f5406212f93eb81793daa72f11c13"},
+    {file = "flake8_awesome-1.2.1-py3-none-any.whl", hash = "sha256:b6eb6e95249f00477c98f7df7007d7396965e5aa069ed6202fea7c6aaca58e86"},
 ]
 flake8-breakpoint = [
     {file = "flake8-breakpoint-1.1.0.tar.gz", hash = "sha256:5bc70d478f0437a3655d094e1d2fca81ddacabaa84d99db45ad3630bf2004064"},
@@ -751,8 +751,8 @@ flake8-logging-format = [
     {file = "flake8-logging-format-0.6.0.tar.gz", hash = "sha256:ca5f2b7fc31c3474a0aa77d227e022890f641a025f0ba664418797d979a779f8"},
 ]
 flake8-plugin-utils = [
-    {file = "flake8-plugin-utils-1.0.0.tar.gz", hash = "sha256:1ac5eb19773d5c7fdde60b0d901ae86be9c751bf697c61fdb6609b86872f3c6e"},
-    {file = "flake8_plugin_utils-1.0.0-py3-none-any.whl", hash = "sha256:24b4a3b216ad588951d3d7adef4645dcb3b32a33b878e03baa790b5a66bf3a73"},
+    {file = "flake8-plugin-utils-1.1.0.tar.gz", hash = "sha256:385f3cf3ffed5fe38a61645951ca7783b71912361601fba81427684cc8183c5f"},
+    {file = "flake8_plugin_utils-1.1.0-py3-none-any.whl", hash = "sha256:809b50396f1229acc043fe1fd805a7c2fc3dc254b814daeed3e45f2565f40c9b"},
 ]
 flake8-polyfill = [
     {file = "flake8-polyfill-1.0.2.tar.gz", hash = "sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"},
