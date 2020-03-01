@@ -173,6 +173,11 @@ class PytestStyleVisitor(Visitor[Config]):
         args = get_simple_call_args(node)
         if not args:
             return
+        exception = args.get_argument('expected_exception', position=0)
+        if not isinstance(exception, ast.Name):
+            return
+        if exception.id not in self.config.no_bare_raises_exceptions:
+            return
         match = args.get_argument('match')
         if match is None or (
             isinstance(match, ast.NameConstant) and match.value is None

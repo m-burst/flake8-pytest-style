@@ -17,10 +17,12 @@ class PytestStylePlugin(Plugin[Config]):
 
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:  # pragma: no cover
-        pass
+        option_manager.add_option(
+            '--no-bare-raises-exceptions', comma_separated_list=True
+        )
 
     @classmethod
     def parse_options_to_config(  # pylint: disable=unused-argument
         cls, option_manager: OptionManager, options: argparse.Namespace, args: List[str]
     ) -> Config:  # pragma: no cover
-        return Config()
+        return Config(no_bare_raises_exceptions=options.no_bare_raises_exceptions)
