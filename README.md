@@ -66,6 +66,10 @@ MIT
 
 ### Unreleased
 
+...
+
+%### 0.2.0 - 2020-03-01
+
 * add `PT009` (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
 
 ### 0.1.3 - 2019-05-24
