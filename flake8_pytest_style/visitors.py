@@ -3,6 +3,7 @@ from typing import Optional, Union
 
 from flake8_plugin_utils import Visitor
 
+from .config import Config
 from .errors import (
     ExtraneousScopeFunction,
     FixturePositionalArgs,
@@ -62,7 +63,7 @@ _UNITTEST_ASSERT_NAMES = (
 )
 
 
-class PytestStyleVisitor(Visitor):
+class PytestStyleVisitor(Visitor[Config]):
     def _check_fixture_decorator(
         self,
         fixture_decorator: Union[ast.Call, ast.Attribute],
