@@ -252,7 +252,7 @@ description = "The package provides base classes and utils for flake8 plugin wri
 name = "flake8-plugin-utils"
 optional = false
 python-versions = ">=3.6,<4.0"
-version = "1.1.0"
+version = "1.2.0"
 
 [[package]]
 category = "dev"
@@ -384,7 +384,7 @@ description = "Core utilities for Python packages"
 name = "packaging"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "20.1"
+version = "20.3"
 
 [package.dependencies]
 pyparsing = ">=2.0.2"
@@ -559,7 +559,7 @@ description = "A collection of helpers and mock objects for unit tests and doc t
 name = "testfixtures"
 optional = false
 python-versions = "*"
-version = "6.13.1"
+version = "6.14.0"
 
 [package.extras]
 build = ["setuptools-git", "wheel", "twine"]
@@ -632,14 +632,14 @@ marker = "python_version < \"3.8\""
 name = "zipp"
 optional = false
 python-versions = ">=3.6"
-version = "3.0.0"
+version = "3.1.0"
 
 [package.extras]
 docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "7a04b0a92d7a0269d2c1ed9484ba77109b86b4349ea4630ba3b3ef71bd7c8e3a"
+content-hash = "fe217be85c9d49f02bc5db2e3b627877527c282f85ded0a76a2f50336dab1682"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -751,8 +751,8 @@ flake8-logging-format = [
     {file = "flake8-logging-format-0.6.0.tar.gz", hash = "sha256:ca5f2b7fc31c3474a0aa77d227e022890f641a025f0ba664418797d979a779f8"},
 ]
 flake8-plugin-utils = [
-    {file = "flake8-plugin-utils-1.1.0.tar.gz", hash = "sha256:385f3cf3ffed5fe38a61645951ca7783b71912361601fba81427684cc8183c5f"},
-    {file = "flake8_plugin_utils-1.1.0-py3-none-any.whl", hash = "sha256:809b50396f1229acc043fe1fd805a7c2fc3dc254b814daeed3e45f2565f40c9b"},
+    {file = "flake8-plugin-utils-1.2.0.tar.gz", hash = "sha256:0ec78b72e48b2bdaf0037e97105f0770a2b59b0e7b2519aaec35993f3538073f"},
+    {file = "flake8_plugin_utils-1.2.0-py3-none-any.whl", hash = "sha256:94b04623082dd64e97b93177e53125d5d17657c9864a4d3a29ef31a9a6c39e15"},
 ]
 flake8-polyfill = [
     {file = "flake8-polyfill-1.0.2.tar.gz", hash = "sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"},
@@ -829,8 +829,8 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
 packaging = [
-    {file = "packaging-20.1-py2.py3-none-any.whl", hash = "sha256:170748228214b70b672c581a3dd610ee51f733018650740e98c7df862a583f73"},
-    {file = "packaging-20.1.tar.gz", hash = "sha256:e665345f9eef0c621aa0bf2f8d78cf6d21904eef16a93f020240b704a57f1334"},
+    {file = "packaging-20.3-py2.py3-none-any.whl", hash = "sha256:82f77b9bee21c1bafbf35a84905d604d5d1223801d639cf3ed140bd651c08752"},
+    {file = "packaging-20.3.tar.gz", hash = "sha256:3c292b474fda1671ec57d46d739d072bfd495a4f51ad01a055121d81e952b7a3"},
 ]
 pathspec = [
     {file = "pathspec-0.7.0-py2.py3-none-any.whl", hash = "sha256:163b0632d4e31cef212976cf57b43d9fd6b0bac6e67c26015d611a647d5e7424"},
@@ -908,8 +908,8 @@ six = [
     {file = "six-1.14.0.tar.gz", hash = "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a"},
 ]
 testfixtures = [
-    {file = "testfixtures-6.13.1-py2.py3-none-any.whl", hash = "sha256:ed7f36c5d426a4271368569d3b2d35590eeaf340ee9653cc3dd06ba2e21c6ba8"},
-    {file = "testfixtures-6.13.1.tar.gz", hash = "sha256:6edef5d0d39b4a11ada53307379c07c38d69db4a684d40d4e3e08ec7ba66187e"},
+    {file = "testfixtures-6.14.0-py2.py3-none-any.whl", hash = "sha256:799144b3cbef7b072452d9c36cbd024fef415ab42924b96aad49dfd9c763de66"},
+    {file = "testfixtures-6.14.0.tar.gz", hash = "sha256:cdfc3d73cb6d3d4dc3c67af84d912e86bf117d30ae25f02fe823382ef99383d2"},
 ]
 toml = [
     {file = "toml-0.10.0-py2.7.egg", hash = "sha256:f1db651f9657708513243e61e6cc67d101a39bad662eaa9b5546f789338e07a3"},
@@ -958,6 +958,6 @@ wrapt = [
     {file = "wrapt-1.11.2.tar.gz", hash = "sha256:565a021fd19419476b9362b05eeaa094178de64f8361e44468f9e9d7843901e1"},
 ]
 zipp = [
-    {file = "zipp-3.0.0-py3-none-any.whl", hash = "sha256:12248a63bbdf7548f89cb4c7cda4681e537031eda29c02ea29674bc6854460c2"},
-    {file = "zipp-3.0.0.tar.gz", hash = "sha256:7c0f8e91abc0dc07a5068f315c52cb30c66bfbc581e5b50704c8a2f6ebae794a"},
+    {file = "zipp-3.1.0-py3-none-any.whl", hash = "sha256:aa36550ff0c0b7ef7fa639055d797116ee891440eac1a56f378e2d3179e0320b"},
+    {file = "zipp-3.1.0.tar.gz", hash = "sha256:c599e4d75c98f6798c509911d08a22e6c021d074469042177c8c86fb92eefd96"},
 ]
