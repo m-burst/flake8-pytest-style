@@ -81,7 +81,7 @@ MIT
 
 ### Unreleased
 
-...
+* add `PT010` (no bare raises)
 
 %### 0.2.0 - 2020-03-01
 
