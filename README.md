@@ -40,7 +40,18 @@ and `mocker.patch('target', lambda *args: 7)` is an error
 
 * `PT010 set the match parameter in pytest.raises`  
 e.g. `pytest.raises(ValueError, match='exception text')` is OK,
-and `pytest.raises(ValueError)` is an error
+and `pytest.raises(ValueError)` is an error.
+    * Since this is a fairly disruptive rule, it is by default off. 
+      You can turn it on by specifying in your `setup.cfg` file 
+      which exceptions you would like this rule to apply to.
+      For example, the following configuration will make flake8 verify 
+      that all `pytest.raises` that use `ValueError` or `TypeError` 
+      should have a match parameter as well: 
+        ```
+        [flake8]
+        ...
+        no-bare-raises-exceptions = ValueError,TypeError
+        ```
 
 ## Installation
 
