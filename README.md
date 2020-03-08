@@ -84,27 +84,27 @@ MIT
 
 ## Change Log
 
-### Unreleased
+**Unreleased**
 
 * add `PT010` and `PT011` (checks for `pytest.raises` parameters)
 
-### 0.2.0 - 2020-03-01
+**0.2.0 - 2020-03-01**
 
 * add `PT009` (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
 
-### 0.1.3 - 2019-05-24
+**0.1.3 - 2019-05-24**
 
 * add `yield` fixtures support
 * fix changelog entry for 0.1.2
 
-### 0.1.2 - 2019-05-23
+**0.1.2 - 2019-05-23**
 
 * fix parametrize checkers not working in decorators
 
-### 0.1.1 - 2019-05-23
+**0.1.1 - 2019-05-23**
 
 * update PyPI description
 
-### 0.1.0 - 2019-05-23
+**0.1.0 - 2019-05-23**
 
 * initial
