@@ -56,3 +56,8 @@ class RaisesWithoutException(Error):
 class RaisesWithoutMatch(Error):
     code = 'PT011'
     message = 'set the match parameter in pytest.raises({exception})'
+
+
+class RaisesWithMultipleStatements(Error):
+    code = 'PT012'
+    message = 'pytest.raises() block should contain a single simple statement'

@@ -68,6 +68,16 @@ def is_raises_call(node: ast.Call) -> bool:
     return get_qualname(node.func) == 'pytest.raises'
 
 
+def is_raises_with(node: ast.With) -> bool:
+    """Checks that a given `with` statement has a `pytest.raises` context."""
+    for item in node.items:
+        if isinstance(item.context_expr, ast.Call) and is_raises_call(
+            item.context_expr
+        ):
+            return True
+    return False
+
+
 class ParametrizeArgs(NamedTuple):
     names: ast.AST
     values: Optional[ast.AST]

@@ -46,6 +46,10 @@ and `pytest.raises(ValueError)` is an error.
 The exception list is controlled by the configuration option 
 `pytest-raises-require-match-for`.
 
+* `PT012 pytest.raises() block should contain a single simple statement`  
+this forbids multiple statements and control flow structures within
+`pytest.raises()` blocks.
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -86,7 +90,7 @@ MIT
 
 **Unreleased**
 
-...
+* add `PT012` (checks for multiple statements in `with pytest.raises()`)
 
 **0.3.1 - 2020-03-09**
 

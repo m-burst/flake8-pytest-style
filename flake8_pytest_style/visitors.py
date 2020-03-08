@@ -13,6 +13,7 @@ from .errors import (
     ParametrizeNamesWrongType,
     ParametrizeValuesWrongType,
     PatchWithLambda,
+    RaisesWithMultipleStatements,
     RaisesWithoutException,
     RaisesWithoutMatch,
     UnittestAssertion,
@@ -25,6 +26,7 @@ from .utils import (
     get_simple_call_args,
     is_parametrize_call,
     is_raises_call,
+    is_raises_with,
 )
 
 _PATCH_NAMES = ('mocker.patch', 'mock.patch', 'unittest.mock.patch', 'patch')
@@ -219,6 +221,22 @@ class PytestStyleVisitor(Visitor[Config]):
         ):
             self.error_from_node(UnittestAssertion, node, assertion=node.func.attr)
 
+    def _check_raises_with(self, node: ast.With) -> None:
+        body = node.body
+        if len(body) != 1 or isinstance(
+            body[0],
+            (
+                ast.If,
+                ast.For,
+                ast.AsyncFor,
+                ast.While,
+                ast.With,
+                ast.AsyncWith,
+                ast.Try,
+            ),
+        ):
+            self.error_from_node(RaisesWithMultipleStatements, node)
+
     def visit_FunctionDef(self, node: AnyFunctionDef) -> None:  # noqa: N802
         fixture_decorator = get_fixture_decorator(node)
         if fixture_decorator:
@@ -244,3 +262,9 @@ class PytestStyleVisitor(Visitor[Config]):
             # attributes are (target, attribute, new, ...)
             self._check_patch_call(node, 2)
         self._check_assert_call(node)
+
+    def visit_With(self, node: ast.With) -> None:  # noqa: N802
+        if is_raises_with(node):
+            self._check_raises_with(node)
+
+        self.generic_visit(node)
