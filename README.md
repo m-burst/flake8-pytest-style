@@ -42,7 +42,7 @@ and `mocker.patch('target', lambda *args: 7)` is an error
 e.g. `pytest.raises(ValueError, match='exception text')` is OK,
 and `pytest.raises(ValueError)` is an error.
     * Since this is a fairly disruptive rule, it is by default off. 
-      You can turn it on by specifying in your `setup.cfg` file 
+      You can turn it on by specifying in your configuration (e.g. `setup.cfg`) 
       which exceptions you would like this rule to apply to.
       For example, the following configuration will make flake8 verify 
       that all `pytest.raises` that use `ValueError` or `TypeError` 
