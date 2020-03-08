@@ -18,7 +18,7 @@ class PytestStylePlugin(Plugin[Config]):
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:  # pragma: no cover
         option_manager.add_option(
-            '--no-bare-raises-exceptions',
+            '--pytest-raises-require-match-for',
             comma_separated_list=True,
             parse_from_config=True,
         )
@@ -27,4 +27,4 @@ class PytestStylePlugin(Plugin[Config]):
     def parse_options_to_config(  # pylint: disable=unused-argument
         cls, option_manager: OptionManager, options: argparse.Namespace, args: List[str]
     ) -> Config:  # pragma: no cover
-        return Config(no_bare_raises_exceptions=options.no_bare_raises_exceptions)
+        return Config(raises_require_match_for=options.pytest_raises_require_match_for)

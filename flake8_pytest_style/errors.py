@@ -48,6 +48,11 @@ class UnittestAssertion(Error):
     message = "use a regular assert instead of unittest-style '{assertion}'"
 
 
-class NoBareRaises(Error):
+class RaisesWithoutException(Error):
     code = 'PT010'
-    message = 'set the match parameter in pytest.raises'
+    message = 'set the expected exception in pytest.raises()'
+
+
+class RaisesWithoutMatch(Error):
+    code = 'PT011'
+    message = 'set the match parameter in pytest.raises({exception})'
