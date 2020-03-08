@@ -13,7 +13,6 @@ def get_qualname(node: ast.AST) -> Optional[str]:
         if isinstance(node, ast.Name):
             parts.append(node.id)
             break
-
         if isinstance(node, ast.Attribute):
             parts.append(node.attr)
             node = node.value
@@ -62,6 +61,11 @@ def get_simple_call_args(node: ast.Call) -> SimpleCallArgs:
 def is_parametrize_call(node: ast.Call) -> bool:
     """Checks if given call is to `pytest.mark.parametrize`."""
     return get_qualname(node.func) == 'pytest.mark.parametrize'
+
+
+def is_raises_call(node: ast.Call) -> bool:
+    """Checks if given call is to `pytest.raises`."""
+    return get_qualname(node.func) == 'pytest.raises'
 
 
 class ParametrizeArgs(NamedTuple):

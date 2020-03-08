@@ -1,7 +1,7 @@
 import ast
 from typing import Optional, Union
 
-from flake8_plugin_utils import Visitor
+from flake8_plugin_utils import Visitor, is_none
 
 from .config import Config
 from .errors import (
@@ -13,6 +13,8 @@ from .errors import (
     ParametrizeNamesWrongType,
     ParametrizeValuesWrongType,
     PatchWithLambda,
+    RaisesWithoutException,
+    RaisesWithoutMatch,
     UnittestAssertion,
 )
 from .utils import (
@@ -22,10 +24,12 @@ from .utils import (
     get_qualname,
     get_simple_call_args,
     is_parametrize_call,
+    is_raises_call,
 )
 
 _PATCH_NAMES = ('mocker.patch', 'mock.patch', 'unittest.mock.patch', 'patch')
 _PATCH_OBJECT_NAMES = tuple(f'{name}.object' for name in _PATCH_NAMES)
+
 _UNITTEST_ASSERT_NAMES = (
     'assertAlmostEqual',
     'assertAlmostEquals',
@@ -164,6 +168,21 @@ class PytestStyleVisitor(Visitor[Config]):
 
         self._check_parametrize_values(node, args.values, multiple_names)
 
+    def _check_raises_call(self, node: ast.Call) -> None:
+        """Checks for all violations regarding `pytest.raises` calls."""
+        args = get_simple_call_args(node)
+        exception = args.get_argument('expected_exception', position=0)
+        if not exception:
+            self.error_from_node(RaisesWithoutException, node)
+            return
+
+        exception_name = get_qualname(exception)
+        if exception_name not in self.config.raises_require_match_for:
+            return
+        match = args.get_argument('match')
+        if match is None or is_none(match):
+            self.error_from_node(RaisesWithoutMatch, node, exception=exception_name)
+
     def _check_patch_call(self, node: ast.Call, new_arg_number: int) -> None:
         """
         Checks for PT008.
@@ -214,6 +233,9 @@ class PytestStyleVisitor(Visitor[Config]):
         if is_parametrize_call(node):
             self._check_parametrize_call(node)
 
+        if is_raises_call(node):
+            self._check_raises_call(node)
+
         if get_qualname(node.func) in _PATCH_NAMES:
             # attributes are (target, new, ...)
             self._check_patch_call(node, 1)
@@ -221,5 +243,4 @@ class PytestStyleVisitor(Visitor[Config]):
         if get_qualname(node.func) in _PATCH_OBJECT_NAMES:
             # attributes are (target, attribute, new, ...)
             self._check_patch_call(node, 2)
-
         self._check_assert_call(node)

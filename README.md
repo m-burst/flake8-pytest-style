@@ -38,9 +38,29 @@ and `mocker.patch('target', lambda *args: 7)` is an error
 
 * `PT009 use a regular assert instead of unittest-style '{assertion}'`
 
+* `PT010 set the expected exception in pytest.raises()`
+
+* `PT011 set the match parameter in pytest.raises({exception})`  
+e.g. `pytest.raises(ValueError, match='exception text')` is OK,
+and `pytest.raises(ValueError)` is an error.  
+The exception list is controlled by the configuration option 
+`pytest-raises-require-match-for`.
+
 ## Installation
 
     pip install flake8-pytest-style
+    
+## Configuration
+
+The plugin has the following configuration options:
+
+* `pytest-raises-require-match-for`  
+Comma-separated list of exception names that require a `match=` parameter
+in a `pytest.raises()` call, as checked by `PT011`. By default the list
+contains the following exceptions:
+  * `BaseException`, `Exception`
+  * `ValueError`
+  * `OSError`, `IOError`, `EnvironmentError`, `socket.error`
 
 ## For developers
 
@@ -66,9 +86,9 @@ MIT
 
 ### Unreleased
 
-...
+* add `PT010` and `PT011` (checks for `pytest.raises` parameters)
 
-%### 0.2.0 - 2020-03-01
+### 0.2.0 - 2020-03-01
 
 * add `PT009` (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
 

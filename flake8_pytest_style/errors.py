@@ -46,3 +46,13 @@ class PatchWithLambda(Error):
 class UnittestAssertion(Error):
     code = 'PT009'
     message = "use a regular assert instead of unittest-style '{assertion}'"
+
+
+class RaisesWithoutException(Error):
+    code = 'PT010'
+    message = 'set the expected exception in pytest.raises()'
+
+
+class RaisesWithoutMatch(Error):
+    code = 'PT011'
+    message = 'set the match parameter in pytest.raises({exception})'
