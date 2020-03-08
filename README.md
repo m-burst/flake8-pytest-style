@@ -86,6 +86,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**0.3.0 - 2020-03-09**
+
 * add `PT010` and `PT011` (checks for `pytest.raises` parameters)
 
 **0.2.0 - 2020-03-01**

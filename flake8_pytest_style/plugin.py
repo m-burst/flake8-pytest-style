@@ -7,7 +7,7 @@ from flake8_plugin_utils import Plugin
 from .config import Config
 from .visitors import PytestStyleVisitor
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 
 class PytestStylePlugin(Plugin[Config]):
