@@ -86,6 +86,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**0.3.1 - 2020-03-09**
+
 * fix default value of `pytest-raises-require-match-for` config option
 
 **0.3.0 - 2020-03-09**
