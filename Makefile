@@ -27,10 +27,10 @@ format:
 	poetry run unify --in-place --recursive $(CODE) tests
 
 bump_major:
-	bumpversion major
+	poetry run bumpversion major
 
 bump_minor:
-	bumpversion minor
+	poetry run bumpversion minor
 
 bump_patch:
-	bumpversion patch
+	poetry run bumpversion patch
