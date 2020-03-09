@@ -43,7 +43,7 @@ _UNITTEST_ASSERT_NAMES = (
 
 
 class UnittestAssertionVisitor(Visitor[Config]):
-    def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
+    def visit_Call(self, node: ast.Call) -> None:
         if (
             isinstance(node.func, ast.Attribute)
             and node.func.attr in _UNITTEST_ASSERT_NAMES

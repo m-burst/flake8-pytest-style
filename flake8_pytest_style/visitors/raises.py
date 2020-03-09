@@ -51,11 +51,11 @@ class RaisesVisitor(Visitor[Config]):
         ):
             self.error_from_node(RaisesWithMultipleStatements, node)
 
-    def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
+    def visit_Call(self, node: ast.Call) -> None:
         if is_raises_call(node):
             self._check_raises_call(node)
 
-    def visit_With(self, node: ast.With) -> None:  # noqa: N802
+    def visit_With(self, node: ast.With) -> None:
         if is_raises_with(node):
             self._check_raises_with(node)
 

@@ -71,6 +71,6 @@ class ParametrizeVisitor(Visitor[Config]):
 
         self._check_parametrize_values(node, args.values, multiple_names)
 
-    def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
+    def visit_Call(self, node: ast.Call) -> None:
         if is_parametrize_call(node):
             self._check_parametrize_call(node)

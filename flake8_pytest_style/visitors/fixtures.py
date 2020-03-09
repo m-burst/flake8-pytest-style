@@ -71,7 +71,7 @@ class FixturesVisitor(Visitor[Config]):
         elif not has_return_with_value and not node.name.startswith('_'):
             self.error_from_node(MissingFixtureNameUnderscore, node, name=node.name)
 
-    def visit_FunctionDef(self, node: AnyFunctionDef) -> None:  # noqa: N802
+    def visit_FunctionDef(self, node: AnyFunctionDef) -> None:
         fixture_decorator = get_fixture_decorator(node)
         if fixture_decorator:
             self._check_fixture_decorator(fixture_decorator, node)

@@ -40,7 +40,7 @@ class PatchVisitor(Visitor[Config]):
         else:
             self.error_from_node(PatchWithLambda, node)
 
-    def visit_Call(self, node: ast.Call) -> None:  # noqa: N802
+    def visit_Call(self, node: ast.Call) -> None:
         if get_qualname(node.func) in _PATCH_NAMES:
             # attributes are (target, new, ...)
             self._check_patch_call(node, 1)
