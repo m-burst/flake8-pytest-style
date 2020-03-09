@@ -102,6 +102,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**0.5.0 - 2020-03-09**
+
 * add configuration option `pytest-fixture-no-parentheses` for `PT001`
 * add `PT013` (checks for `from`-imports from `pytest`)
 
