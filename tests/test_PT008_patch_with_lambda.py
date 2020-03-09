@@ -2,7 +2,7 @@ import pytest
 from flake8_plugin_utils import assert_error, assert_not_error
 
 from flake8_pytest_style.errors import PatchWithLambda
-from flake8_pytest_style.visitors import PytestStyleVisitor
+from flake8_pytest_style.visitors import PatchVisitor
 
 parametrize_code_template = pytest.mark.parametrize(
     'code_template',
@@ -17,11 +17,11 @@ parametrize_code_template = pytest.mark.parametrize(
 )
 def test_ok(code_template, patch_with):
     code = code_template.format(patch_with)
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PatchVisitor, code)
 
 
 @parametrize_code_template
 @pytest.mark.parametrize('patch_with', ['lambda: None', 'lambda x, y: None'])
 def test_error(code_template, patch_with):
     code = code_template.format(patch_with)
-    assert_error(PytestStyleVisitor, code, PatchWithLambda)
+    assert_error(PatchVisitor, code, PatchWithLambda)

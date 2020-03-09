@@ -5,7 +5,13 @@ from flake8.options.manager import OptionManager
 from flake8_plugin_utils import Plugin
 
 from .config import DEFAULT_CONFIG, Config
-from .visitors import PytestStyleVisitor
+from .visitors import (
+    FixturesVisitor,
+    ParametrizeVisitor,
+    PatchVisitor,
+    RaisesVisitor,
+    UnittestAssertionVisitor,
+)
 
 __version__ = '0.4.0'
 
@@ -13,7 +19,13 @@ __version__ = '0.4.0'
 class PytestStylePlugin(Plugin[Config]):
     name = 'flake8-pytest-style'
     version = __version__
-    visitors = [PytestStyleVisitor]
+    visitors = [
+        FixturesVisitor,
+        PatchVisitor,
+        ParametrizeVisitor,
+        RaisesVisitor,
+        UnittestAssertionVisitor,
+    ]
 
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:

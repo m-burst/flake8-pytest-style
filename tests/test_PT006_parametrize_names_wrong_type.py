@@ -1,7 +1,7 @@
 from flake8_plugin_utils import assert_error, assert_not_error
 
 from flake8_pytest_style.errors import ParametrizeNamesWrongType
-from flake8_pytest_style.visitors import PytestStyleVisitor
+from flake8_pytest_style.visitors import ParametrizeVisitor
 
 
 def test_ok_single():
@@ -13,7 +13,7 @@ def test_ok_single():
             ['a', 'b', 'c'],
         )
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(ParametrizeVisitor, code)
 
 
 def test_ok_multiple():
@@ -28,7 +28,7 @@ def test_ok_multiple():
             ],
         )
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(ParametrizeVisitor, code)
 
 
 def test_error_single_tuple():
@@ -41,7 +41,7 @@ def test_error_single_tuple():
         )
     """
     assert_error(
-        PytestStyleVisitor, code, ParametrizeNamesWrongType, expected_type='string'
+        ParametrizeVisitor, code, ParametrizeNamesWrongType, expected_type='string'
     )
 
 
@@ -58,7 +58,7 @@ def test_error_multiple_string():
         )
     """
     assert_error(
-        PytestStyleVisitor, code, ParametrizeNamesWrongType, expected_type='tuple'
+        ParametrizeVisitor, code, ParametrizeNamesWrongType, expected_type='tuple'
     )
 
 
@@ -75,5 +75,5 @@ def test_error_multiple_list():
         )
     """
     assert_error(
-        PytestStyleVisitor, code, ParametrizeNamesWrongType, expected_type='tuple'
+        ParametrizeVisitor, code, ParametrizeNamesWrongType, expected_type='tuple'
     )

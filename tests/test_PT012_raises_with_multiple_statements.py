@@ -3,7 +3,7 @@ from flake8_plugin_utils import assert_error, assert_not_error
 
 from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import RaisesWithMultipleStatements
-from flake8_pytest_style.visitors import PytestStyleVisitor
+from flake8_pytest_style.visitors import RaisesVisitor
 
 
 def test_ok():
@@ -12,7 +12,7 @@ def test_ok():
             with pytest.raises(AttributeError):
                 [].size
     """
-    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
+    assert_not_error(RaisesVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_error_multiple_statements():
@@ -23,7 +23,7 @@ def test_error_multiple_statements():
                 [].size
     """
     assert_error(
-        PytestStyleVisitor, code, RaisesWithMultipleStatements, config=DEFAULT_CONFIG
+        RaisesVisitor, code, RaisesWithMultipleStatements, config=DEFAULT_CONFIG
     )
 
 
@@ -38,7 +38,7 @@ def test_error_complex_statement(statement):
                     [].size
     """
     assert_error(
-        PytestStyleVisitor, code, RaisesWithMultipleStatements, config=DEFAULT_CONFIG
+        RaisesVisitor, code, RaisesWithMultipleStatements, config=DEFAULT_CONFIG
     )
 
 
@@ -52,5 +52,5 @@ def test_error_try():
                     raise
     """
     assert_error(
-        PytestStyleVisitor, code, RaisesWithMultipleStatements, config=DEFAULT_CONFIG
+        RaisesVisitor, code, RaisesWithMultipleStatements, config=DEFAULT_CONFIG
     )
