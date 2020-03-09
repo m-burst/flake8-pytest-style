@@ -52,6 +52,8 @@ The exception list is controlled by the configuration option
 this forbids multiple statements and control flow structures within
 `pytest.raises()` blocks.
 
+* `PT013 found incorrect import of pytest, use simple 'import pytest' instead`
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -101,6 +103,7 @@ MIT
 **Unreleased**
 
 * add configuration option `pytest-fixture-parentheses` for `PT001`
+* add `PT013` (checks for `from`-imports from `pytest`)
 
 **0.4.0 - 2020-03-09**
 

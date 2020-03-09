@@ -7,6 +7,7 @@ from flake8_plugin_utils import Plugin
 from .config import DEFAULT_CONFIG, Config
 from .visitors import (
     FixturesVisitor,
+    ImportsVisitor,
     ParametrizeVisitor,
     PatchVisitor,
     RaisesVisitor,
@@ -21,6 +22,7 @@ class PytestStylePlugin(Plugin[Config]):
     version = __version__
     visitors = [
         FixturesVisitor,
+        ImportsVisitor,
         PatchVisitor,
         ParametrizeVisitor,
         RaisesVisitor,

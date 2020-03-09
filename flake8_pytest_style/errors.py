@@ -61,3 +61,8 @@ class RaisesWithoutMatch(Error):
 class RaisesWithMultipleStatements(Error):
     code = 'PT012'
     message = 'pytest.raises() block should contain a single simple statement'
+
+
+class IncorrectPytestImport(Error):
+    code = 'PT013'
+    message = "found incorrect import of pytest, use simple 'import pytest' instead"
