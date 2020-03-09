@@ -90,6 +90,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**0.4.0 - 2020-03-09**
+
 * add `PT012` (checks for multiple statements in `with pytest.raises()`)
 
 **0.3.1 - 2020-03-09**
