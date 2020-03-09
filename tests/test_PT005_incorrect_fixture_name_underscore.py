@@ -1,5 +1,6 @@
 from flake8_plugin_utils import assert_error, assert_not_error
 
+from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import IncorrectFixtureNameUnderscore
 from flake8_pytest_style.visitors import PytestStyleVisitor
 
@@ -12,7 +13,7 @@ def test_ok_with_return():
         def my_fixture(mocker):
             return 0
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_ok_with_yield():
@@ -24,7 +25,7 @@ def test_ok_with_yield():
             with get_context() as context:
                 yield context
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_error_with_return():
@@ -36,7 +37,11 @@ def test_error_with_return():
             return 0
     """
     assert_error(
-        PytestStyleVisitor, code, IncorrectFixtureNameUnderscore, name='_my_fixture'
+        PytestStyleVisitor,
+        code,
+        IncorrectFixtureNameUnderscore,
+        name='_my_fixture',
+        config=DEFAULT_CONFIG,
     )
 
 
@@ -54,4 +59,5 @@ def test_error_with_yield():
         code,
         IncorrectFixtureNameUnderscore,
         name='_activate_context',
+        config=DEFAULT_CONFIG,
     )

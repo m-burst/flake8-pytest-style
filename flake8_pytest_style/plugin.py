@@ -18,6 +18,13 @@ class PytestStylePlugin(Plugin[Config]):
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:
         option_manager.add_option(
+            '--pytest-fixture-parentheses',
+            action='store_true',
+            default=DEFAULT_CONFIG.fixture_parentheses,
+            help='Require parentheses for @pytest.fixture decorators'
+            ' without parameters. (Default: %default)',
+        )
+        option_manager.add_option(
             '--pytest-raises-require-match-for',
             comma_separated_list=True,
             parse_from_config=True,
@@ -30,4 +37,7 @@ class PytestStylePlugin(Plugin[Config]):
     def parse_options_to_config(  # pylint: disable=unused-argument
         cls, option_manager: OptionManager, options: argparse.Namespace, args: List[str]
     ) -> Config:
-        return Config(raises_require_match_for=options.pytest_raises_require_match_for)
+        return Config(
+            fixture_parentheses=options.pytest_fixture_parentheses,
+            raises_require_match_for=options.pytest_raises_require_match_for,
+        )

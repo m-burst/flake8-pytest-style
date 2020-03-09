@@ -1,5 +1,6 @@
 from flake8_plugin_utils import assert_error, assert_not_error
 
+from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import MissingFixtureNameUnderscore
 from flake8_pytest_style.visitors import PytestStyleVisitor
 
@@ -12,7 +13,7 @@ def test_ok_simple():
         def _patch_something(mocker):
             mocker.patch('some.thing')
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_ok_with_return():
@@ -25,7 +26,7 @@ def test_ok_with_return():
                 return
             mocker.patch('some.thing')
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_ok_with_yield():
@@ -37,7 +38,7 @@ def test_ok_with_yield():
             with context:
                 yield
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_error_simple():
@@ -49,7 +50,11 @@ def test_error_simple():
             mocker.patch('some.thing')
     """
     assert_error(
-        PytestStyleVisitor, code, MissingFixtureNameUnderscore, name='patch_something'
+        PytestStyleVisitor,
+        code,
+        MissingFixtureNameUnderscore,
+        name='patch_something',
+        config=DEFAULT_CONFIG,
     )
 
 
@@ -63,5 +68,9 @@ def test_error_with_yield():
                 yield
     """
     assert_error(
-        PytestStyleVisitor, code, MissingFixtureNameUnderscore, name='activate_context'
+        PytestStyleVisitor,
+        code,
+        MissingFixtureNameUnderscore,
+        name='activate_context',
+        config=DEFAULT_CONFIG,
     )

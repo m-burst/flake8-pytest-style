@@ -1,5 +1,6 @@
 from flake8_plugin_utils import assert_error, assert_not_error
 
+from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import FixturePositionalArgs
 from flake8_pytest_style.visitors import PytestStyleVisitor
 
@@ -12,7 +13,7 @@ def test_ok_no_args():
         def my_fixture():
             return 0
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_ok_only_kwargs():
@@ -23,7 +24,7 @@ def test_ok_only_kwargs():
         def my_fixture():
             return 0
     """
-    assert_not_error(PytestStyleVisitor, code)
+    assert_not_error(PytestStyleVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_error_only_args():
@@ -34,7 +35,13 @@ def test_error_only_args():
         def my_fixture():
             return 0
     """
-    assert_error(PytestStyleVisitor, code, FixturePositionalArgs, name='my_fixture')
+    assert_error(
+        PytestStyleVisitor,
+        code,
+        FixturePositionalArgs,
+        name='my_fixture',
+        config=DEFAULT_CONFIG,
+    )
 
 
 def test_error_mixed():
@@ -45,4 +52,10 @@ def test_error_mixed():
         def my_fixture():
             return 0
     """
-    assert_error(PytestStyleVisitor, code, FixturePositionalArgs, name='my_fixture')
+    assert_error(
+        PytestStyleVisitor,
+        code,
+        FixturePositionalArgs,
+        name='my_fixture',
+        config=DEFAULT_CONFIG,
+    )

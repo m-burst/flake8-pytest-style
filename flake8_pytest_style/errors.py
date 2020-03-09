@@ -1,9 +1,9 @@
 from flake8_plugin_utils import Error
 
 
-class MissingFixtureParentheses(Error):
+class IncorrectFixtureParenthesesStyle(Error):
     code = 'PT001'
-    message = 'use @pytest.fixture() over @pytest.fixture'
+    message = 'use @pytest.fixture{expected_parens} over @pytest.fixture{actual_parens}'
 
 
 class FixturePositionalArgs(Error):

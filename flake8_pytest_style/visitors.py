@@ -8,8 +8,8 @@ from .errors import (
     ExtraneousScopeFunction,
     FixturePositionalArgs,
     IncorrectFixtureNameUnderscore,
+    IncorrectFixtureParenthesesStyle,
     MissingFixtureNameUnderscore,
-    MissingFixtureParentheses,
     ParametrizeNamesWrongType,
     ParametrizeValuesWrongType,
     PatchWithLambda,
@@ -77,8 +77,26 @@ class PytestStyleVisitor(Visitor[Config]):
     ) -> None:
         """Checks for PT001, PT002, PT003."""
         if not isinstance(fixture_decorator, ast.Call):
-            self.error_from_node(MissingFixtureParentheses, fixture_decorator)
+            if self.config.fixture_parentheses:
+                self.error_from_node(
+                    IncorrectFixtureParenthesesStyle,
+                    fixture_decorator,
+                    expected_parens='()',
+                    actual_parens='',
+                )
             return
+
+        if (
+            not self.config.fixture_parentheses
+            and not fixture_decorator.args
+            and not fixture_decorator.keywords
+        ):
+            self.error_from_node(
+                IncorrectFixtureParenthesesStyle,
+                fixture_decorator,
+                expected_parens='',
+                actual_parens='()',
+            )
 
         if fixture_decorator.args:
             self.error_from_node(
