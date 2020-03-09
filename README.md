@@ -16,7 +16,7 @@ Currently the following errors are reported:
 
 * `PT001 use @pytest.fixture() over @pytest.fixture`  
 The preferred style is controlled by the configuration option
-`pytest-fixture-parentheses`
+`pytest-fixture-no-parentheses`
 
 * `PT002 configuration for fixture '{name}' specified via positional args, use kwargs`  
 e.g. `@pytest.fixture(scope='module')` is OK, and `@pytest.fixture('module')` is an error
@@ -62,12 +62,12 @@ this forbids multiple statements and control flow structures within
 
 The plugin has the following configuration options:
 
-* `pytest-fixture-parentheses`  
+* `pytest-fixture-no-parentheses`  
 Boolean flag specifying whether `@pytest.fixture()` without parameters
 should have parentheses, as checked by `PT001`.  
-If the option is set to true (the default), `@pytest.fixture()` is valid
+If the option is set to false (the default), `@pytest.fixture()` is valid
 and `@pytest.fixture` is an error.  
-If set to false, `@pytest.fixture` is valid and `@pytest.fixture()` is
+If set to true, `@pytest.fixture` is valid and `@pytest.fixture()` is
 an error.
 
 * `pytest-raises-require-match-for`  
@@ -102,7 +102,7 @@ MIT
 
 **Unreleased**
 
-* add configuration option `pytest-fixture-parentheses` for `PT001`
+* add configuration option `pytest-fixture-no-parentheses` for `PT001`
 * add `PT013` (checks for `from`-imports from `pytest`)
 
 **0.4.0 - 2020-03-09**

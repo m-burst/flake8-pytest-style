@@ -32,10 +32,11 @@ class PytestStylePlugin(Plugin[Config]):
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:
         option_manager.add_option(
-            '--pytest-fixture-parentheses',
+            '--pytest-fixture-no-parentheses',
             action='store_true',
-            default=DEFAULT_CONFIG.fixture_parentheses,
-            help='Require parentheses for @pytest.fixture decorators'
+            parse_from_config=True,
+            default=not DEFAULT_CONFIG.fixture_parentheses,
+            help='Omit parentheses for @pytest.fixture decorators'
             ' without parameters. (Default: %default)',
         )
         option_manager.add_option(
@@ -52,6 +53,6 @@ class PytestStylePlugin(Plugin[Config]):
         cls, option_manager: OptionManager, options: argparse.Namespace, args: List[str]
     ) -> Config:
         return Config(
-            fixture_parentheses=options.pytest_fixture_parentheses,
+            fixture_parentheses=not options.pytest_fixture_no_parentheses,
             raises_require_match_for=options.pytest_raises_require_match_for,
         )

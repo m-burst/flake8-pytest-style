@@ -29,3 +29,8 @@ def test_parse_raises_require_match_for(option_manager):
         option_manager, ['--pytest-raises-require-match-for', 'ValueError,TypeError']
     )
     assert config.raises_require_match_for == ['ValueError', 'TypeError']
+
+
+def test_parse_fixture_parentheses(option_manager):
+    config = parse_options(option_manager, ['--pytest-fixture-no-parentheses'])
+    assert config.fixture_parentheses is False
