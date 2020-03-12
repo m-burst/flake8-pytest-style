@@ -4,7 +4,7 @@ import flake8
 import pytest
 from flake8.options.manager import OptionManager
 
-from flake8_pytest_style.config import DEFAULT_CONFIG, Config
+from flake8_pytest_style.config import DEFAULT_CONFIG, Config, ParametrizeNamesType
 from flake8_pytest_style.plugin import PytestStylePlugin
 
 
@@ -34,3 +34,13 @@ def test_parse_raises_require_match_for(option_manager):
 def test_parse_fixture_parentheses(option_manager):
     config = parse_options(option_manager, ['--pytest-fixture-no-parentheses'])
     assert config.fixture_parentheses is False
+
+
+def test_parse_parametrize_names_type(option_manager):
+    config = parse_options(option_manager, ['--pytest-parametrize-names-type', 'csv'])
+    assert config.parametrize_names_type is ParametrizeNamesType.CSV
+
+
+def test_parse_parametrize_names_type_bad_value(option_manager):
+    with pytest.raises(SystemExit):  # as raised by optparse
+        parse_options(option_manager, ['--pytest-parametrize-names-type', 'str'])

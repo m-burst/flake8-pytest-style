@@ -1,5 +1,6 @@
 from flake8_plugin_utils import assert_error, assert_not_error
 
+from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import ParametrizeValuesWrongType
 from flake8_pytest_style.visitors import ParametrizeVisitor
 
@@ -13,7 +14,7 @@ def test_ok_single():
             ['a', 'b', 'c'],
         )
     """
-    assert_not_error(ParametrizeVisitor, code)
+    assert_not_error(ParametrizeVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_ok_multiple():
@@ -28,7 +29,7 @@ def test_ok_multiple():
             ],
         )
     """
-    assert_not_error(ParametrizeVisitor, code)
+    assert_not_error(ParametrizeVisitor, code, config=DEFAULT_CONFIG)
 
 
 def test_error_single_tuple():
@@ -41,7 +42,11 @@ def test_error_single_tuple():
         )
     """
     assert_error(
-        ParametrizeVisitor, code, ParametrizeValuesWrongType, expected_type='list'
+        ParametrizeVisitor,
+        code,
+        ParametrizeValuesWrongType,
+        expected_type='list',
+        config=DEFAULT_CONFIG,
     )
 
 
@@ -57,7 +62,11 @@ def test_error_single_tuple_as_decorator():
             pass
     """
     assert_error(
-        ParametrizeVisitor, code, ParametrizeValuesWrongType, expected_type='list'
+        ParametrizeVisitor,
+        code,
+        ParametrizeValuesWrongType,
+        expected_type='list',
+        config=DEFAULT_CONFIG,
     )
 
 
@@ -78,6 +87,7 @@ def test_error_multiple_tuple():
         code,
         ParametrizeValuesWrongType,
         expected_type='list of tuples',
+        config=DEFAULT_CONFIG,
     )
 
 
@@ -98,4 +108,5 @@ def test_error_inner_list():
         code,
         ParametrizeValuesWrongType,
         expected_type='list of tuples',
+        config=DEFAULT_CONFIG,
     )

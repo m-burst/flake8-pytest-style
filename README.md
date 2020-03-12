@@ -29,8 +29,9 @@ e.g. `@pytest.fixture(scope='function')` should be replaced with `@pytest.fixtur
 * `PT005 fixture '{name}' returns a value, remove leading underscore`
 
 * `PT006 wrong name(s) type in @pytest.mark.parametrize, expected {expected_type}`  
-e.g. `@pytest.mark.parametrize(('name1', 'name2'), ...)` is ok,
-and `@pytest.mark.parametrize('name1,name2', ...)` is an error
+For a single name the expected type is always a plain string.
+For multiple names the expected type is controlled by the configuration
+variable `pytest-parametrize-names-type`.
 
 * `PT007 wrong values type in @pytest.mark.parametrize, expected {expected_type}`
 
@@ -70,6 +71,13 @@ and `@pytest.fixture` is an error.
 If set to true, `@pytest.fixture` is valid and `@pytest.fixture()` is
 an error.
 
+* `pytest-parametrize-names-type`  
+Expected type for multiple argument names in `@pytest.mark.parametrize`,
+as checked by `PT006`. The following values are supported:
+  * `csv` &mdash; a comma-separated list, e.g. `@pytest.mark.parametrize('name1,name2', ...)`
+  * `tuple` &mdash; a tuple, e.g. `@pytest.mark.parametrize(('name1', 'name2'), ...)`
+  * `list` &mdash; a list, e.g. `@pytest.mark.parametrize(['name1', 'name2'], ...)`
+
 * `pytest-raises-require-match-for`  
 Comma-separated list of exception names that require a `match=` parameter
 in a `pytest.raises()` call, as checked by `PT011`. By default the list
@@ -102,7 +110,7 @@ MIT
 
 **Unreleased**
 
-...
+* add configuration option `pytest-parametrize-names-type` for `PT006`
 
 **0.5.0 - 2020-03-09**
 

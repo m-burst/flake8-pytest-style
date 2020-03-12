@@ -4,7 +4,7 @@ from typing import List
 from flake8.options.manager import OptionManager
 from flake8_plugin_utils import Plugin
 
-from .config import DEFAULT_CONFIG, Config
+from .config import DEFAULT_CONFIG, Config, ParametrizeNamesType
 from .visitors import (
     FixturesVisitor,
     ImportsVisitor,
@@ -47,6 +47,14 @@ class PytestStylePlugin(Plugin[Config]):
             help='List of exceptions for which flake8-pytest-style requires'
             ' a match= argument in pytest.raises(). (Default: %default)',
         )
+        option_manager.add_option(
+            '--pytest-parametrize-names-type',
+            choices=[member.value for member in ParametrizeNamesType],
+            parse_from_config=True,
+            default=DEFAULT_CONFIG.parametrize_names_type.value,
+            help='Preferred type for multiple parameter names in'
+            ' @pytest.mark.parametrize. (Default: %default)',
+        )
 
     @classmethod
     def parse_options_to_config(  # pylint: disable=unused-argument
@@ -55,4 +63,7 @@ class PytestStylePlugin(Plugin[Config]):
         return Config(
             fixture_parentheses=not options.pytest_fixture_no_parentheses,
             raises_require_match_for=options.pytest_raises_require_match_for,
+            parametrize_names_type=ParametrizeNamesType(
+                options.pytest_parametrize_names_type
+            ),
         )

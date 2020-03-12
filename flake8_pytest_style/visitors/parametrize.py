@@ -3,7 +3,7 @@ from typing import Optional
 
 from flake8_plugin_utils import Visitor
 
-from ..config import Config
+from ..config import Config, ParametrizeNamesType
 from ..errors import ParametrizeNamesWrongType, ParametrizeValuesWrongType
 from ..utils import extract_parametrize_call_args, is_parametrize_call
 
@@ -20,11 +20,10 @@ class ParametrizeVisitor(Visitor[Config]):
         """
 
         multiple_names: Optional[bool] = None
+        found_type: Optional[ParametrizeNamesType] = None
         if isinstance(names, ast.Str):
             if ',' in names.s:
-                self.error_from_node(
-                    ParametrizeNamesWrongType, node, expected_type='tuple'
-                )
+                found_type = ParametrizeNamesType.CSV
                 multiple_names = True
             else:
                 multiple_names = False
@@ -34,10 +33,16 @@ class ParametrizeVisitor(Visitor[Config]):
                 self.error_from_node(
                     ParametrizeNamesWrongType, node, expected_type='string'
                 )
-            elif not isinstance(names, ast.Tuple):
-                self.error_from_node(
-                    ParametrizeNamesWrongType, node, expected_type='tuple'
-                )
+            elif isinstance(names, ast.Tuple):
+                found_type = ParametrizeNamesType.TUPLE
+            else:
+                found_type = ParametrizeNamesType.LIST
+        if multiple_names and found_type != self.config.parametrize_names_type:
+            self.error_from_node(
+                ParametrizeNamesWrongType,
+                node,
+                expected_type=self.config.parametrize_names_type.value,
+            )
         return multiple_names
 
     def _check_parametrize_values(
