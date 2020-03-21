@@ -34,6 +34,10 @@ For multiple names the expected type is controlled by the configuration
 variable `pytest-parametrize-names-type`.
 
 * `PT007 wrong values type in @pytest.mark.parametrize, expected {expected_type}`
+The expected type of the list of rows is controlled by the configuration
+variable `pytest-parametrize-values-type`.
+The expected type of each row in case of multiple arguments is controlled by
+the configuration variable `pytest-parametrize-values-row-type`.
 
 * `PT008 use return_value= instead of patching with lambda`  
 e.g. `mocker.patch('target', return_value=7)` is OK,
@@ -75,8 +79,20 @@ an error.
 Expected type for multiple argument names in `@pytest.mark.parametrize`,
 as checked by `PT006`. The following values are supported:
   * `csv` &mdash; a comma-separated list, e.g. `@pytest.mark.parametrize('name1,name2', ...)`
-  * `tuple` &mdash; a tuple, e.g. `@pytest.mark.parametrize(('name1', 'name2'), ...)`
-  * `list` &mdash; a list, e.g. `@pytest.mark.parametrize(['name1', 'name2'], ...)`
+  * `tuple` (default) &mdash; e.g. `@pytest.mark.parametrize(('name1', 'name2'), ...)`
+  * `list` &mdash; e.g. `@pytest.mark.parametrize(['name1', 'name2'], ...)`
+  
+* `pytest-parametrize-values-type`  
+Expected type for the list of values rows in `@pytest.mark.parametrize`,
+as checked by `PT007`. The following values are supported:
+  * `tuple` &mdash; e.g. `@pytest.mark.parametrize('name', (1, 2, 3))`
+  * `list` (default) &mdash; e.g. `@pytest.mark.parametrize('name', [1, 2, 3])`
+
+* `pytest-parametrize-values-row-type`  
+Expected type for each row of values in `@pytest.mark.parametrize` in case of
+multiple parameters, as checked by `PT007`. The following values are supported:
+  * `tuple` (default) &mdash; e.g. `@pytest.mark.parametrize(('name1', 'name2'), [(1, 2), (3, 4)])`
+  * `list` &mdash; e.g. `@pytest.mark.parametrize(('name1', 'name2'), [[1, 2], [3, 4]])`
 
 * `pytest-raises-require-match-for`  
 Comma-separated list of exception names that require a `match=` parameter
@@ -111,6 +127,8 @@ MIT
 **Unreleased**
 
 * add configuration option `pytest-parametrize-names-type` for `PT006`
+* add configuration options `pytest-parametrize-values-type` and
+`pytest-parametrize-values-row-type` for `PT007`
 
 **0.5.0 - 2020-03-09**
 

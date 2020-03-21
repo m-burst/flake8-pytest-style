@@ -3,7 +3,12 @@ from typing import Optional
 
 from flake8_plugin_utils import Visitor
 
-from ..config import Config, ParametrizeNamesType
+from ..config import (
+    Config,
+    ParametrizeNamesType,
+    ParametrizeValuesRowType,
+    ParametrizeValuesType,
+)
 from ..errors import ParametrizeNamesWrongType, ParametrizeValuesWrongType
 from ..utils import extract_parametrize_call_args, is_parametrize_call
 
@@ -45,24 +50,48 @@ class ParametrizeVisitor(Visitor[Config]):
             )
         return multiple_names
 
+    def _get_expected_values_type_str(self, multiple_names: Optional[bool]) -> str:
+        if multiple_names:
+            return (
+                f'{self.config.parametrize_values_type.value}'
+                f' of {self.config.parametrize_values_row_type.value}s'
+            )
+        return self.config.parametrize_values_type.value
+
     def _check_parametrize_values(
         self, node: ast.Call, values: Optional[ast.AST], multiple_names: Optional[bool]
     ) -> None:
         """Checks for PT007."""
-        if isinstance(values, ast.Tuple):
-            if multiple_names:
-                self.error_from_node(
-                    ParametrizeValuesWrongType, node, expected_type='list of tuples'
-                )
-            else:
-                self.error_from_node(
-                    ParametrizeValuesWrongType, node, expected_type='list'
-                )
-        elif isinstance(values, ast.List) and multiple_names:
+        expected_type_str = self._get_expected_values_type_str(multiple_names)
+
+        if isinstance(values, ast.List):
+            top_level_type = ParametrizeValuesType.LIST
+        elif isinstance(values, ast.Tuple):
+            top_level_type = ParametrizeValuesType.TUPLE
+        else:
+            return
+
+        if top_level_type != self.config.parametrize_values_type:
+            self.error_from_node(
+                ParametrizeValuesWrongType, node, expected_type=expected_type_str
+            )
+            return
+
+        if multiple_names:
             for element in values.elts:
+                found_row_type: Optional[ParametrizeValuesRowType] = None
                 if isinstance(element, ast.List):
+                    found_row_type = ParametrizeValuesRowType.LIST
+                elif isinstance(element, ast.Tuple):
+                    found_row_type = ParametrizeValuesRowType.TUPLE
+                if (
+                    found_row_type
+                    and found_row_type != self.config.parametrize_values_row_type
+                ):
                     self.error_from_node(
-                        ParametrizeValuesWrongType, node, expected_type='list of tuples'
+                        ParametrizeValuesWrongType,
+                        node,
+                        expected_type=expected_type_str,
                     )
                     break
 

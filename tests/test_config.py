@@ -4,7 +4,13 @@ import flake8
 import pytest
 from flake8.options.manager import OptionManager
 
-from flake8_pytest_style.config import DEFAULT_CONFIG, Config, ParametrizeNamesType
+from flake8_pytest_style.config import (
+    DEFAULT_CONFIG,
+    Config,
+    ParametrizeNamesType,
+    ParametrizeValuesRowType,
+    ParametrizeValuesType,
+)
 from flake8_pytest_style.plugin import PytestStylePlugin
 
 
@@ -36,11 +42,38 @@ def test_parse_fixture_parentheses(option_manager):
     assert config.fixture_parentheses is False
 
 
-def test_parse_parametrize_names_type(option_manager):
-    config = parse_options(option_manager, ['--pytest-parametrize-names-type', 'csv'])
-    assert config.parametrize_names_type is ParametrizeNamesType.CSV
+@pytest.mark.parametrize('value', list(ParametrizeNamesType))
+def test_parse_parametrize_names_type(option_manager, value):
+    config = parse_options(
+        option_manager, ['--pytest-parametrize-names-type', value.value]
+    )
+    assert config.parametrize_names_type is value
 
 
-def test_parse_parametrize_names_type_bad_value(option_manager):
+@pytest.mark.parametrize('value', list(ParametrizeValuesType))
+def test_parse_parametrize_values_type(option_manager, value):
+    config = parse_options(
+        option_manager, ['--pytest-parametrize-values-type', value.value]
+    )
+    assert config.parametrize_values_type is value
+
+
+@pytest.mark.parametrize('value', list(ParametrizeValuesRowType))
+def test_parse_parametrize_values_row_type(option_manager, value):
+    config = parse_options(
+        option_manager, ['--pytest-parametrize-values-row-type', value.value]
+    )
+    assert config.parametrize_values_row_type is value
+
+
+@pytest.mark.parametrize(
+    'args',
+    [
+        ['--pytest-parametrize-names-type', 'str'],
+        ['--pytest-parametrize-values-type', 'str'],
+        ['--pytest-parametrize-values-row-type', 'str'],
+    ],
+)
+def test_parse_invalid_enum_values(option_manager, args):
     with pytest.raises(SystemExit):  # as raised by optparse
-        parse_options(option_manager, ['--pytest-parametrize-names-type', 'str'])
+        parse_options(option_manager, args)

@@ -4,7 +4,14 @@ from typing import List
 from flake8.options.manager import OptionManager
 from flake8_plugin_utils import Plugin
 
-from .config import DEFAULT_CONFIG, Config, ParametrizeNamesType
+from .config import (
+    DEFAULT_CONFIG,
+    Config,
+    ParametrizeNamesType,
+    ParametrizeValuesRowType,
+    ParametrizeValuesType,
+    enum_choices,
+)
 from .visitors import (
     FixturesVisitor,
     ImportsVisitor,
@@ -49,11 +56,27 @@ class PytestStylePlugin(Plugin[Config]):
         )
         option_manager.add_option(
             '--pytest-parametrize-names-type',
-            choices=[member.value for member in ParametrizeNamesType],
+            choices=enum_choices(ParametrizeNamesType),
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_names_type.value,
             help='Preferred type for multiple parameter names in'
             ' @pytest.mark.parametrize. (Default: %default)',
+        )
+        option_manager.add_option(
+            '--pytest-parametrize-values-type',
+            choices=enum_choices(ParametrizeValuesType),
+            parse_from_config=True,
+            default=DEFAULT_CONFIG.parametrize_values_type.value,
+            help='Preferred type for values in @pytest.mark.parametrize.'
+            ' (Default: %default)',
+        )
+        option_manager.add_option(
+            '--pytest-parametrize-values-row-type',
+            choices=enum_choices(ParametrizeValuesRowType),
+            parse_from_config=True,
+            default=DEFAULT_CONFIG.parametrize_values_row_type.value,
+            help='Preferred type for each row in @pytest.mark.parametrize'
+            ' in case of multiple parameters. (Default: %default)',
         )
 
     @classmethod
@@ -65,5 +88,11 @@ class PytestStylePlugin(Plugin[Config]):
             raises_require_match_for=options.pytest_raises_require_match_for,
             parametrize_names_type=ParametrizeNamesType(
                 options.pytest_parametrize_names_type
+            ),
+            parametrize_values_type=ParametrizeValuesType(
+                options.pytest_parametrize_values_type
+            ),
+            parametrize_values_row_type=ParametrizeValuesRowType(
+                options.pytest_parametrize_values_row_type
             ),
         )

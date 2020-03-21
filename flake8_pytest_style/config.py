@@ -1,5 +1,9 @@
 from enum import Enum
-from typing import List, NamedTuple
+from typing import Any, List, NamedTuple, Type
+
+
+def enum_choices(enum: Type[Enum]) -> List[Any]:
+    return [member.value for member in enum]
 
 
 class ParametrizeNamesType(Enum):
@@ -8,10 +12,22 @@ class ParametrizeNamesType(Enum):
     LIST = 'list'
 
 
+class ParametrizeValuesType(Enum):
+    TUPLE = 'tuple'
+    LIST = 'list'
+
+
+class ParametrizeValuesRowType(Enum):
+    TUPLE = 'tuple'
+    LIST = 'list'
+
+
 class Config(NamedTuple):
     fixture_parentheses: bool
     raises_require_match_for: List[str]
     parametrize_names_type: ParametrizeNamesType
+    parametrize_values_type: ParametrizeValuesType
+    parametrize_values_row_type: ParametrizeValuesRowType
 
 
 DEFAULT_CONFIG = Config(
@@ -26,4 +42,6 @@ DEFAULT_CONFIG = Config(
         'socket.error',
     ],
     parametrize_names_type=ParametrizeNamesType.TUPLE,
+    parametrize_values_type=ParametrizeValuesType.LIST,
+    parametrize_values_row_type=ParametrizeValuesRowType.TUPLE,
 )
