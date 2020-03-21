@@ -126,6 +126,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**0.6.0 - 2020-03-21**
+
 * add configuration option `pytest-parametrize-names-type` for `PT006`
 * add configuration options `pytest-parametrize-values-type` and
 `pytest-parametrize-values-row-type` for `PT007`
