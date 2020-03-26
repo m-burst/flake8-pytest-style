@@ -1,7 +1,8 @@
 import ast
+import itertools
 from typing import Optional
 
-from flake8_plugin_utils import Visitor
+from flake8_plugin_utils import Visitor, check_equivalent_nodes
 
 from ..config import (
     Config,
@@ -9,7 +10,11 @@ from ..config import (
     ParametrizeValuesRowType,
     ParametrizeValuesType,
 )
-from ..errors import ParametrizeNamesWrongType, ParametrizeValuesWrongType
+from ..errors import (
+    DuplicateParametrizeTestCases,
+    ParametrizeNamesWrongType,
+    ParametrizeValuesWrongType,
+)
 from ..utils import extract_parametrize_call_args, is_parametrize_call
 
 
@@ -95,6 +100,21 @@ class ParametrizeVisitor(Visitor[Config]):
                     )
                     break
 
+    def _check_parametrize_duplicates(
+        self, node: ast.AST, values: Optional[ast.AST]
+    ) -> None:
+        """Checks for PT014."""
+        if not isinstance(values, (ast.List, ast.Tuple, ast.Set)):
+            return
+
+        for (i, element1), (j, element2) in itertools.combinations(
+            enumerate(values.elts, start=1), 2
+        ):
+            if check_equivalent_nodes(element1, element2):
+                self.error_from_node(
+                    DuplicateParametrizeTestCases, node, indexes=(i, j)
+                )
+
     def _check_parametrize_call(self, node: ast.Call) -> None:
         """Checks for all violations regarding `pytest.mark.parametrize` calls."""
         args = extract_parametrize_call_args(node)
@@ -104,6 +124,8 @@ class ParametrizeVisitor(Visitor[Config]):
         multiple_names = self._check_parametrize_names(node, args.names)
 
         self._check_parametrize_values(node, args.values, multiple_names)
+
+        self._check_parametrize_duplicates(node, args.values)
 
     def visit_Call(self, node: ast.Call) -> None:
         if is_parametrize_call(node):

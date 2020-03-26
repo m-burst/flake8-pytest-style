@@ -59,6 +59,8 @@ this forbids multiple statements and control flow structures within
 
 * `PT013 found incorrect import of pytest, use simple 'import pytest' instead`
 
+* `PT014 found duplicate test cases {indexes} in @pytest.mark.parametrize`
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -126,7 +128,7 @@ MIT
 
 **Unreleased**
 
-...
+* add `PT014` (checks for duplicate test cases in `@pytest.mark.parametrize`)
 
 **0.6.0 - 2020-03-21**
 

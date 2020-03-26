@@ -66,3 +66,8 @@ class RaisesWithMultipleStatements(Error):
 class IncorrectPytestImport(Error):
     code = 'PT013'
     message = "found incorrect import of pytest, use simple 'import pytest' instead"
+
+
+class DuplicateParametrizeTestCases(Error):
+    code = 'PT014'
+    message = 'found duplicate test cases {indexes} in @pytest.mark.parametrize'
