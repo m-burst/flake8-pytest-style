@@ -128,6 +128,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.0.0 - 2020-03-26**
+
 * add `PT014` (checks for duplicate test cases in `@pytest.mark.parametrize`)
 
 **0.6.0 - 2020-03-21**
