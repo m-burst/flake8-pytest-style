@@ -9,12 +9,16 @@ repository = "https://github.com/m-burst/flake8-pytest-style"
 homepage = "https://pypi.org/project/flake8-pytest-style"
 keywords = ["flake8", "pytest"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Environment :: Plugins",
   "Framework :: Flake8",
+  "Framework :: Pytest",
   "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
   "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Testing :: Unit",
 ]
 
 [tool.poetry.plugins."flake8.extension"]
