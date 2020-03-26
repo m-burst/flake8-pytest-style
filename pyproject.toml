@@ -28,7 +28,7 @@ flake8-plugin-utils = "^1.2.0"
 black = {version = "^19.3-beta.0",allow-prereleases = true}
 bumpversion = "^0.5.3"
 flake8-awesome = ">=0.2.0"
-mypy = "^0.761.0"
+mypy = "^0.770"
 pylint = "^2.2"
 pytest = "^5.0"
 pytest-cov = "^2.6"
