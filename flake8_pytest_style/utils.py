@@ -1,6 +1,8 @@
 import ast
 from typing import Dict, NamedTuple, Optional, Tuple, Union
 
+from flake8_plugin_utils.utils import is_false, is_none
+
 AnyFunctionDef = Union[ast.AsyncFunctionDef, ast.FunctionDef]
 
 
@@ -68,6 +70,11 @@ def is_raises_call(node: ast.Call) -> bool:
     return get_qualname(node.func) == 'pytest.raises'
 
 
+def is_fail_call(node: ast.Call) -> bool:
+    """Checks if given call is to `pytest.fail`."""
+    return get_qualname(node.func) == 'pytest.fail'
+
+
 def is_raises_with(node: ast.With) -> bool:
     """Checks that a given `with` statement has a `pytest.raises` context."""
     for item in node.items:
@@ -122,3 +129,72 @@ def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute
             return decorator
 
     return None
+
+
+def is_empty_string(node: ast.AST) -> bool:
+    """
+    Checks if the node is a constant empty string.
+    """
+
+    # empty string literal
+    if isinstance(node, ast.Str) and not node.s:
+        return True
+
+    # empty f-string
+    if isinstance(node, ast.JoinedStr) and not node.values:
+        return True
+
+    return False
+
+
+def _is_empty_iterable(  # pylint:disable=too-many-return-statements
+    node: ast.AST,
+) -> bool:
+    """
+    Checks if the node is a constant empty iterable.
+    """
+
+    if is_empty_string(node):
+        return True
+
+    # empty list or tuple literal
+    if isinstance(node, (ast.List, ast.Tuple)) and not node.elts:
+        return True
+
+    # empty dict literal
+    if isinstance(node, ast.Dict) and not node.keys:
+        return True
+
+    if isinstance(node, ast.Call) and get_qualname(node.func) in (
+        'list',
+        'set',
+        'tuple',
+        'dict',
+        'frozenset',
+    ):
+        if not node.args and not node.keywords:  # no args
+            return True
+        if (
+            len(node.args) == 1
+            and not node.keywords
+            and _is_empty_iterable(node.args[0])
+        ):  # single arg, empty iterable
+            return True
+
+    return False
+
+
+def is_falsy_constant(node: ast.AST) -> bool:
+    """
+    Checks if the node is a constant with a falsy value.
+    """
+
+    # None or False constant
+    if is_none(node) or is_false(node):
+        return True
+
+    # zero literal
+    if isinstance(node, ast.Num) and not node.n:
+        return True
+
+    return _is_empty_iterable(node)

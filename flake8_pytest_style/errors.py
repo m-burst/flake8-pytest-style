@@ -71,3 +71,13 @@ class IncorrectPytestImport(Error):
 class DuplicateParametrizeTestCases(Error):
     code = 'PT014'
     message = 'found duplicate test cases {indexes} in @pytest.mark.parametrize'
+
+
+class AssertAlwaysFalse(Error):
+    code = 'PT015'
+    message = 'assertion always fails, replace with pytest.fail()'
+
+
+class FailWithoutMessage(Error):
+    code = 'PT016'
+    message = 'no message passed to pytest.fail()'

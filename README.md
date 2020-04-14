@@ -61,6 +61,11 @@ this forbids multiple statements and control flow structures within
 
 * `PT014 found duplicate test cases {indexes} in @pytest.mark.parametrize`
 
+* `PT015 assertion always fails, replace with pytest.fail()`  
+e.g. `pytest.fail()` should be preferred to `assert False` or `assert 0`
+
+* `PT016 no message passed to pytest.fail()`
+
 ## Installation
 
     pip install flake8-pytest-style
