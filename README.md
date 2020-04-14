@@ -133,7 +133,8 @@ MIT
 
 **Unreleased**
 
-...
+* add `PT015` (checks for `assert False`)
+* add `PT016` (checks for `pytest.fail()` without message)
 
 **1.0.0 - 2020-03-26**
 
