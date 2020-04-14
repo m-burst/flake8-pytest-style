@@ -80,6 +80,12 @@ e.g.:
       1 / 0
   assert e.value.args
   ```
+  
+* `PT018 assertion should be broken down into multiple parts`  
+e.g. `assert something and something_else` should be rewritten as separate
+`assert something` and `assert something_else`,
+and `assert not (something or something_else)` should be rewritten as
+`assert not something` and `assert not something_else`
 
 ## Installation
 
@@ -151,6 +157,7 @@ MIT
 * add `PT015` (checks for `assert False`)
 * add `PT016` (checks for `pytest.fail()` without message)
 * add `PT017` (checks for assertions on exceptions in `except` blocks)
+* add `PT018` (checks for composite assertions)
 
 **1.0.0 - 2020-03-26**
 

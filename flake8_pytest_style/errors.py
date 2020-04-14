@@ -89,3 +89,8 @@ class AssertInExcept(Error):
         'found assertion on exception {name} in except block,'
         ' use pytest.raises() instead'
     )
+
+
+class CompositeAssertion(Error):
+    code = 'PT018'
+    message = 'assertion should be broken down into multiple parts'

@@ -13,6 +13,7 @@ from .config import (
     enum_choices,
 )
 from .visitors import (
+    AssertionVisitor,
     FailVisitor,
     FixturesVisitor,
     ImportsVisitor,
@@ -29,6 +30,7 @@ class PytestStylePlugin(Plugin[Config]):
     name = 'flake8-pytest-style'
     version = __version__
     visitors = [
+        AssertionVisitor,
         FailVisitor,
         FixturesVisitor,
         ImportsVisitor,
