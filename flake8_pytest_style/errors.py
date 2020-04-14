@@ -81,3 +81,11 @@ class AssertAlwaysFalse(Error):
 class FailWithoutMessage(Error):
     code = 'PT016'
     message = 'no message passed to pytest.fail()'
+
+
+class AssertInExcept(Error):
+    code = 'PT017'
+    message = (
+        'found assertion on exception {name} in except block,'
+        ' use pytest.raises() instead'
+    )

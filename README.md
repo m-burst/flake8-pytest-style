@@ -66,6 +66,21 @@ e.g. `pytest.fail()` should be preferred to `assert False` or `assert 0`
 
 * `PT016 no message passed to pytest.fail()`
 
+* `PT017 found assertion on exception {name} in except block, use pytest.raises() instead`  
+e.g.:
+  ```python
+  try:
+      1 / 0
+  except ZeroDivisionError as e:
+      assert e.args
+  ```
+  is an error and should be replaced with
+  ```python
+  with pytest.raises(ZeroDivisionError) as e:
+      1 / 0
+  assert e.value.args
+  ```
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -135,6 +150,7 @@ MIT
 
 * add `PT015` (checks for `assert False`)
 * add `PT016` (checks for `pytest.fail()` without message)
+* add `PT017` (checks for assertions on exceptions in `except` blocks)
 
 **1.0.0 - 2020-03-26**
 
