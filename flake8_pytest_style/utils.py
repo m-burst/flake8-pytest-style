@@ -198,3 +198,8 @@ def is_falsy_constant(node: ast.AST) -> bool:
         return True
 
     return _is_empty_iterable(node)
+
+
+def is_test_function(node: AnyFunctionDef) -> bool:
+    """Checks if the given function is a test function."""
+    return node.name.startswith('test_')

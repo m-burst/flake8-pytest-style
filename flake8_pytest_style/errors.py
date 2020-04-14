@@ -94,3 +94,11 @@ class AssertInExcept(Error):
 class CompositeAssertion(Error):
     code = 'PT018'
     message = 'assertion should be broken down into multiple parts'
+
+
+class FixtureParamWithoutValue(Error):
+    code = 'PT019'
+    message = (
+        'fixture {name} without value is injected as parameter,'
+        ' use @pytest.mark.usefixtures instead'
+    )

@@ -87,6 +87,8 @@ e.g. `assert something and something_else` should be rewritten as separate
 and `assert not (something or something_else)` should be rewritten as
 `assert not something` and `assert not something_else`
 
+* `PT019 fixture {name} without value is injected as parameter, use @pytest.mark.usefixtures instead`
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -158,6 +160,7 @@ MIT
 * add `PT016` (checks for `pytest.fail()` without message)
 * add `PT017` (checks for assertions on exceptions in `except` blocks)
 * add `PT018` (checks for composite assertions)
+* add `PT019` (checks for fixtures without value injected as parameters)
 
 **1.0.0 - 2020-03-26**
 

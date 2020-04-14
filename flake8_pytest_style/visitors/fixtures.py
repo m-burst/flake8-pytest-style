@@ -6,12 +6,17 @@ from flake8_plugin_utils import Visitor
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
     ExtraneousScopeFunction,
+    FixtureParamWithoutValue,
     FixturePositionalArgs,
     IncorrectFixtureNameUnderscore,
     IncorrectFixtureParenthesesStyle,
     MissingFixtureNameUnderscore,
 )
-from flake8_pytest_style.utils import AnyFunctionDef, get_fixture_decorator
+from flake8_pytest_style.utils import (
+    AnyFunctionDef,
+    get_fixture_decorator,
+    is_test_function,
+)
 
 
 class FixturesVisitor(Visitor[Config]):
@@ -71,11 +76,22 @@ class FixturesVisitor(Visitor[Config]):
         elif not has_return_with_value and not node.name.startswith('_'):
             self.error_from_node(MissingFixtureNameUnderscore, node, name=node.name)
 
+    def _check_test_function_args(self, node: AnyFunctionDef) -> None:
+        """Checks for PT019."""
+        # intentionally not looking at posonlyargs because pytest passes everything
+        # as kwargs, so declaring fixture args as positional-only will fail anyway
+        for arg in node.args.args + node.args.kwonlyargs:
+            if arg.arg.startswith('_'):
+                self.error_from_node(FixtureParamWithoutValue, node, name=arg.arg)
+
     def visit_FunctionDef(self, node: AnyFunctionDef) -> None:
         fixture_decorator = get_fixture_decorator(node)
         if fixture_decorator:
             self._check_fixture_decorator(fixture_decorator, node)
             self._check_fixture_returns(node)
+
+        if is_test_function(node):
+            self._check_test_function_args(node)
 
         self.generic_visit(node)
 
