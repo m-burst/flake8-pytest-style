@@ -156,6 +156,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.1.0 - 2020-04-14**
+
 * add `PT015` (checks for `assert False`)
 * add `PT016` (checks for `pytest.fail()` without message)
 * add `PT017` (checks for assertions on exceptions in `except` blocks)
