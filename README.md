@@ -156,7 +156,7 @@ MIT
 
 **Unreleased**
 
-...
+* fix `PT011` not reporting `match=''` as a violation
 
 **1.1.0 - 2020-04-14**
 

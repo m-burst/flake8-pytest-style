@@ -46,12 +46,13 @@ def test_error_no_argument_given(exception):
     )
 
 
-def test_error_match_is_none():
-    code = """
+@pytest.mark.parametrize('match', ['None', '""', 'f""'])
+def test_error_match_is_empty(match):
+    code = f"""
         import pytest
 
         def test_something():
-            with pytest.raises(ValueError, match=None):
+            with pytest.raises(ValueError, match={match}):
                 raise ValueError("Can't divide 1 by 0")
     """
     assert_error(

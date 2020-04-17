@@ -13,6 +13,7 @@ from flake8_pytest_style.errors import (
 from flake8_pytest_style.utils import (
     get_qualname,
     get_simple_call_args,
+    is_empty_string,
     is_raises_call,
     is_raises_with,
 )
@@ -38,7 +39,7 @@ class RaisesVisitor(Visitor[Config]):
         if exception_name not in self.config.raises_require_match_for:
             return
         match = args.get_argument('match')
-        if match is None or is_none(match):
+        if match is None or is_none(match) or is_empty_string(match):
             self.error_from_node(RaisesWithoutMatch, node, exception=exception_name)
 
     def _check_raises_with(self, node: ast.With) -> None:
