@@ -1,5 +1,5 @@
 import ast
-from typing import Dict, NamedTuple, Optional, Tuple, Union, List
+from typing import Dict, List, NamedTuple, Optional, Tuple, Union
 
 from flake8_plugin_utils.utils import is_false, is_none
 

@@ -4,7 +4,11 @@ from flake8_plugin_utils import Visitor
 
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import PatchWithLambda
-from flake8_pytest_style.utils import get_qualname, get_simple_call_args, get_all_argument_names
+from flake8_pytest_style.utils import (
+    get_all_argument_names,
+    get_qualname,
+    get_simple_call_args,
+)
 
 _PATCH_NAMESPACES = (
     'mocker',
