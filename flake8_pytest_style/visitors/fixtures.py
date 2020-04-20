@@ -6,6 +6,7 @@ from flake8_plugin_utils import Visitor
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
     ExtraneousScopeFunction,
+    FixtureFinalizerCallback,
     FixtureParamWithoutValue,
     FixturePositionalArgs,
     IncorrectFixtureNameUnderscore,
@@ -15,7 +16,9 @@ from flake8_pytest_style.errors import (
 )
 from flake8_pytest_style.utils import (
     AnyFunctionDef,
+    get_all_argument_names,
     get_fixture_decorator,
+    get_qualname,
     is_pytest_yield_fixture,
     is_test_function,
 )
@@ -89,6 +92,19 @@ class FixturesVisitor(Visitor[Config]):
         elif not has_return_with_value and not node.name.startswith('_'):
             self.error_from_node(MissingFixtureNameUnderscore, node, name=node.name)
 
+    def _check_fixture_addfinalizer(self, node: AnyFunctionDef) -> None:
+        """Checks for PT021."""
+        if 'request' not in get_all_argument_names(node.args):
+            return
+
+        for child in ast.walk(node):  # pragma: no branch
+            if (
+                isinstance(child, ast.Call)
+                and get_qualname(child.func) == 'request.addfinalizer'
+            ):
+                self.error_from_node(FixtureFinalizerCallback, child)
+                return
+
     def _check_test_function_args(self, node: AnyFunctionDef) -> None:
         """Checks for PT019."""
         # intentionally not looking at posonlyargs because pytest passes everything
@@ -103,6 +119,7 @@ class FixturesVisitor(Visitor[Config]):
             self._check_fixture_decorator_name(fixture_decorator)
             self._check_fixture_decorator(fixture_decorator, node)
             self._check_fixture_returns(node)
+            self._check_fixture_addfinalizer(node)
 
         if is_test_function(node):
             self._check_test_function_args(node)

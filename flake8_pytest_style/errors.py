@@ -107,3 +107,8 @@ class FixtureParamWithoutValue(Error):
 class YieldFixture(Error):
     code = 'PT020'
     message = '@pytest.yield_fixture is deprecated, use @pytest.fixture'
+
+
+class FixtureFinalizerCallback(Error):
+    code = 'PT021'
+    message = 'use yield instead of request.addfinalizer'
