@@ -157,6 +157,7 @@ MIT
 **Unreleased**
 
 * support scoped `mocker` fixtures from `pytest-mock` for `PT008`
+* check for positional-only lambda arguments in `PT008`
 
 **1.1.1 - 2020-04-17**
 

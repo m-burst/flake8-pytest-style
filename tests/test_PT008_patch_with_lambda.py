@@ -34,6 +34,9 @@ parametrize_code_template = pytest.mark.parametrize(
         'lambda x, y: x',
         'lambda *args: args',
         'lambda **kwargs: kwargs',
+        pytest.param('lambda x, /, y: x', marks=[
+            pytest.mark.skipif(not HAS_POSITIONAL_ONLY_ARGS, reason=f'unsupported in {sys.version}')
+        ]),
     ],
 )
 def test_ok(code_template, patch_with):

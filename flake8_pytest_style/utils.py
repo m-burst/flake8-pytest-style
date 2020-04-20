@@ -1,5 +1,5 @@
 import ast
-from typing import Dict, NamedTuple, Optional, Tuple, Union
+from typing import Dict, NamedTuple, Optional, Tuple, Union, List
 
 from flake8_plugin_utils.utils import is_false, is_none
 
@@ -203,3 +203,15 @@ def is_falsy_constant(node: ast.AST) -> bool:
 def is_test_function(node: AnyFunctionDef) -> bool:
     """Checks if the given function is a test function."""
     return node.name.startswith('test_')
+
+
+def get_all_argument_names(node: ast.arguments) -> List[str]:
+    """Returns a list of all argument names from the given node."""
+    pos_only_args = getattr(node, 'posonlyargs', [])
+    result = [arg.arg for arg in pos_only_args + node.args]
+    if node.vararg:
+        result.append(node.vararg.arg)
+    result.extend([arg.arg for arg in node.kwonlyargs])
+    if node.kwarg:
+        result.append(node.kwarg.arg)
+    return result

@@ -4,7 +4,7 @@ from flake8_plugin_utils import Visitor
 
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import PatchWithLambda
-from flake8_pytest_style.utils import get_qualname, get_simple_call_args
+from flake8_pytest_style.utils import get_qualname, get_simple_call_args, get_all_argument_names
 
 _PATCH_NAMESPACES = (
     'mocker',
@@ -37,13 +37,7 @@ class PatchVisitor(Visitor[Config]):
         if not isinstance(new_arg, ast.Lambda):
             return
 
-        lambda_argnames = {
-            arg.arg for arg in new_arg.args.args + new_arg.args.kwonlyargs
-        }
-        if new_arg.args.vararg:
-            lambda_argnames.add(new_arg.args.vararg.arg)
-        if new_arg.args.kwarg:
-            lambda_argnames.add(new_arg.args.kwarg.arg)
+        lambda_argnames = set(get_all_argument_names(new_arg.args))
 
         for child_node in ast.walk(new_arg.body):
             if isinstance(child_node, ast.Name) and child_node.id in lambda_argnames:
