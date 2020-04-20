@@ -156,7 +156,7 @@ MIT
 
 **Unreleased**
 
-...
+* support scoped `mocker` fixtures from `pytest-mock` for `PT008`
 
 **1.1.1 - 2020-04-17**
 

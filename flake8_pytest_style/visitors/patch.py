@@ -6,7 +6,18 @@ from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import PatchWithLambda
 from flake8_pytest_style.utils import get_qualname, get_simple_call_args
 
-_PATCH_NAMES = ('mocker.patch', 'mock.patch', 'unittest.mock.patch', 'patch')
+_PATCH_NAMESPACES = (
+    'mocker',
+    'class_mocker',
+    'module_mocker',
+    'package_mocker',
+    'session_mocker',
+    'mock',
+    'unittest.mock',
+)
+_PATCH_NAMES = ('patch',) + tuple(
+    f'{namespace}.patch' for namespace in _PATCH_NAMESPACES
+)
 _PATCH_OBJECT_NAMES = tuple(f'{name}.object' for name in _PATCH_NAMES)
 
 
