@@ -109,6 +109,16 @@ def _is_pytest_fixture(node: ast.AST) -> bool:
     return get_qualname(node) == 'pytest.fixture'
 
 
+def is_pytest_yield_fixture(node: ast.AST) -> bool:
+    """Checks if node is a `pytest.yield_fixture` attribute access."""
+    return get_qualname(node) == 'pytest.yield_fixture'
+
+
+def _is_any_pytest_fixture(node: ast.AST) -> bool:
+    """Checks if node is a `pytest.fixture` or `pytest.yield_fixture`."""
+    return _is_pytest_fixture(node) or is_pytest_yield_fixture(node)
+
+
 def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute, None]:
     """
     Returns a @pytest.fixture decorator applied to given function definition, if any.
@@ -122,10 +132,10 @@ def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute
         if (
             isinstance(decorator, ast.Call)
             and isinstance(decorator.func, ast.Attribute)
-            and _is_pytest_fixture(decorator.func)
+            and _is_any_pytest_fixture(decorator.func)
         ):
             return decorator
-        if isinstance(decorator, ast.Attribute) and _is_pytest_fixture(decorator):
+        if isinstance(decorator, ast.Attribute) and _is_any_pytest_fixture(decorator):
             return decorator
 
     return None

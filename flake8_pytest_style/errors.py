@@ -102,3 +102,8 @@ class FixtureParamWithoutValue(Error):
         'fixture {name} without value is injected as parameter,'
         ' use @pytest.mark.usefixtures instead'
     )
+
+
+class YieldFixture(Error):
+    code = 'PT020'
+    message = '@pytest.yield_fixture is deprecated, use @pytest.fixture'

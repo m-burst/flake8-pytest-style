@@ -89,6 +89,8 @@ and `assert not (something or something_else)` should be rewritten as
 
 * `PT019 fixture {name} without value is injected as parameter, use @pytest.mark.usefixtures instead`
 
+* `PT020 @pytest.yield_fixture is deprecated, use @pytest.fixture`
+
 ## Installation
 
     pip install flake8-pytest-style
@@ -158,6 +160,7 @@ MIT
 
 * support scoped `mocker` fixtures from `pytest-mock` for `PT008`
 * check for positional-only lambda arguments in `PT008`
+* add `PT020` (checks for `pytest.yield_fixture`)
 
 **1.1.1 - 2020-04-17**
 

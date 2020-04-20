@@ -11,15 +11,28 @@ from flake8_pytest_style.errors import (
     IncorrectFixtureNameUnderscore,
     IncorrectFixtureParenthesesStyle,
     MissingFixtureNameUnderscore,
+    YieldFixture,
 )
 from flake8_pytest_style.utils import (
     AnyFunctionDef,
     get_fixture_decorator,
+    is_pytest_yield_fixture,
     is_test_function,
 )
 
 
 class FixturesVisitor(Visitor[Config]):
+    def _check_fixture_decorator_name(
+        self, fixture_decorator: Union[ast.Call, ast.Attribute]
+    ) -> None:
+        """Checks for PT020."""
+        if isinstance(fixture_decorator, ast.Call):
+            is_yield = is_pytest_yield_fixture(fixture_decorator.func)
+        else:
+            is_yield = is_pytest_yield_fixture(fixture_decorator)
+        if is_yield:
+            self.error_from_node(YieldFixture, fixture_decorator)
+
     def _check_fixture_decorator(
         self,
         fixture_decorator: Union[ast.Call, ast.Attribute],
@@ -87,6 +100,7 @@ class FixturesVisitor(Visitor[Config]):
     def visit_FunctionDef(self, node: AnyFunctionDef) -> None:
         fixture_decorator = get_fixture_decorator(node)
         if fixture_decorator:
+            self._check_fixture_decorator_name(fixture_decorator)
             self._check_fixture_decorator(fixture_decorator, node)
             self._check_fixture_returns(node)
 
