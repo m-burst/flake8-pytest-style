@@ -1,8 +1,8 @@
 ---
 name: Rule request
 about: Suggest a new rule for the plugin
-title: ''
-labels: ''
+title: I want a rule that will {{ DO SOMETHING AWESOME }}
+labels: rule request
 assignees: ''
 
 ---
