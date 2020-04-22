@@ -2,7 +2,7 @@
 name: Rule request
 about: Suggest a new rule for the plugin
 title: I want a rule that will {{ DO SOMETHING AWESOME }}
-labels: rule request
+labels: enhancement, rule request
 assignees: ''
 
 ---
