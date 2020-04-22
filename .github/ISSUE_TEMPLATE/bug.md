@@ -1,8 +1,8 @@
 ---
 name: Bug
 about: Report a bug in the plugin
-title: ''
-labels: ''
+title: When I have {{ SOMETHING EXPECTED }} in test, {{ AN UNEXPECTED THING }} happens
+labels: bug
 assignees: ''
 
 ---
