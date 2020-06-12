@@ -23,7 +23,7 @@ from .visitors import (
     UnittestAssertionVisitor,
 )
 
-__version__ = '1.1.1'
+__version__ = '1.2.0'
 
 
 class PytestStylePlugin(Plugin[Config]):

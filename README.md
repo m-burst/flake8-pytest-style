@@ -76,6 +76,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.2.0 - 2020-06-12**
+
 * support scoped `mocker` fixtures from `pytest-mock` for [PT008]
 * check for positional-only lambda arguments in [PT008]
 * add [PT020] (checks for `pytest.yield_fixture`)
