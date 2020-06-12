@@ -14,127 +14,43 @@ A `flake8` plugin checking common style issues or inconsistencies with `pytest`-
 
 Currently the following errors are reported:
 
-* `PT001 use @pytest.fixture() over @pytest.fixture`  
-The preferred style is controlled by the configuration option
-`pytest-fixture-no-parentheses`
-
-* `PT002 configuration for fixture '{name}' specified via positional args, use kwargs`  
-e.g. `@pytest.fixture(scope='module')` is OK, and `@pytest.fixture('module')` is an error
-
-* `PT003 scope='function' is implied in @pytest.fixture()`  
-e.g. `@pytest.fixture(scope='function')` should be replaced with `@pytest.fixture()`
-
-* `PT004 fixture '{name}' does not return anything, add leading underscore`
-
-* `PT005 fixture '{name}' returns a value, remove leading underscore`
-
-* `PT006 wrong name(s) type in @pytest.mark.parametrize, expected {expected_type}`  
-For a single name the expected type is always a plain string.
-For multiple names the expected type is controlled by the configuration
-variable `pytest-parametrize-names-type`.
-
-* `PT007 wrong values type in @pytest.mark.parametrize, expected {expected_type}`
-The expected type of the list of rows is controlled by the configuration
-variable `pytest-parametrize-values-type`.
-The expected type of each row in case of multiple arguments is controlled by
-the configuration variable `pytest-parametrize-values-row-type`.
-
-* `PT008 use return_value= instead of patching with lambda`  
-e.g. `mocker.patch('target', return_value=7)` is OK,
-and `mocker.patch('target', lambda *args: 7)` is an error
-
-* `PT009 use a regular assert instead of unittest-style '{assertion}'`
-
-* `PT010 set the expected exception in pytest.raises()`
-
-* `PT011 set the match parameter in pytest.raises({exception})`  
-e.g. `pytest.raises(ValueError, match='exception text')` is OK,
-and `pytest.raises(ValueError)` is an error.  
-The exception list is controlled by the configuration option 
-`pytest-raises-require-match-for`.
-
-* `PT012 pytest.raises() block should contain a single simple statement`  
-this forbids multiple statements and control flow structures within
-`pytest.raises()` blocks.
-
-* `PT013 found incorrect import of pytest, use simple 'import pytest' instead`
-
-* `PT014 found duplicate test cases {indexes} in @pytest.mark.parametrize`
-
-* `PT015 assertion always fails, replace with pytest.fail()`  
-e.g. `pytest.fail()` should be preferred to `assert False` or `assert 0`
-
-* `PT016 no message passed to pytest.fail()`
-
-* `PT017 found assertion on exception {name} in except block, use pytest.raises() instead`  
-e.g.:
-  ```python
-  try:
-      1 / 0
-  except ZeroDivisionError as e:
-      assert e.args
-  ```
-  is an error and should be replaced with
-  ```python
-  with pytest.raises(ZeroDivisionError) as e:
-      1 / 0
-  assert e.value.args
-  ```
-  
-* `PT018 assertion should be broken down into multiple parts`  
-e.g. `assert something and something_else` should be rewritten as separate
-`assert something` and `assert something_else`,
-and `assert not (something or something_else)` should be rewritten as
-`assert not something` and `assert not something_else`
-
-* `PT019 fixture {name} without value is injected as parameter, use @pytest.mark.usefixtures instead`
-
-* `PT020 @pytest.yield_fixture is deprecated, use @pytest.fixture`
-
-* `PT021 use yield instead of request.addfinalizer`
+| Code    | Description |
+| ------- | ----------- |
+| [PT001] | use @pytest.fixture() over @pytest.fixture <br> (configurable by `pytest-fixture-no-parentheses`) |
+| [PT002] | configuration for fixture '{name}' specified via positional args, use kwargs |
+| [PT003] | scope='function' is implied in @pytest.fixture() |
+| [PT004] | fixture '{name}' does not return anything, add leading underscore |
+| [PT005] | fixture '{name}' returns a value, remove leading underscore |
+| [PT006] | wrong name(s) type in @pytest.mark.parametrize, expected {expected_type} <br> (configurable by `pytest-parametrize-names-type`) |
+| [PT007] | wrong values type in @pytest.mark.parametrize, expected {expected_type} <br> (configurable by `pytest-parametrize-values-type` and `pytest-parametrize-values-row-type`) |
+| [PT008] | use return_value= instead of patching with lambda |
+| [PT009] | use a regular assert instead of unittest-style '{assertion}' |
+| [PT010] | set the expected exception in pytest.raises() |
+| [PT011] | set the match parameter in pytest.raises({exception}) <br> (configurable by `pytest-raises-require-match-for`) |
+| [PT012] | pytest.raises() block should contain a single simple statement |
+| [PT013] | found incorrect import of pytest, use simple 'import pytest' instead |
+| [PT014] | found duplicate test cases {indexes} in @pytest.mark.parametrize |
+| [PT015] | assertion always fails, replace with pytest.fail() |
+| [PT016] | no message passed to pytest.fail() |
+| [PT017] | found assertion on exception {name} in except block, use pytest.raises() instead |
+| [PT018] | assertion should be broken down into multiple parts |
+| [PT019] | fixture {name} without value is injected as parameter, use @pytest.mark.usefixtures instead |
+| [PT020] | @pytest.yield_fixture is deprecated, use @pytest.fixture |
+| [PT021] | use yield instead of request.addfinalizer |
 
 ## Installation
 
     pip install flake8-pytest-style
-    
+
 ## Configuration
 
 The plugin has the following configuration options:
 
-* `pytest-fixture-no-parentheses`  
-Boolean flag specifying whether `@pytest.fixture()` without parameters
-should have parentheses, as checked by `PT001`.  
-If the option is set to false (the default), `@pytest.fixture()` is valid
-and `@pytest.fixture` is an error.  
-If set to true, `@pytest.fixture` is valid and `@pytest.fixture()` is
-an error.
-
-* `pytest-parametrize-names-type`  
-Expected type for multiple argument names in `@pytest.mark.parametrize`,
-as checked by `PT006`. The following values are supported:
-  * `csv` &mdash; a comma-separated list, e.g. `@pytest.mark.parametrize('name1,name2', ...)`
-  * `tuple` (default) &mdash; e.g. `@pytest.mark.parametrize(('name1', 'name2'), ...)`
-  * `list` &mdash; e.g. `@pytest.mark.parametrize(['name1', 'name2'], ...)`
-  
-* `pytest-parametrize-values-type`  
-Expected type for the list of values rows in `@pytest.mark.parametrize`,
-as checked by `PT007`. The following values are supported:
-  * `tuple` &mdash; e.g. `@pytest.mark.parametrize('name', (1, 2, 3))`
-  * `list` (default) &mdash; e.g. `@pytest.mark.parametrize('name', [1, 2, 3])`
-
-* `pytest-parametrize-values-row-type`  
-Expected type for each row of values in `@pytest.mark.parametrize` in case of
-multiple parameters, as checked by `PT007`. The following values are supported:
-  * `tuple` (default) &mdash; e.g. `@pytest.mark.parametrize(('name1', 'name2'), [(1, 2), (3, 4)])`
-  * `list` &mdash; e.g. `@pytest.mark.parametrize(('name1', 'name2'), [[1, 2], [3, 4]])`
-
-* `pytest-raises-require-match-for`  
-Comma-separated list of exception names that require a `match=` parameter
-in a `pytest.raises()` call, as checked by `PT011`. By default the list
-contains the following exceptions:
-  * `BaseException`, `Exception`
-  * `ValueError`
-  * `OSError`, `IOError`, `EnvironmentError`, `socket.error`
+* `pytest-fixture-no-parentheses` &mdash; see [PT001]
+* `pytest-parametrize-names-type` &mdash; see [PT006]
+* `pytest-parametrize-values-type` &mdash; see [PT007]
+* `pytest-parametrize-values-row-type` &mdash; see [PT007]
+* `pytest-raises-require-match-for` &mdash; see [PT011]
 
 ## For developers
 
@@ -160,41 +76,42 @@ MIT
 
 **Unreleased**
 
-* support scoped `mocker` fixtures from `pytest-mock` for `PT008`
-* check for positional-only lambda arguments in `PT008`
-* add `PT020` (checks for `pytest.yield_fixture`)
-* add `PT021` (checks for `request.addfinalizer`)
+* support scoped `mocker` fixtures from `pytest-mock` for [PT008]
+* check for positional-only lambda arguments in [PT008]
+* add [PT020] (checks for `pytest.yield_fixture`)
+* add [PT021] (checks for `request.addfinalizer`)
+* add documentation pages for all rules
 
 **1.1.1 - 2020-04-17**
 
-* fix `PT011` not reporting `match=''` as a violation
+* fix [PT011] not reporting `match=''` as a violation
 
 **1.1.0 - 2020-04-14**
 
-* add `PT015` (checks for `assert False`)
-* add `PT016` (checks for `pytest.fail()` without message)
-* add `PT017` (checks for assertions on exceptions in `except` blocks)
-* add `PT018` (checks for composite assertions)
-* add `PT019` (checks for fixtures without value injected as parameters)
+* add [PT015] (checks for `assert False`)
+* add [PT016] (checks for `pytest.fail()` without message)
+* add [PT017] (checks for assertions on exceptions in `except` blocks)
+* add [PT018] (checks for composite assertions)
+* add [PT019] (checks for fixtures without value injected as parameters)
 
 **1.0.0 - 2020-03-26**
 
-* add `PT014` (checks for duplicate test cases in `@pytest.mark.parametrize`)
+* add [PT014] (checks for duplicate test cases in `@pytest.mark.parametrize`)
 
 **0.6.0 - 2020-03-21**
 
-* add configuration option `pytest-parametrize-names-type` for `PT006`
+* add configuration option `pytest-parametrize-names-type` for [PT006]
 * add configuration options `pytest-parametrize-values-type` and
-`pytest-parametrize-values-row-type` for `PT007`
+`pytest-parametrize-values-row-type` for [PT007]
 
 **0.5.0 - 2020-03-09**
 
-* add configuration option `pytest-fixture-no-parentheses` for `PT001`
-* add `PT013` (checks for `from`-imports from `pytest`)
+* add configuration option `pytest-fixture-no-parentheses` for [PT001]
+* add [PT013] (checks for `from`-imports from `pytest`)
 
 **0.4.0 - 2020-03-09**
 
-* add `PT012` (checks for multiple statements in `with pytest.raises()`)
+* add [PT012] (checks for multiple statements in `with pytest.raises()`)
 
 **0.3.1 - 2020-03-09**
 
@@ -202,11 +119,11 @@ MIT
 
 **0.3.0 - 2020-03-09**
 
-* add `PT010` and `PT011` (checks for `pytest.raises` parameters)
+* add [PT010] and [PT011] (checks for `pytest.raises` parameters)
 
 **0.2.0 - 2020-03-01**
 
-* add `PT009` (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
+* add [PT009] (ported from [flake8-pytest](https://github.com/vikingco/flake8-pytest))
 
 **0.1.3 - 2019-05-24**
 
@@ -224,3 +141,25 @@ MIT
 **0.1.0 - 2019-05-23**
 
 * initial
+
+[PT001]: /docs/rules/PT001.md
+[PT002]: /docs/rules/PT002.md
+[PT003]: /docs/rules/PT003.md
+[PT004]: /docs/rules/PT004.md
+[PT005]: /docs/rules/PT005.md
+[PT006]: /docs/rules/PT006.md
+[PT007]: /docs/rules/PT007.md
+[PT008]: /docs/rules/PT008.md
+[PT009]: /docs/rules/PT009.md
+[PT010]: /docs/rules/PT010.md
+[PT011]: /docs/rules/PT011.md
+[PT012]: /docs/rules/PT012.md
+[PT013]: /docs/rules/PT013.md
+[PT014]: /docs/rules/PT014.md
+[PT015]: /docs/rules/PT015.md
+[PT016]: /docs/rules/PT016.md
+[PT017]: /docs/rules/PT017.md
+[PT018]: /docs/rules/PT018.md
+[PT019]: /docs/rules/PT019.md
+[PT020]: /docs/rules/PT020.md
+[PT021]: /docs/rules/PT021.md

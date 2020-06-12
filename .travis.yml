@@ -18,6 +18,7 @@ after_success:
   - codecov
 
 before_deploy:
+  - ./scripts/pypi_readme.py
   - poetry build
 
 deploy:

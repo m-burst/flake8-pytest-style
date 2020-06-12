@@ -23,6 +23,6 @@ Please attach a code sample which reproduces the problem.
 ## System information
 
 * Operating system:
-* Python version: 
+* Python version:
 * flake8 version:
 * flake8-pytest-style version:

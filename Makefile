@@ -15,16 +15,16 @@ test-cov:
 	$(TEST) --cov-report=html
 
 lint:
-	poetry run flake8 --jobs 4 --statistics --show-source $(CODE) tests
+	poetry run flake8 --jobs 4 --statistics --show-source $(CODE) tests scripts
 	poetry run pylint --jobs 4 --rcfile=setup.cfg $(CODE)
-	poetry run mypy $(CODE) tests
-	poetry run black --target-version py36 --skip-string-normalization --check $(CODE) tests
+	poetry run mypy $(CODE) tests scripts
+	poetry run black --target-version py36 --skip-string-normalization --check $(CODE) tests scripts
 	poetry run pytest --dead-fixtures --dup-fixtures
 
 format:
-	poetry run isort --apply --recursive $(CODE) tests
-	poetry run black --target-version py36 --skip-string-normalization $(CODE) tests
-	poetry run unify --in-place --recursive $(CODE) tests
+	poetry run isort --apply --recursive $(CODE) tests scripts
+	poetry run black --target-version py36 --skip-string-normalization $(CODE) tests scripts
+	poetry run unify --in-place --recursive $(CODE) tests scripts
 
 bump_major:
 	poetry run bumpversion major
