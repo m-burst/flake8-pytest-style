@@ -76,6 +76,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.2.1 - 2020-06-15**
+
 * fix [PT021] for factory fixtures (#46)
 
 **1.2.0 - 2020-06-12**
