@@ -1,5 +1,5 @@
 import ast
-from typing import Union
+from typing import List, Union
 
 from flake8_plugin_utils import Visitor
 
@@ -22,6 +22,37 @@ from flake8_pytest_style.utils import (
     is_pytest_yield_fixture,
     is_test_function,
 )
+
+
+class _AddFinalizerVisitor(ast.NodeVisitor):
+    """
+    Helper AST visitor to find request.addfinalizer in fixtures.
+
+    Does not descend into nested functions.
+
+    Main entrypoint is the `search` method.
+    """
+
+    root: ast.AST
+
+    def __init__(self) -> None:
+        self._found: List[ast.AST] = []
+
+    def search(self, node: AnyFunctionDef) -> List[ast.AST]:
+        self._found = []
+        for child in ast.iter_child_nodes(node):
+            self.visit(child)
+        return self._found
+
+    def visit_FunctionDef(self, node: AnyFunctionDef) -> None:
+        # do not descend into nested functions
+        pass
+
+    visit_AsyncFunctionDef = visit_FunctionDef  # noqa: N815
+
+    def visit_Call(self, node: ast.Call) -> None:
+        if get_qualname(node.func) == 'request.addfinalizer':
+            self._found.append(node)
 
 
 class FixturesVisitor(Visitor[Config]):
@@ -97,13 +128,10 @@ class FixturesVisitor(Visitor[Config]):
         if 'request' not in get_all_argument_names(node.args):
             return
 
-        for child in ast.walk(node):  # pragma: no branch
-            if (
-                isinstance(child, ast.Call)
-                and get_qualname(child.func) == 'request.addfinalizer'
-            ):
-                self.error_from_node(FixtureFinalizerCallback, child)
-                return
+        visitor = _AddFinalizerVisitor()
+        found = visitor.search(node)
+        if found:
+            self.error_from_node(FixtureFinalizerCallback, found[0])
 
     def _check_test_function_args(self, node: AnyFunctionDef) -> None:
         """Checks for PT019."""

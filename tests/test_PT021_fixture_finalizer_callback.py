@@ -51,12 +51,28 @@ def test_ok_other_function():
 
         def create_resource(arg, request):
             resource = Resource(arg)
-            request.addfinalizer(resource.release())
+            request.addfinalizer(resource.release)
             return resource
 
         @pytest.fixture()
         def resource_factory(request):
             return functools.partial(create_resource, request=request)
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
+def test_ok_nested_function():
+    # https://github.com/m-burst/flake8-pytest-style/issues/46
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def resource_factory(request):
+            def create_resource(arg) -> Resource:
+                resource = Resource(arg)
+                request.addfinalizer(resource.release)
+                return resource
+            return create_resource
     """
     assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
 
