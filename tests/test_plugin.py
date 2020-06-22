@@ -13,7 +13,7 @@ T = TypeVar('T')
 def _collect_subclasses(modules: List[ModuleType], base_class: Type[T]) -> Set[Type[T]]:
     result = set()
     for module in modules:
-        for name, member in inspect.getmembers(module):
+        for _, member in inspect.getmembers(module):
             if (
                 inspect.isclass(member)
                 and issubclass(member, base_class)
