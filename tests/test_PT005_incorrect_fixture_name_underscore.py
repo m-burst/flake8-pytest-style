@@ -28,6 +28,18 @@ def test_ok_with_yield():
     assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
 
 
+def test_ok_nested_function():
+    code = """
+        @pytest.fixture()
+        def _any_fixture(mocker):
+            def nested_function():
+                return 1
+
+            mocker.patch('...', nested_function)
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
 def test_error_with_return():
     code = """
         import pytest

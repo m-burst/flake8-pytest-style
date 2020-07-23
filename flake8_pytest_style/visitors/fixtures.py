@@ -1,5 +1,5 @@
 import ast
-from typing import List, Union
+from typing import Union
 
 from flake8_plugin_utils import Visitor
 
@@ -21,38 +21,8 @@ from flake8_pytest_style.utils import (
     get_qualname,
     is_pytest_yield_fixture,
     is_test_function,
+    walk_without_nested_functions,
 )
-
-
-class _AddFinalizerVisitor(ast.NodeVisitor):
-    """
-    Helper AST visitor to find request.addfinalizer in fixtures.
-
-    Does not descend into nested functions.
-
-    Main entrypoint is the `search` method.
-    """
-
-    root: ast.AST
-
-    def __init__(self) -> None:
-        self._found: List[ast.AST] = []
-
-    def search(self, node: AnyFunctionDef) -> List[ast.AST]:
-        self._found = []
-        for child in ast.iter_child_nodes(node):
-            self.visit(child)
-        return self._found
-
-    def visit_FunctionDef(self, node: AnyFunctionDef) -> None:
-        # do not descend into nested functions
-        pass
-
-    visit_AsyncFunctionDef = visit_FunctionDef  # noqa: N815
-
-    def visit_Call(self, node: ast.Call) -> None:
-        if get_qualname(node.func) == 'request.addfinalizer':
-            self._found.append(node)
 
 
 class FixturesVisitor(Visitor[Config]):
@@ -113,7 +83,7 @@ class FixturesVisitor(Visitor[Config]):
     def _check_fixture_returns(self, node: AnyFunctionDef) -> None:
         """Checks for PT004, PT005."""
         has_return_with_value = False
-        for child in ast.walk(node):
+        for child in walk_without_nested_functions(node):
             if isinstance(child, (ast.Return, ast.Yield)) and child.value is not None:
                 has_return_with_value = True
                 break
@@ -128,10 +98,13 @@ class FixturesVisitor(Visitor[Config]):
         if 'request' not in get_all_argument_names(node.args):
             return
 
-        visitor = _AddFinalizerVisitor()
-        found = visitor.search(node)
-        if found:
-            self.error_from_node(FixtureFinalizerCallback, found[0])
+        for child in walk_without_nested_functions(node):  # pragma: no branch
+            if (
+                isinstance(child, ast.Call)
+                and get_qualname(child.func) == 'request.addfinalizer'
+            ):
+                self.error_from_node(FixtureFinalizerCallback, child)
+                return
 
     def _check_test_function_args(self, node: AnyFunctionDef) -> None:
         """Checks for PT019."""

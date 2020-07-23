@@ -1,5 +1,6 @@
 import ast
-from typing import Dict, List, NamedTuple, Optional, Tuple, Union
+from collections import deque
+from typing import Dict, Iterator, List, NamedTuple, Optional, Tuple, Union
 
 from flake8_plugin_utils.utils import is_false, is_none
 
@@ -225,3 +226,14 @@ def get_all_argument_names(node: ast.arguments) -> List[str]:
     if node.kwarg:
         result.append(node.kwarg.arg)
     return result
+
+
+def walk_without_nested_functions(root: ast.AST) -> Iterator[ast.AST]:
+    """Similar to `ast.walk`, but does not descend into nested functions."""
+
+    todo = deque([root])
+    while todo:
+        node = todo.popleft()
+        if node is root or not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            todo.extend(ast.iter_child_nodes(node))
+        yield node
