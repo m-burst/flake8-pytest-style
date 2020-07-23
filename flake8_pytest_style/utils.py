@@ -234,6 +234,8 @@ def walk_without_nested_functions(root: ast.AST) -> Iterator[ast.AST]:
     todo = deque([root])
     while todo:
         node = todo.popleft()
-        if node is root or not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+        if node is root or not isinstance(
+            node, (ast.FunctionDef, ast.AsyncFunctionDef)
+        ):
             todo.extend(ast.iter_child_nodes(node))
         yield node
