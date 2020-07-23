@@ -76,6 +76,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.2.2 - 2020-07-23**
+
 * fix [PT004]/[PT005] inspecting returns of nested functions
 
 **1.2.1 - 2020-06-15**
