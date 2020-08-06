@@ -76,7 +76,7 @@ MIT
 
 **Unreleased**
 
-...
+* update `flake8-plugin-utils` dependency to fix encoding problems on Windows
 
 **1.2.2 - 2020-07-23**
 
