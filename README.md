@@ -77,6 +77,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.3.0 - 2020-08-30**
+
 * add [PT022] (checks for `yield` fixtures without teardown)
 
 **1.2.3 - 2020-08-06**
