@@ -36,9 +36,7 @@ def test_error_without_parens():
         def my_fixture():
             return 0
     """
-    assert_error(
-        FixturesVisitor, code, YieldFixture, config=DEFAULT_CONFIG,
-    )
+    assert_error(FixturesVisitor, code, YieldFixture, config=DEFAULT_CONFIG)
 
 
 def test_error_with_parens():
@@ -50,6 +48,4 @@ def test_error_with_parens():
             return 0
     """
     config = DEFAULT_CONFIG._replace(fixture_parentheses=False)
-    assert_error(
-        FixturesVisitor, code, YieldFixture, config=config,
-    )
+    assert_error(FixturesVisitor, code, YieldFixture, config=config)
