@@ -1,7 +1,7 @@
 from flake8_plugin_utils import assert_error, assert_not_error
 
 from flake8_pytest_style.config import DEFAULT_CONFIG
-from flake8_pytest_style.errors import YieldFixture
+from flake8_pytest_style.errors import DeprecatedYieldFixture
 from flake8_pytest_style.visitors import FixturesVisitor
 
 
@@ -36,7 +36,7 @@ def test_error_without_parens():
         def my_fixture():
             return 0
     """
-    assert_error(FixturesVisitor, code, YieldFixture, config=DEFAULT_CONFIG)
+    assert_error(FixturesVisitor, code, DeprecatedYieldFixture, config=DEFAULT_CONFIG)
 
 
 def test_error_with_parens():
@@ -48,4 +48,4 @@ def test_error_with_parens():
             return 0
     """
     config = DEFAULT_CONFIG._replace(fixture_parentheses=False)
-    assert_error(FixturesVisitor, code, YieldFixture, config=config)
+    assert_error(FixturesVisitor, code, DeprecatedYieldFixture, config=config)

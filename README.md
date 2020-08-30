@@ -37,6 +37,7 @@ Currently the following errors are reported:
 | [PT019] | fixture {name} without value is injected as parameter, use @pytest.mark.usefixtures instead |
 | [PT020] | @pytest.yield_fixture is deprecated, use @pytest.fixture |
 | [PT021] | use yield instead of request.addfinalizer |
+| [PT022] | no teardown in fixture {name}, use return instead of yield |
 
 ## Installation
 
@@ -76,7 +77,7 @@ MIT
 
 **Unreleased**
 
-...
+* add [PT022] (checks for `yield` fixtures without teardown)
 
 **1.2.3 - 2020-08-06**
 
@@ -179,3 +180,4 @@ MIT
 [PT019]: /docs/rules/PT019.md
 [PT020]: /docs/rules/PT020.md
 [PT021]: /docs/rules/PT021.md
+[PT022]: /docs/rules/PT022.md
