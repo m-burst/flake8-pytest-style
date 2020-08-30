@@ -5,6 +5,7 @@ from flake8_plugin_utils import Visitor
 
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
+    DeprecatedYieldFixture,
     ExtraneousScopeFunction,
     FixtureFinalizerCallback,
     FixtureParamWithoutValue,
@@ -12,7 +13,7 @@ from flake8_pytest_style.errors import (
     IncorrectFixtureNameUnderscore,
     IncorrectFixtureParenthesesStyle,
     MissingFixtureNameUnderscore,
-    YieldFixture,
+    UselessYieldFixture,
 )
 from flake8_pytest_style.utils import (
     AnyFunctionDef,
@@ -35,7 +36,7 @@ class FixturesVisitor(Visitor[Config]):
         else:
             is_yield = is_pytest_yield_fixture(fixture_decorator)
         if is_yield:
-            self.error_from_node(YieldFixture, fixture_decorator)
+            self.error_from_node(DeprecatedYieldFixture, fixture_decorator)
 
     def _check_fixture_decorator(
         self,
@@ -81,17 +82,25 @@ class FixturesVisitor(Visitor[Config]):
                 )
 
     def _check_fixture_returns(self, node: AnyFunctionDef) -> None:
-        """Checks for PT004, PT005."""
+        """Checks for PT004, PT005, PT022."""
         has_return_with_value = False
+        yield_statements = []
         for child in walk_without_nested_functions(node):
+            if isinstance(child, ast.Yield):
+                yield_statements.append(child)
             if isinstance(child, (ast.Return, ast.Yield)) and child.value is not None:
                 has_return_with_value = True
-                break
 
         if has_return_with_value and node.name.startswith('_'):
             self.error_from_node(IncorrectFixtureNameUnderscore, node, name=node.name)
         elif not has_return_with_value and not node.name.startswith('_'):
             self.error_from_node(MissingFixtureNameUnderscore, node, name=node.name)
+
+        last_statement_is_yield = isinstance(node.body[-1], ast.Expr) and isinstance(
+            node.body[-1].value, ast.Yield
+        )
+        if last_statement_is_yield and len(yield_statements) == 1:
+            self.error_from_node(UselessYieldFixture, node, name=node.name)
 
     def _check_fixture_addfinalizer(self, node: AnyFunctionDef) -> None:
         """Checks for PT021."""

@@ -104,7 +104,7 @@ class FixtureParamWithoutValue(Error):
     )
 
 
-class YieldFixture(Error):
+class DeprecatedYieldFixture(Error):
     code = 'PT020'
     message = '@pytest.yield_fixture is deprecated, use @pytest.fixture'
 
@@ -112,3 +112,8 @@ class YieldFixture(Error):
 class FixtureFinalizerCallback(Error):
     code = 'PT021'
     message = 'use yield instead of request.addfinalizer'
+
+
+class UselessYieldFixture(Error):
+    code = 'PT022'
+    message = 'no teardown in fixture {name}, use return instead of yield'

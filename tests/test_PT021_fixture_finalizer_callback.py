@@ -99,5 +99,6 @@ def test_error_yield():
             resource = acquire_resource()
             request.addfinalizer(resource.release)
             yield resource
+            resource  # prevent PT022
     """
     assert_error(FixturesVisitor, code, FixtureFinalizerCallback, config=DEFAULT_CONFIG)
