@@ -28,6 +28,7 @@ class Config(NamedTuple):
     parametrize_names_type: ParametrizeNamesType
     parametrize_values_type: ParametrizeValuesType
     parametrize_values_row_type: ParametrizeValuesRowType
+    mark_parentheses: bool
 
 
 DEFAULT_CONFIG = Config(
@@ -44,4 +45,5 @@ DEFAULT_CONFIG = Config(
     parametrize_names_type=ParametrizeNamesType.TUPLE,
     parametrize_values_type=ParametrizeValuesType.LIST,
     parametrize_values_row_type=ParametrizeValuesRowType.TUPLE,
+    mark_parentheses=True,
 )

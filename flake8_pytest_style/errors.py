@@ -117,3 +117,11 @@ class FixtureFinalizerCallback(Error):
 class UselessYieldFixture(Error):
     code = 'PT022'
     message = 'no teardown in fixture {name}, use return instead of yield'
+
+
+class IncorrectMarkParenthesesStyle(Error):
+    code = 'PT023'
+    message = (
+        'use @pytest.mark.{mark_name}{expected_parens}'
+        ' over @pytest.mark.{mark_name}{actual_parens}'
+    )

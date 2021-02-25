@@ -17,6 +17,7 @@ from .visitors import (
     FailVisitor,
     FixturesVisitor,
     ImportsVisitor,
+    MarksVisitor,
     ParametrizeVisitor,
     PatchVisitor,
     RaisesVisitor,
@@ -34,6 +35,7 @@ class PytestStylePlugin(Plugin[Config]):
         FailVisitor,
         FixturesVisitor,
         ImportsVisitor,
+        MarksVisitor,
         PatchVisitor,
         ParametrizeVisitor,
         RaisesVisitor,
@@ -82,6 +84,14 @@ class PytestStylePlugin(Plugin[Config]):
             help='Preferred type for each row in @pytest.mark.parametrize'
             ' in case of multiple parameters. (Default: %default)',
         )
+        option_manager.add_option(
+            '--pytest-mark-no-parentheses',
+            action='store_true',
+            parse_from_config=True,
+            default=not DEFAULT_CONFIG.mark_parentheses,
+            help='Omit parentheses for @pytest.mark.foo decorators'
+            ' without parameters. (Default: %default)',
+        )
 
     @classmethod
     def parse_options_to_config(  # pylint: disable=unused-argument
@@ -99,4 +109,5 @@ class PytestStylePlugin(Plugin[Config]):
             parametrize_values_row_type=ParametrizeValuesRowType(
                 options.pytest_parametrize_values_row_type
             ),
+            mark_parentheses=not options.pytest_mark_no_parentheses,
         )
