@@ -6,6 +6,7 @@ python:
   - "3.6"
   - "3.7"
   - "3.8"
+  - "3.9"
 
 install:
   - pip install poetry codecov
@@ -28,4 +29,4 @@ deploy:
   on:
     branch: master
     tags: true
-    python: "3.8"
+    python: "3.9"
