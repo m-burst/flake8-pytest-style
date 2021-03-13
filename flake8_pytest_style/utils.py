@@ -287,3 +287,15 @@ def walk_without_nested_functions(root: ast.AST) -> Iterator[ast.AST]:
         ):
             todo.extend(ast.iter_child_nodes(node))
         yield node
+
+
+def is_abstract_method(node: AnyFunctionDef) -> bool:
+    """
+    Returns true if the node is decorated with an abstract method decorator,
+    otherwise false.
+    """
+    for decorator in node.decorator_list:
+        qualname = get_qualname(decorator)
+        if qualname in ('abstractmethod', 'abc.abstractmethod'):
+            return True
+    return False

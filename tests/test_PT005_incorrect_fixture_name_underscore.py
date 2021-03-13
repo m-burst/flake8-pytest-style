@@ -40,6 +40,36 @@ def test_ok_nested_function():
     assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
 
 
+def test_ok_abstract_with_import_abc():
+    code = """
+        import abc
+
+        import pytest
+
+        class BaseTest:
+            @pytest.fixture()
+            @abc.abstractmethod
+            def _my_fixture():
+                return NotImplemented
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
+def test_ok_abstract_with_from_import():
+    code = """
+        from abc import abstractmethod
+
+        import pytest
+
+        class BaseTest:
+            @pytest.fixture()
+            @abstractmethod
+            def _my_fixture():
+                return NotImplemented
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
 def test_error_with_return():
     code = """
         import pytest

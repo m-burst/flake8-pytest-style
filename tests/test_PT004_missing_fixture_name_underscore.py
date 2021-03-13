@@ -41,6 +41,36 @@ def test_ok_with_yield():
     assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
 
 
+def test_ok_abstract_with_import_abc():
+    code = """
+        import abc
+
+        import pytest
+
+        class BaseTest:
+            @pytest.fixture()
+            @abc.abstractmethod
+            def my_fixture():
+                raise NotImplementedError
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
+def test_ok_abstract_with_from_import():
+    code = """
+        from abc import abstractmethod
+
+        import pytest
+
+        class BaseTest:
+            @pytest.fixture()
+            @abstractmethod
+            def my_fixture():
+                raise NotImplementedError
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
 def test_error_simple():
     code = """
         import pytest

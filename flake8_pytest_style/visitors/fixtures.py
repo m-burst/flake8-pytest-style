@@ -23,6 +23,7 @@ from flake8_pytest_style.utils import (
     get_mark_decorators,
     get_mark_name,
     get_qualname,
+    is_abstract_method,
     is_pytest_yield_fixture,
     is_test_function,
     walk_without_nested_functions,
@@ -86,6 +87,10 @@ class FixturesVisitor(Visitor[Config]):
 
     def _check_fixture_returns(self, node: AnyFunctionDef) -> None:
         """Checks for PT004, PT005, PT022."""
+        # skip these checks for abstract fixtures
+        if is_abstract_method(node):
+            return
+
         has_return_with_value = False
         yield_statements = []
         for child in walk_without_nested_functions(node):
