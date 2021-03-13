@@ -299,3 +299,14 @@ def is_abstract_method(node: AnyFunctionDef) -> bool:
         if qualname in ('abstractmethod', 'abc.abstractmethod'):
             return True
     return False
+
+
+def is_nontrivial_with_statement(node: ast.AST) -> bool:
+    """
+    Returns true if the given node is a `with` (or `async with`) statement
+    containing any code inside (anything which is not a single `pass` statement).
+    """
+    if not isinstance(node, (ast.With, ast.AsyncWith)):
+        return False
+    body = node.body
+    return len(node.body) != 1 or not isinstance(body[0], ast.Pass)

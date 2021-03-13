@@ -15,6 +15,17 @@ def test_ok():
     assert_not_error(RaisesVisitor, code, config=DEFAULT_CONFIG)
 
 
+@pytest.mark.parametrize('maybe_async', ['', 'async '])
+def test_ok_trivial_with(maybe_async):
+    code = f"""
+        async def test_something():
+            with pytest.raises(AttributeError):
+                {maybe_async}with context_manager_under_test():
+                    pass
+    """
+    assert_not_error(RaisesVisitor, code, config=DEFAULT_CONFIG)
+
+
 def test_error_multiple_statements():
     code = """
         def test_something():
