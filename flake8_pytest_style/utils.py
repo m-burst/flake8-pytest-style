@@ -5,6 +5,7 @@ from typing import Dict, Iterator, List, NamedTuple, Optional, Tuple, Union
 from flake8_plugin_utils.utils import is_false, is_none
 
 AnyFunctionDef = Union[ast.AsyncFunctionDef, ast.FunctionDef]
+AnyDecoratorTarget = Union[ast.ClassDef, AnyFunctionDef]
 
 
 def get_qualname(node: ast.AST) -> Optional[str]:
@@ -140,6 +141,51 @@ def get_fixture_decorator(node: AnyFunctionDef) -> Union[ast.Call, ast.Attribute
             return decorator
 
     return None
+
+
+def _is_mark(node: ast.AST) -> bool:
+    """Checks if node is a `pytest.mark.foo` attribute access."""
+    qualname = get_qualname(node)
+    if qualname is None:
+        return False
+    return qualname.startswith('pytest.mark.')
+
+
+def get_mark_decorators(
+    node: AnyDecoratorTarget,
+) -> List[Union[ast.Call, ast.Attribute]]:
+    """
+    Returns all @pytest.mark.foo decorators applied to given function definition.
+
+    Return value is a list of:
+    * ast.Call, if decorator is written as @pytest.mark.foo()
+    * ast.Attribute, if decorator is written as @pytest.mark.foo
+    """
+    result: List[Union[ast.Call, ast.Attribute]] = []
+    for decorator in node.decorator_list:
+        if (
+            isinstance(decorator, ast.Call)
+            and isinstance(decorator.func, ast.Attribute)
+            and _is_mark(decorator.func)
+        ):
+            result.append(decorator)
+        if isinstance(decorator, ast.Attribute) and _is_mark(decorator):
+            result.append(decorator)
+    return result
+
+
+def get_mark_name(node: ast.AST) -> str:
+    """
+    Returns the name of the mark in a `pytest.mark.foo` attribute access.
+
+    If the given node is not a `pytest.mark.foo` attribute access,
+    a ValueError is raised.
+    """
+    mark_prefix = 'pytest.mark.'
+    qualname = get_qualname(node)
+    if qualname is None or not qualname.startswith(mark_prefix):
+        raise ValueError('Given node is not a pytest mark')
+    return qualname[len(mark_prefix) :]  # noqa: E203
 
 
 def is_empty_string(node: ast.AST) -> bool:

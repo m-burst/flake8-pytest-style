@@ -38,6 +38,7 @@ Currently the following errors are reported:
 | [PT020] | @pytest.yield_fixture is deprecated, use @pytest.fixture |
 | [PT021] | use yield instead of request.addfinalizer |
 | [PT022] | no teardown in fixture {name}, use return instead of yield |
+| [PT023] | use @pytest.mark.foo() over @pytest.mark.foo <br> (configurable by `pytest-mark-no-parentheses`)
 
 ## Installation
 
@@ -52,6 +53,7 @@ The plugin has the following configuration options:
 * `pytest-parametrize-values-type` &mdash; see [PT007]
 * `pytest-parametrize-values-row-type` &mdash; see [PT007]
 * `pytest-raises-require-match-for` &mdash; see [PT011]
+* `pytest-mark-no-parentheses` &mdash; see [PT023]
 
 ## For developers
 
@@ -77,7 +79,7 @@ MIT
 
 **Unreleased**
 
-...
+* add [PT023] (checks for parentheses consistency in `pytest.mark` usage)
 
 **1.3.0 - 2020-08-30**
 
@@ -185,3 +187,4 @@ MIT
 [PT020]: /docs/rules/PT020.md
 [PT021]: /docs/rules/PT021.md
 [PT022]: /docs/rules/PT022.md
+[PT023]: /docs/rules/PT023.md
