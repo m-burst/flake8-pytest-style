@@ -125,3 +125,8 @@ class IncorrectMarkParenthesesStyle(Error):
         'use @pytest.mark.{mark_name}{expected_parens}'
         ' over @pytest.mark.{mark_name}{actual_parens}'
     )
+
+
+class UnnecessaryAsyncioMarkOnFixture(Error):
+    code = 'PT024'
+    message = 'pytest.mark.asyncio is unnecessary for fixtures'
