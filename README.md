@@ -80,6 +80,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.4.0 - 2021-03-14**
+
 * add [PT023] (checks for parentheses consistency in `pytest.mark` usage)
 * add [PT024] (checks for unnecessary `pytest.mark.asyncio` on fixtures)
 * fix [PT004], [PT005] firing on abstract fixtures
