@@ -14,6 +14,7 @@ from flake8_pytest_style.utils import (
     get_qualname,
     get_simple_call_args,
     is_empty_string,
+    is_nontrivial_with_statement,
     is_raises_call,
     is_raises_with,
 )
@@ -45,18 +46,25 @@ class RaisesVisitor(Visitor[Config]):
     def _check_raises_with(self, node: ast.With) -> None:
         """Checks for PT012."""
         body = node.body
-        if len(body) != 1 or isinstance(
+
+        is_complex_body = False
+        if len(body) != 1:
+            is_complex_body = True
+        elif isinstance(
             body[0],
             (
                 ast.If,
                 ast.For,
                 ast.AsyncFor,
                 ast.While,
-                ast.With,
-                ast.AsyncWith,
                 ast.Try,
             ),
         ):
+            is_complex_body = True
+        elif is_nontrivial_with_statement(body[0]):
+            is_complex_body = True
+
+        if is_complex_body:
             self.error_from_node(RaisesWithMultipleStatements, node)
 
     def visit_Call(self, node: ast.Call) -> None:
