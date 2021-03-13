@@ -25,6 +25,7 @@ def _collect_subclasses(modules: List[ModuleType], base_class: Type[T]) -> Set[T
 
 def test_plugin_has_all_visitors():
     from flake8_plugin_utils import Visitor
+
     from flake8_pytest_style import visitors as visitors_package
 
     visitor_module_infos = pkgutil.iter_modules(
@@ -43,6 +44,7 @@ def test_plugin_has_all_visitors():
 
 def test_all_error_codes_are_different():
     from flake8_plugin_utils import Error
+
     from flake8_pytest_style import errors
 
     error_classes = _collect_subclasses([errors], Error)

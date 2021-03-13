@@ -1,7 +1,7 @@
 .PHONY: init test test-cov lint format
 
 CODE = flake8_pytest_style
-TEST = poetry run pytest --verbosity=2 --showlocals --strict --cov=$(CODE)
+TEST = poetry run pytest --verbosity=2 --showlocals --strict-markers --cov=$(CODE)
 
 init:
 	poetry install
@@ -22,7 +22,7 @@ lint:
 	poetry run pytest --dead-fixtures --dup-fixtures
 
 format:
-	poetry run isort --apply --recursive $(CODE) tests scripts
+	poetry run isort $(CODE) tests scripts
 	poetry run black --target-version py36 --skip-string-normalization $(CODE) tests scripts
 	poetry run unify --in-place --recursive $(CODE) tests scripts
 
