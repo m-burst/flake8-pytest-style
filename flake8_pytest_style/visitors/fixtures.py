@@ -13,12 +13,15 @@ from flake8_pytest_style.errors import (
     IncorrectFixtureNameUnderscore,
     IncorrectFixtureParenthesesStyle,
     MissingFixtureNameUnderscore,
+    UnnecessaryAsyncioMarkOnFixture,
     UselessYieldFixture,
 )
 from flake8_pytest_style.utils import (
     AnyFunctionDef,
     get_all_argument_names,
     get_fixture_decorator,
+    get_mark_decorators,
+    get_mark_name,
     get_qualname,
     is_pytest_yield_fixture,
     is_test_function,
@@ -115,6 +118,14 @@ class FixturesVisitor(Visitor[Config]):
                 self.error_from_node(FixtureFinalizerCallback, child)
                 return
 
+    def _check_fixture_unnecessary_marks(self, node: AnyFunctionDef) -> None:
+        """Checks for PT024."""
+        marks = get_mark_decorators(node)
+        for mark in marks:
+            if get_mark_name(mark) == 'asyncio':
+                self.error_from_node(UnnecessaryAsyncioMarkOnFixture, mark)
+                return
+
     def _check_test_function_args(self, node: AnyFunctionDef) -> None:
         """Checks for PT019."""
         # intentionally not looking at posonlyargs because pytest passes everything
@@ -130,6 +141,7 @@ class FixturesVisitor(Visitor[Config]):
             self._check_fixture_decorator(fixture_decorator, node)
             self._check_fixture_returns(node)
             self._check_fixture_addfinalizer(node)
+            self._check_fixture_unnecessary_marks(node)
 
         if is_test_function(node):
             self._check_test_function_args(node)

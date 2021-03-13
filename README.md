@@ -38,7 +38,8 @@ Currently the following errors are reported:
 | [PT020] | @pytest.yield_fixture is deprecated, use @pytest.fixture |
 | [PT021] | use yield instead of request.addfinalizer |
 | [PT022] | no teardown in fixture {name}, use return instead of yield |
-| [PT023] | use @pytest.mark.foo() over @pytest.mark.foo <br> (configurable by `pytest-mark-no-parentheses`)
+| [PT023] | use @pytest.mark.foo() over @pytest.mark.foo <br> (configurable by `pytest-mark-no-parentheses`) |
+| [PT024] | pytest.mark.asyncio is unnecessary for fixtures |
 
 ## Installation
 
@@ -80,6 +81,7 @@ MIT
 **Unreleased**
 
 * add [PT023] (checks for parentheses consistency in `pytest.mark` usage)
+* add [PT024] (checks for unnecessary `pytest.mark.asyncio` on fixtures)
 
 **1.3.0 - 2020-08-30**
 
@@ -188,3 +190,4 @@ MIT
 [PT021]: /docs/rules/PT021.md
 [PT022]: /docs/rules/PT022.md
 [PT023]: /docs/rules/PT023.md
+[PT024]: /docs/rules/PT024.md

@@ -176,12 +176,14 @@ def get_mark_decorators(
 
 def get_mark_name(node: ast.AST) -> str:
     """
-    Returns the name of the mark in a `pytest.mark.foo` attribute access.
+    Returns the name of the mark in a `pytest.mark.foo` attribute access
+    or in a `pytest.mark.foo()` call.
 
-    If the given node is not a `pytest.mark.foo` attribute access,
-    a ValueError is raised.
+    If the given node is not suitable as described above, a ValueError is raised.
     """
     mark_prefix = 'pytest.mark.'
+    if isinstance(node, ast.Call):
+        node = node.func
     qualname = get_qualname(node)
     if qualname is None or not qualname.startswith(mark_prefix):
         raise ValueError('Given node is not a pytest mark')
