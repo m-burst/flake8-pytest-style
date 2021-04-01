@@ -80,7 +80,7 @@ MIT
 
 **Unreleased**
 
-...
+* fix argparse-related warnings
 
 **1.4.0 - 2021-03-14**
 
