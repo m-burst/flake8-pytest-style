@@ -50,7 +50,7 @@ class PytestStylePlugin(Plugin[Config]):
             parse_from_config=True,
             default=not DEFAULT_CONFIG.fixture_parentheses,
             help='Omit parentheses for @pytest.fixture decorators'
-            ' without parameters. (Default: %default)',
+            ' without parameters. (Default: %(default)s)',
         )
         option_manager.add_option(
             '--pytest-raises-require-match-for',
@@ -58,7 +58,7 @@ class PytestStylePlugin(Plugin[Config]):
             parse_from_config=True,
             default=DEFAULT_CONFIG.raises_require_match_for,
             help='List of exceptions for which flake8-pytest-style requires'
-            ' a match= argument in pytest.raises(). (Default: %default)',
+            ' a match= argument in pytest.raises(). (Default: %(default)s)',
         )
         option_manager.add_option(
             '--pytest-parametrize-names-type',
@@ -66,7 +66,7 @@ class PytestStylePlugin(Plugin[Config]):
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_names_type.value,
             help='Preferred type for multiple parameter names in'
-            ' @pytest.mark.parametrize. (Default: %default)',
+            ' @pytest.mark.parametrize. (Default: %(default)s)',
         )
         option_manager.add_option(
             '--pytest-parametrize-values-type',
@@ -74,7 +74,7 @@ class PytestStylePlugin(Plugin[Config]):
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_values_type.value,
             help='Preferred type for values in @pytest.mark.parametrize.'
-            ' (Default: %default)',
+            ' (Default: %(default)s)',
         )
         option_manager.add_option(
             '--pytest-parametrize-values-row-type',
@@ -82,7 +82,7 @@ class PytestStylePlugin(Plugin[Config]):
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_values_row_type.value,
             help='Preferred type for each row in @pytest.mark.parametrize'
-            ' in case of multiple parameters. (Default: %default)',
+            ' in case of multiple parameters. (Default: %(default)s)',
         )
         option_manager.add_option(
             '--pytest-mark-no-parentheses',
@@ -90,7 +90,7 @@ class PytestStylePlugin(Plugin[Config]):
             parse_from_config=True,
             default=not DEFAULT_CONFIG.mark_parentheses,
             help='Omit parentheses for @pytest.mark.foo decorators'
-            ' without parameters. (Default: %default)',
+            ' without parameters. (Default: %(default)s)',
         )
 
     @classmethod
