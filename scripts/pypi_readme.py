@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 import pathlib
 import re
-from typing import Any, Dict, Match
+from typing import Match, cast
 
 import tomlkit
+from tomlkit.container import Container
 
 
-def process_readme(readme: str, project_metadata: Dict[str, Any]) -> str:
-    repository = project_metadata['repository']
-    version = project_metadata['version']
+def process_readme(readme: str, project_metadata: Container) -> str:
+    repository = cast(str, project_metadata['repository'])
+    version = cast(str, project_metadata['version'])
     base_url = f'{repository}/blob/v{version}/'
 
     def replace_url(match: Match[str]) -> str:
@@ -26,9 +27,11 @@ def make_output_filename(input_filename: str) -> str:
 def main() -> None:
     with open('pyproject.toml') as pyproject_file:
         pyproject_data = tomlkit.loads(pyproject_file.read())
-    project_metadata = pyproject_data['tool']['poetry']
+    project_metadata = cast(
+        Container, cast(Container, pyproject_data['tool'])['poetry']
+    )
 
-    readme_filename = project_metadata['readme']
+    readme_filename = cast(str, project_metadata['readme'])
     with open(readme_filename) as input_file:
         input_readme = input_file.read()
 
