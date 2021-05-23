@@ -80,7 +80,7 @@ MIT
 
 **Unreleased**
 
-...
+* update `flake8-plugin-utils` version to improve stability
 
 **1.4.1 - 2021-04-01**
 
