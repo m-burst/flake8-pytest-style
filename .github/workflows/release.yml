@@ -1,0 +1,23 @@
+name: Release
+on:
+  release:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - uses: Gr1N/setup-poetry@v4
+
+      - name: Publish to PyPI
+        run:
+          poetry publish --no-interaction --username=$PYPI_USER --password=$PYPI_PASS
+        env:
+          PYPI_USER: ${{ secrets.PYPI_USER }}
+          PYPI_PASS: ${{ secrets.PYPI_PASS }}
