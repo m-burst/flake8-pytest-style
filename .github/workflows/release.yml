@@ -1,23 +1,44 @@
 name: Release
 on:
-  release:
+  workflow_run:
+    workflows: [CI]
+    branches: [master]
+    types: [completed]
 
 jobs:
   release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version:
+          - 3.9
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: ${{ matrix.python-version }}
 
       - uses: Gr1N/setup-poetry@v4
 
+      - name: Setup dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Build distribution
+        run: |
+          poetry run ./scripts/pypi_readme.py
+          poetry build
+
       - name: Publish to PyPI
-        run:
-          poetry publish --no-interaction --username=$PYPI_USER --password=$PYPI_PASS
+        run: poetry publish --no-interaction
         env:
-          PYPI_USER: ${{ secrets.PYPI_USER }}
-          PYPI_PASS: ${{ secrets.PYPI_PASS }}
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
