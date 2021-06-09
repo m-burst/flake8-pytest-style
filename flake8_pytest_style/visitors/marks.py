@@ -48,4 +48,9 @@ class MarksVisitor(Visitor[Config]):
             self._check_mark_decorator(mark_decorator)
 
     visit_AsyncFunctionDef = visit_FunctionDef  # noqa: N815
-    visit_ClassDef = visit_FunctionDef  # noqa: N815
+
+    def visit_ClassDef(self, node: ast.ClassDef) -> None:
+        self.visit_FunctionDef(node)
+
+        # recurse into classes
+        self.generic_visit(node)
