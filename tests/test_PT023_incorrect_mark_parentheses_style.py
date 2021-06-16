@@ -125,7 +125,7 @@ SAMPLES_WITH_PARENTHESES = [
 
 
 @pytest.mark.parametrize('mark_parentheses', [True, False])
-def test_ok_with_parameters_no_matter_of_config(mark_parentheses: bool):
+def test_ok_with_parameters_regardless_of_config(mark_parentheses: bool):
     code = """
         import pytest
 
