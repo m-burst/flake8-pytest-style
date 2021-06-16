@@ -71,6 +71,17 @@ def test_ok_abstract_with_from_import():
     assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
 
 
+def test_ok_ignoring_yield_from():
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def my_fixture():
+            yield from some_generator()
+    """
+    assert_not_error(FixturesVisitor, code, config=DEFAULT_CONFIG)
+
+
 def test_error_simple():
     code = """
         import pytest
