@@ -92,16 +92,25 @@ class FixturesVisitor(Visitor[Config]):
             return
 
         has_return_with_value = False
+        has_yield_from = False
         yield_statements = []
         for child in walk_without_nested_functions(node):
             if isinstance(child, ast.Yield):
                 yield_statements.append(child)
             if isinstance(child, (ast.Return, ast.Yield)) and child.value is not None:
                 has_return_with_value = True
+            if isinstance(child, ast.YieldFrom):
+                has_yield_from = True
 
         if has_return_with_value and node.name.startswith('_'):
             self.error_from_node(IncorrectFixtureNameUnderscore, node, name=node.name)
-        elif not has_return_with_value and not node.name.startswith('_'):
+        elif (
+            not has_return_with_value
+            and not has_yield_from
+            and not node.name.startswith('_')
+        ):
+            # we shouldn't fire PT004 if we found a `yield from` because
+            # there is no adequate way to determine whether a value is actually yielded
             self.error_from_node(MissingFixtureNameUnderscore, node, name=node.name)
 
         last_statement_is_yield = isinstance(node.body[-1], ast.Expr) and isinstance(

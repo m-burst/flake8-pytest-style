@@ -103,3 +103,26 @@ def test_error_with_yield():
         name='_activate_context',
         config=DEFAULT_CONFIG,
     )
+
+
+def test_error_with_conditional_yield_from():
+    code = """
+        import pytest
+
+        @pytest.fixture()
+        def _activate_context():
+            if some_condition:
+                with get_context() as context:
+                    yield context
+            else:
+                yield from other_context()
+    """
+    # since we have yield with value in one branch,
+    # we assume that the fixture yields a value
+    assert_error(
+        FixturesVisitor,
+        code,
+        IncorrectFixtureNameUnderscore,
+        name='_activate_context',
+        config=DEFAULT_CONFIG,
+    )
