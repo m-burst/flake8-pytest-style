@@ -80,6 +80,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.4.4 - 2021-06-17**
+
 * fix [PT023] not checking marks in classes
 * fix [PT004] incorrectly firing on fixtures with `yield from`
 
