@@ -130,3 +130,8 @@ class IncorrectMarkParenthesesStyle(Error):
 class UnnecessaryAsyncioMarkOnFixture(Error):
     code = 'PT024'
     message = 'pytest.mark.asyncio is unnecessary for fixtures'
+
+
+class ErroneousUseFixturesOnFixture(Error):
+    code = 'PT025'
+    message = 'pytest.mark.usefixtures has no effect on fixtures'

@@ -6,6 +6,7 @@ from flake8_plugin_utils import Visitor
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
     DeprecatedYieldFixture,
+    ErroneousUseFixturesOnFixture,
     ExtraneousScopeFunction,
     FixtureFinalizerCallback,
     FixtureParamWithoutValue,
@@ -132,13 +133,24 @@ class FixturesVisitor(Visitor[Config]):
                 self.error_from_node(FixtureFinalizerCallback, child)
                 return
 
-    def _check_fixture_unnecessary_marks(self, node: AnyFunctionDef) -> None:
-        """Checks for PT024."""
+    def _check_fixture_marks(self, node: AnyFunctionDef) -> None:
+        """Checks for PT024, PT025."""
+        reported_errors = set()
         marks = get_mark_decorators(node)
         for mark in marks:
-            if get_mark_name(mark) == 'asyncio':
+            mark_name = get_mark_name(mark)
+            if (
+                mark_name == 'asyncio'
+                and UnnecessaryAsyncioMarkOnFixture not in reported_errors
+            ):
                 self.error_from_node(UnnecessaryAsyncioMarkOnFixture, mark)
-                return
+                reported_errors.add(UnnecessaryAsyncioMarkOnFixture)
+            if (
+                mark_name == 'usefixtures'
+                and ErroneousUseFixturesOnFixture not in reported_errors
+            ):
+                self.error_from_node(ErroneousUseFixturesOnFixture, mark)
+                reported_errors.add(ErroneousUseFixturesOnFixture)
 
     def _check_test_function_args(self, node: AnyFunctionDef) -> None:
         """Checks for PT019."""
@@ -155,7 +167,7 @@ class FixturesVisitor(Visitor[Config]):
             self._check_fixture_decorator(fixture_decorator, node)
             self._check_fixture_returns(node)
             self._check_fixture_addfinalizer(node)
-            self._check_fixture_unnecessary_marks(node)
+            self._check_fixture_marks(node)
 
         if is_test_function(node):
             self._check_test_function_args(node)
