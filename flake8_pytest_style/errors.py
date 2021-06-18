@@ -135,3 +135,8 @@ class UnnecessaryAsyncioMarkOnFixture(Error):
 class ErroneousUseFixturesOnFixture(Error):
     code = 'PT025'
     message = 'pytest.mark.usefixtures has no effect on fixtures'
+
+
+class UseFixturesWithoutParameters(Error):
+    code = 'PT026'
+    message = 'useless pytest.mark.usefixtures without parameters'
