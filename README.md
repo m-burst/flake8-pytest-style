@@ -40,6 +40,7 @@ Currently the following errors are reported:
 | [PT022] | no teardown in fixture {name}, use return instead of yield |
 | [PT023] | use @pytest.mark.foo() over @pytest.mark.foo <br> (configurable by `pytest-mark-no-parentheses`) |
 | [PT024] | pytest.mark.asyncio is unnecessary for fixtures |
+| [PT025] | pytest.mark.usefixtures has no effect on fixtures |
 
 ## Installation
 
@@ -80,7 +81,7 @@ MIT
 
 **Unreleased**
 
-...
+* add [PT025] (checks for erroneous `pytest.mark.usefixtures` on fixtures)
 
 **1.4.4 - 2021-06-17**
 
@@ -210,3 +211,4 @@ MIT
 [PT022]: /docs/rules/PT022.md
 [PT023]: /docs/rules/PT023.md
 [PT024]: /docs/rules/PT024.md
+[PT025]: /docs/rules/PT025.md
