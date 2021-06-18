@@ -82,6 +82,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.5.0 - 2021-06-18**
+
 * add [PT025] (checks for erroneous `pytest.mark.usefixtures` on fixtures)
 * add [PT026] (checks for `pytest.mark.usefixtures` without parameters)
 
