@@ -41,6 +41,7 @@ Currently the following errors are reported:
 | [PT023] | use @pytest.mark.foo() over @pytest.mark.foo <br> (configurable by `pytest-mark-no-parentheses`) |
 | [PT024] | pytest.mark.asyncio is unnecessary for fixtures |
 | [PT025] | pytest.mark.usefixtures has no effect on fixtures |
+| [PT026] | useless pytest.mark.usefixtures without parameters | 
 
 ## Installation
 
@@ -82,6 +83,7 @@ MIT
 **Unreleased**
 
 * add [PT025] (checks for erroneous `pytest.mark.usefixtures` on fixtures)
+* add [PT026] (checks for `pytest.mark.usefixtures` without parameters)
 
 **1.4.4 - 2021-06-17**
 
@@ -212,3 +214,4 @@ MIT
 [PT023]: /docs/rules/PT023.md
 [PT024]: /docs/rules/PT024.md
 [PT025]: /docs/rules/PT025.md
+[PT026]: /docs/rules/PT026.md
