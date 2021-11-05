@@ -55,7 +55,7 @@ class RaisesWithoutException(Error):
 
 class RaisesWithoutMatch(Error):
     code = 'PT011'
-    message = 'set the match parameter in pytest.raises({exception})'
+    message = 'specify a narrower exception or set the match parameter in pytest.raises({exception})'
 
 
 class RaisesWithMultipleStatements(Error):
