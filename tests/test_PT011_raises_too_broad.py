@@ -2,7 +2,7 @@ import pytest
 from flake8_plugin_utils import assert_error, assert_not_error
 
 from flake8_pytest_style.config import DEFAULT_CONFIG
-from flake8_pytest_style.errors import RaisesWithoutMatch
+from flake8_pytest_style.errors import RaisesTooBroad
 from flake8_pytest_style.visitors import RaisesVisitor
 
 
@@ -40,7 +40,7 @@ def test_error_no_argument_given(exception):
     assert_error(
         RaisesVisitor,
         code,
-        RaisesWithoutMatch,
+        RaisesTooBroad,
         config=DEFAULT_CONFIG,
         exception=exception,
     )
@@ -58,7 +58,7 @@ def test_error_match_is_empty(match):
     assert_error(
         RaisesVisitor,
         code,
-        RaisesWithoutMatch,
+        RaisesTooBroad,
         config=DEFAULT_CONFIG,
         exception='ValueError',
     )

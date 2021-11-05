@@ -53,9 +53,12 @@ class RaisesWithoutException(Error):
     message = 'set the expected exception in pytest.raises()'
 
 
-class RaisesWithoutMatch(Error):
+class RaisesTooBroad(Error):
     code = 'PT011'
-    message = 'set the match parameter in pytest.raises({exception})'
+    message = (
+        'pytest.raises({exception}) is too broad,'
+        ' set the match parameter or use a more specific exception'
+    )
 
 
 class RaisesWithMultipleStatements(Error):

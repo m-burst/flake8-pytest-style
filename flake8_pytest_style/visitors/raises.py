@@ -6,9 +6,9 @@ from flake8_plugin_utils import Visitor, is_none
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
     AssertInExcept,
+    RaisesTooBroad,
     RaisesWithMultipleStatements,
     RaisesWithoutException,
-    RaisesWithoutMatch,
 )
 from flake8_pytest_style.utils import (
     get_qualname,
@@ -41,7 +41,7 @@ class RaisesVisitor(Visitor[Config]):
             return
         match = args.get_argument('match')
         if match is None or is_none(match) or is_empty_string(match):
-            self.error_from_node(RaisesWithoutMatch, node, exception=exception_name)
+            self.error_from_node(RaisesTooBroad, node, exception=exception_name)
 
     def _check_raises_with(self, node: ast.With) -> None:
         """Checks for PT012."""

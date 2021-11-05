@@ -26,7 +26,7 @@ Currently the following errors are reported:
 | [PT008] | use return_value= instead of patching with lambda |
 | [PT009] | use a regular assert instead of unittest-style '{assertion}' |
 | [PT010] | set the expected exception in pytest.raises() |
-| [PT011] | set the match parameter in pytest.raises({exception}) <br> (configurable by `pytest-raises-require-match-for`) |
+| [PT011] | pytest.raises({exception}) is too broad, set the match parameter or use a more specific exception <br> (configurable by `pytest-raises-require-match-for`) |
 | [PT012] | pytest.raises() block should contain a single simple statement |
 | [PT013] | found incorrect import of pytest, use simple 'import pytest' instead |
 | [PT014] | found duplicate test cases {indexes} in @pytest.mark.parametrize |
@@ -82,7 +82,8 @@ MIT
 
 **Unreleased**
 
-...
+* better wording for [PT011]
+* support Python 3.10
 
 **1.5.0 - 2021-06-18**
 
