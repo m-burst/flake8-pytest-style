@@ -82,6 +82,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.5.1 - 2021-11-05**
+
 * better wording for [PT011]
 * support Python 3.10
 
