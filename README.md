@@ -82,6 +82,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.6.0 - 2021-12-23**
+
 * require at least Python 3.6.2
 * expose `py.typed` file
 
