@@ -24,9 +24,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - uses: snok/install-poetry@v1.2.1
+      - uses: snok/install-poetry@v1
         with:
-          version: 1.1.11
+          version: 1.1.12
 
       - name: Show environment info
         run: |
