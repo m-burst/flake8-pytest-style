@@ -12,7 +12,7 @@ assignees: ''
 ## What's wrong
 
 <!--
-Please describe what is not working. Perhaps the plugin reports a violation when it shoudn't, or vice versa?
+Please describe what is not working. Perhaps the plugin reports a violation when it shouldn't, or vice versa?
 Please attach a code sample which reproduces the problem.
 -->
 
