@@ -1,7 +1,7 @@
 # flake8-pytest-style
 
 [![pypi](https://badge.fury.io/py/flake8-pytest-style.svg)](https://pypi.org/project/flake8-pytest-style)
-[![Python: 3.6+](https://img.shields.io/badge/Python-3.6+-blue.svg)](https://pypi.org/project/flake8-pytest-style)
+[![Python: 3.7+](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://pypi.org/project/flake8-pytest-style)
 [![Downloads](https://img.shields.io/pypi/dm/flake8-pytest-style.svg)](https://pypistats.org/packages/flake8-pytest-style)
 [![Build Status](https://github.com/m-burst/flake8-pytest-style/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/m-burst/flake8-pytest-style/actions/workflows/ci.yml)
 [![Code coverage](https://codecov.io/gh/m-burst/flake8-pytest-style/branch/master/graph/badge.svg)](https://codecov.io/gh/m-burst/flake8-pytest-style)
