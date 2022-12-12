@@ -82,7 +82,8 @@ MIT
 
 **Unreleased**
 
-...
+* require at least Python 3.7.2
+* support Python 3.11
 
 **1.6.0 - 2021-12-23**
 
