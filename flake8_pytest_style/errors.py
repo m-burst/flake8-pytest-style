@@ -143,3 +143,8 @@ class ErroneousUseFixturesOnFixture(Error):
 class UseFixturesWithoutParameters(Error):
     code = 'PT026'
     message = 'useless pytest.mark.usefixtures without parameters'
+
+
+class UnittestRaisesAssertion(Error):
+    code = 'PT027'
+    message = "use pytest.raises() instead of unittest-style '{assertion}'"

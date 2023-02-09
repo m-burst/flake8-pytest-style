@@ -42,6 +42,7 @@ Currently the following errors are reported:
 | [PT024] | pytest.mark.asyncio is unnecessary for fixtures |
 | [PT025] | pytest.mark.usefixtures has no effect on fixtures |
 | [PT026] | useless pytest.mark.usefixtures without parameters | 
+| [PT027] | use pytest.raises() instead of unittest-style '{assertion}' |
 
 ## Installation
 
@@ -230,3 +231,4 @@ MIT
 [PT024]: /docs/rules/PT024.md
 [PT025]: /docs/rules/PT025.md
 [PT026]: /docs/rules/PT026.md
+[PT027]: /docs/rules/PT027.md

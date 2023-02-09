@@ -3,7 +3,11 @@ import ast
 from flake8_plugin_utils import Visitor
 
 from flake8_pytest_style.config import Config
-from flake8_pytest_style.errors import CompositeAssertion, UnittestAssertion
+from flake8_pytest_style.errors import (
+    CompositeAssertion,
+    UnittestAssertion,
+    UnittestRaisesAssertion,
+)
 
 _UNITTEST_ASSERT_NAMES = (
     'assertAlmostEqual',
@@ -32,23 +36,28 @@ _UNITTEST_ASSERT_NAMES = (
     'assertNotIn',
     'assertNotIsInstance',
     'assertNotRegexpMatches',
-    'assertRaises',
-    'assertRaisesMessage',
-    'assertRaisesRegexp',
     'assertRegexpMatches',
     'assertSetEqual',
     'assertTrue',
     'assert_',
 )
 
+_UNITTEST_ASSERT_RAISES_NAMES = (
+    'assertRaises',
+    'assertRaisesMessage',
+    'assertRaisesRegexp',
+)
+
 
 class UnittestAssertionVisitor(Visitor[Config]):
     def visit_Call(self, node: ast.Call) -> None:
-        if (
-            isinstance(node.func, ast.Attribute)
-            and node.func.attr in _UNITTEST_ASSERT_NAMES
-        ):
-            self.error_from_node(UnittestAssertion, node, assertion=node.func.attr)
+        if isinstance(node.func, ast.Attribute):
+            if node.func.attr in _UNITTEST_ASSERT_NAMES:
+                self.error_from_node(UnittestAssertion, node, assertion=node.func.attr)
+            elif node.func.attr in _UNITTEST_ASSERT_RAISES_NAMES:
+                self.error_from_node(
+                    UnittestRaisesAssertion, node, assertion=node.func.attr
+                )
 
 
 class AssertionVisitor(Visitor[Config]):
