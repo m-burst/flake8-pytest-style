@@ -3,7 +3,11 @@ import ast
 from flake8_plugin_utils import Visitor
 
 from flake8_pytest_style.config import Config
-from flake8_pytest_style.errors import CompositeAssertion, UnittestAssertion, UnittestRaisesAssertion
+from flake8_pytest_style.errors import (
+    CompositeAssertion,
+    UnittestAssertion,
+    UnittestRaisesAssertion,
+)
 
 _UNITTEST_ASSERT_NAMES = (
     'assertAlmostEqual',
@@ -51,7 +55,9 @@ class UnittestAssertionVisitor(Visitor[Config]):
             if node.func.attr in _UNITTEST_ASSERT_NAMES:
                 self.error_from_node(UnittestAssertion, node, assertion=node.func.attr)
             elif node.func.attr in _UNITTEST_ASSERT_RAISES_NAMES:
-                self.error_from_node(UnittestRaisesAssertion, node, assertion=node.func.attr)
+                self.error_from_node(
+                    UnittestRaisesAssertion, node, assertion=node.func.attr
+                )
 
 
 class AssertionVisitor(Visitor[Config]):
