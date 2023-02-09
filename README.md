@@ -83,6 +83,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.7.0 - 2023-02-09**
+
 * require at least Python 3.7.2
 * support Python 3.11
 * add [PT027] (checks for unittest-style `assertRaises`)
