@@ -83,6 +83,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**1.7.1 - 2023-02-15**
+
 * update list of unittest-style assert methods for [PT009]/[PT027]
 
 **1.7.0 - 2023-02-09**
