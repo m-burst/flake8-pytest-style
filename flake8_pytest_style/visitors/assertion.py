@@ -10,8 +10,11 @@ from flake8_pytest_style.errors import (
 )
 
 _UNITTEST_ASSERT_NAMES = (
+    # taken from dir(unittest.TestCase) under Python 3.11
     'assertAlmostEqual',
     'assertAlmostEquals',
+    'assertCountEqual',
+    'assertDictContainsSubset',
     'assertDictEqual',
     'assertEqual',
     'assertEquals',
@@ -24,28 +27,50 @@ _UNITTEST_ASSERT_NAMES = (
     'assertIsNone',
     'assertIsNot',
     'assertIsNotNone',
-    'assertItemsEqual',
     'assertLess',
     'assertLessEqual',
+    'assertListEqual',
+    'assertLogs',
     'assertMultiLineEqual',
+    'assertNoLogs',
     'assertNotAlmostEqual',
     'assertNotAlmostEquals',
-    'assertNotContains',
     'assertNotEqual',
     'assertNotEquals',
     'assertNotIn',
     'assertNotIsInstance',
+    'assertNotRegex',
     'assertNotRegexpMatches',
+    'assertRegex',
     'assertRegexpMatches',
+    'assertSequenceEqual',
     'assertSetEqual',
     'assertTrue',
+    'assertTupleEqual',
+    'assertWarns',
+    'assertWarnsRegex',
     'assert_',
+    'fail',
+    'failIf',
+    'failIfAlmostEqual',
+    'failIfEqual',
+    'failUnless',
+    'failUnlessAlmostEqual',
+    'failUnlessEqual',
+    # below is from Django's SimpleTestCase, leaked here when porting flake8-pytest
+    # TODO(m_burst) disallow Django's SimpleTestCase/TransactionTestCase assertions
+    #  where feasible (#220)
+    'assertNotContains',
 )
 
 _UNITTEST_ASSERT_RAISES_NAMES = (
+    # taken from dir(unittest.TestCase) under Python 3.11
     'assertRaises',
-    'assertRaisesMessage',
+    'assertRaisesRegex',
     'assertRaisesRegexp',
+    'failUnlessRaises',
+    # below is from Django's SimpleTestCase, leaked here when porting flake8-pytest
+    'assertRaisesMessage',
 )
 
 
