@@ -50,7 +50,6 @@ _UNITTEST_ASSERT_NAMES = (
     'assertWarns',
     'assertWarnsRegex',
     'assert_',
-    'fail',
     'failIf',
     'failIfAlmostEqual',
     'failIfEqual',

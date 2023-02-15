@@ -83,7 +83,7 @@ MIT
 
 **Unreleased**
 
-...
+* fix false positive for [PT009] on `pytest.fail`
 
 **1.7.1 - 2023-02-15**
 
