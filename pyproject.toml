@@ -38,7 +38,7 @@ pytest = "^7.3"
 pytest-cov = "^4.1"
 pytest-deadfixtures = "^2.1"
 flake8 = "^4.0.1"
-pytest-mock = "^3.6.0"
+pytest-mock = "^3.11.1"
 unify = "^0.5.0"
 tomlkit = "^0.11.8"
 
