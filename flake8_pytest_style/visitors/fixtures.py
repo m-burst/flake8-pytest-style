@@ -1,7 +1,7 @@
 import ast
-from typing import Union
+from typing import Set, Type, Union
 
-from flake8_plugin_utils import Visitor
+from flake8_plugin_utils import Error, Visitor
 
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
@@ -135,7 +135,7 @@ class FixturesVisitor(Visitor[Config]):
 
     def _check_fixture_marks(self, node: AnyFunctionDef) -> None:
         """Checks for PT024, PT025."""
-        reported_errors = set()
+        reported_errors: Set[Type[Error]] = set()
         marks = get_mark_decorators(node)
         for mark in marks:
             mark_name = get_mark_name(mark)
