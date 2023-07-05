@@ -487,13 +487,13 @@ test = ["PyHamcrest", "pytest", "pytest-cov"]
 
 [[package]]
 name = "flake8-plugin-utils"
-version = "1.3.2"
+version = "1.3.3"
 description = "The package provides base classes and utils for flake8 plugin writing"
 optional = false
 python-versions = ">=3.6,<4.0"
 files = [
-    {file = "flake8-plugin-utils-1.3.2.tar.gz", hash = "sha256:20fa2a8ca2decac50116edb42e6af0a1253ef639ad79941249b840531889c65a"},
-    {file = "flake8_plugin_utils-1.3.2-py3-none-any.whl", hash = "sha256:1fe43e3e9acf3a7c0f6b88f5338cad37044d2f156c43cb6b080b5f9da8a76f06"},
+    {file = "flake8-plugin-utils-1.3.3.tar.gz", hash = "sha256:39f6f338d038b301c6fd344b06f2e81e382b68fa03c0560dff0d9b1791a11a2c"},
+    {file = "flake8_plugin_utils-1.3.3-py3-none-any.whl", hash = "sha256:e4848c57d9d50f19100c2d75fa794b72df068666a9041b4b0409be923356a3ed"},
 ]
 
 [[package]]
