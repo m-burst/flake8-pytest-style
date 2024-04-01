@@ -18,7 +18,7 @@ from flake8_pytest_style.plugin import PytestStylePlugin
 def option_manager() -> OptionManager:
     manager = OptionManager(
         version=flake8.__version__,
-        plugin_versions='',  # TODO
+        plugin_versions='',  # Not necessary in tests
         parents=[],
         formatter_names=[],
     )
