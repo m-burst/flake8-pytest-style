@@ -16,7 +16,7 @@ Currently the following errors are reported:
 
 | Code    | Description |
 | ------- | ----------- |
-| [PT001] | use @pytest.fixture() over @pytest.fixture <br> (configurable by `pytest-fixture-no-parentheses`) |
+| [PT001] | use @pytest.fixture over @pytest.fixture() <br> (configurable by `pytest-fixture-no-parentheses`) |
 | [PT002] | configuration for fixture '{name}' specified via positional args, use kwargs |
 | [PT003] | scope='function' is implied in @pytest.fixture() |
 | [PT004] | fixture '{name}' does not return anything, add leading underscore |
@@ -38,7 +38,7 @@ Currently the following errors are reported:
 | [PT020] | @pytest.yield_fixture is deprecated, use @pytest.fixture |
 | [PT021] | use yield instead of request.addfinalizer |
 | [PT022] | no teardown in fixture {name}, use return instead of yield |
-| [PT023] | use @pytest.mark.foo() over @pytest.mark.foo <br> (configurable by `pytest-mark-no-parentheses`) |
+| [PT023] | use @pytest.mark.foo over @pytest.mark.foo() <br> (configurable by `pytest-mark-no-parentheses`) |
 | [PT024] | pytest.mark.asyncio is unnecessary for fixtures |
 | [PT025] | pytest.mark.usefixtures has no effect on fixtures |
 | [PT026] | useless pytest.mark.usefixtures without parameters | 
