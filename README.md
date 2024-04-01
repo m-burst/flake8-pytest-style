@@ -83,6 +83,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**2.0.0 - 2024-04-01**
+
 * **BREAKING:** invert default values for `pytest-fixture-no-parentheses` and `pytest-mark-no-parentheses`
   to conform with `pytest` official style
   * If you get a lot of [PT001] or [PT023] violations after upgrading, consider setting explicit values
