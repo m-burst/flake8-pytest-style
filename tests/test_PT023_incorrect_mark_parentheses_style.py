@@ -5,7 +5,6 @@ from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import IncorrectMarkParenthesesStyle
 from flake8_pytest_style.visitors import MarksVisitor
 
-
 _CONFIG_WITHOUT_PARENS = DEFAULT_CONFIG._replace(mark_parentheses=False)
 _CONFIG_WITH_PARENS = DEFAULT_CONFIG._replace(mark_parentheses=True)
 

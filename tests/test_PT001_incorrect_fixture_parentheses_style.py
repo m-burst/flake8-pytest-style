@@ -4,7 +4,6 @@ from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import IncorrectFixtureParenthesesStyle
 from flake8_pytest_style.visitors import FixturesVisitor
 
-
 # make the configs independent of the actual default
 _CONFIG_WITHOUT_PARENS = DEFAULT_CONFIG._replace(fixture_parentheses=False)
 _CONFIG_WITH_PARENS = DEFAULT_CONFIG._replace(fixture_parentheses=True)

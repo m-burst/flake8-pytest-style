@@ -49,9 +49,7 @@ def test_error_with_parens():
             pass
     """
     config = DEFAULT_CONFIG._replace(mark_parentheses=True)
-    assert_error(
-        MarksVisitor, code, UseFixturesWithoutParameters, config=config
-    )
+    assert_error(MarksVisitor, code, UseFixturesWithoutParameters, config=config)
 
 
 def test_error_no_parens():
