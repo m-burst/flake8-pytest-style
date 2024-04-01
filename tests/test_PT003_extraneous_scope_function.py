@@ -9,7 +9,7 @@ def test_ok_no_scope():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             return 0
     """

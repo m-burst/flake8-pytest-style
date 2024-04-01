@@ -24,7 +24,8 @@ def test_ok_another_mark_with_parens():
         def test_something():
             pass
     """
-    assert_not_error(MarksVisitor, code, config=DEFAULT_CONFIG)
+    config = DEFAULT_CONFIG._replace(mark_parentheses=True)
+    assert_not_error(MarksVisitor, code, config=config)
 
 
 def test_ok_another_mark_no_parens():
@@ -47,8 +48,9 @@ def test_error_with_parens():
         def test_something():
             pass
     """
+    config = DEFAULT_CONFIG._replace(mark_parentheses=True)
     assert_error(
-        MarksVisitor, code, UseFixturesWithoutParameters, config=DEFAULT_CONFIG
+        MarksVisitor, code, UseFixturesWithoutParameters, config=config
     )
 
 

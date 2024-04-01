@@ -9,7 +9,7 @@ def test_ok_return():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             return 0
     """
@@ -20,7 +20,7 @@ def test_ok_yield():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             resource = acquire_resource()
             yield resource
@@ -33,7 +33,7 @@ def test_ok_other_request():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             request = get_request()
             request.addfinalizer(finalizer)
@@ -54,7 +54,7 @@ def test_ok_other_function():
             request.addfinalizer(resource.release)
             return resource
 
-        @pytest.fixture()
+        @pytest.fixture
         def resource_factory(request):
             return functools.partial(create_resource, request=request)
     """
@@ -66,7 +66,7 @@ def test_ok_nested_function():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def resource_factory(request):
             def create_resource(arg) -> Resource:
                 resource = Resource(arg)
@@ -81,7 +81,7 @@ def test_error_return():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture(request):
             resource = acquire_resource()
             request.addfinalizer(resource.release)
@@ -94,7 +94,7 @@ def test_error_yield():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture(request):
             resource = acquire_resource()
             request.addfinalizer(resource.release)

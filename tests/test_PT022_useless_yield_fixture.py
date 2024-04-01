@@ -4,7 +4,7 @@ from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import UselessYieldFixture
 from flake8_pytest_style.visitors import FixturesVisitor
 
-# Skipping basic OK tests tests because we have A LOT of valid fixtures in other
+# Skipping basic OK tests because we have A LOT of valid fixtures in other
 # test files
 
 
@@ -12,7 +12,7 @@ def test_ok_complex_logic():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             if some_condition:
                 resource = acquire_resource()
@@ -28,7 +28,7 @@ def test_error():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             resource = acquire_resource()
             yield resource
