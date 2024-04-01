@@ -27,5 +27,5 @@ def test_error():
         UnittestAssertionVisitor,
         code,
         UnittestRaisesAssertion,
-        assertion="assertRaises",
+        assertion='assertRaises',
     )
