@@ -83,7 +83,7 @@ MIT
 
 **Unreleased**
 
-...
+* require at least Python 3.8.0
 
 **1.7.2 - 2023-02-15**
 
