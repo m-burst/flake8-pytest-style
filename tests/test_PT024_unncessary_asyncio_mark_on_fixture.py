@@ -32,7 +32,7 @@ def test_error_before():
         import pytest
 
         @pytest.mark.asyncio()
-        @pytest.fixture()
+        @pytest.fixture
         async def my_fixture():
             return 0
     """
@@ -46,7 +46,7 @@ def test_error_before_no_parens():
         import pytest
 
         @pytest.mark.asyncio
-        @pytest.fixture()
+        @pytest.fixture
         async def my_fixture():
             return 0
     """
@@ -59,7 +59,7 @@ def test_error_after():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         @pytest.mark.asyncio()
         async def my_fixture():
             return 0
@@ -73,7 +73,7 @@ def test_error_after_no_parens():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         @pytest.mark.asyncio
         async def my_fixture():
             return 0

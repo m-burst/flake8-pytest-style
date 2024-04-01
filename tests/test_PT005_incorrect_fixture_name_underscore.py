@@ -9,7 +9,7 @@ def test_ok_with_return():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture(mocker):
             return 0
     """
@@ -20,7 +20,7 @@ def test_ok_with_yield():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def activate_context():
             with get_context() as context:
                 yield context
@@ -30,7 +30,7 @@ def test_ok_with_yield():
 
 def test_ok_nested_function():
     code = """
-        @pytest.fixture()
+        @pytest.fixture
         def _any_fixture(mocker):
             def nested_function():
                 return 1
@@ -47,7 +47,7 @@ def test_ok_abstract_with_import_abc():
         import pytest
 
         class BaseTest:
-            @pytest.fixture()
+            @pytest.fixture
             @abc.abstractmethod
             def _my_fixture():
                 return NotImplemented
@@ -62,7 +62,7 @@ def test_ok_abstract_with_from_import():
         import pytest
 
         class BaseTest:
-            @pytest.fixture()
+            @pytest.fixture
             @abstractmethod
             def _my_fixture():
                 return NotImplemented
@@ -74,7 +74,7 @@ def test_error_with_return():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def _my_fixture(mocker):
             return 0
     """
@@ -91,7 +91,7 @@ def test_error_with_yield():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def _activate_context():
             with get_context() as context:
                 yield context
@@ -109,7 +109,7 @@ def test_error_with_conditional_yield_from():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def _activate_context():
             if some_condition:
                 with get_context() as context:

@@ -83,6 +83,10 @@ MIT
 
 **Unreleased**
 
+* **BREAKING:** invert default values for `pytest-fixture-no-parentheses` and `pytest-mark-no-parentheses`
+  to conform with `pytest` official style
+  * If you get a lot of [PT001] or [PT023] violations after upgrading, consider setting explicit values
+    for these configuration options
 * require at least Python 3.8.1
 * support Python 3.12
 

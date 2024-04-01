@@ -5,6 +5,10 @@ from flake8_pytest_style.config import DEFAULT_CONFIG
 from flake8_pytest_style.errors import IncorrectMarkParenthesesStyle
 from flake8_pytest_style.visitors import MarksVisitor
 
+_CONFIG_WITHOUT_PARENS = DEFAULT_CONFIG._replace(mark_parentheses=False)
+_CONFIG_WITH_PARENS = DEFAULT_CONFIG._replace(mark_parentheses=True)
+
+
 SAMPLES_WITHOUT_PARENTHESES = [
     pytest.param(
         """
@@ -139,13 +143,12 @@ def test_ok_with_parameters_regardless_of_config(mark_parentheses: bool):
 
 @pytest.mark.parametrize('code', SAMPLES_WITHOUT_PARENTHESES)
 def test_ok_without_parens(code: str):
-    config = DEFAULT_CONFIG._replace(mark_parentheses=False)
-    assert_not_error(MarksVisitor, code, config=config)
+    assert_not_error(MarksVisitor, code, config=_CONFIG_WITHOUT_PARENS)
 
 
 @pytest.mark.parametrize('code', SAMPLES_WITH_PARENTHESES)
 def test_ok_with_parens(code: str):
-    assert_not_error(MarksVisitor, code, config=DEFAULT_CONFIG)
+    assert_not_error(MarksVisitor, code, config=_CONFIG_WITH_PARENS)
 
 
 @pytest.mark.parametrize('code', SAMPLES_WITHOUT_PARENTHESES)
@@ -154,7 +157,7 @@ def test_error_without_parens(code: str):
         MarksVisitor,
         code,
         IncorrectMarkParenthesesStyle,
-        config=DEFAULT_CONFIG,
+        config=_CONFIG_WITH_PARENS,
         mark_name='foo',
         expected_parens='()',
         actual_parens='',
@@ -163,12 +166,11 @@ def test_error_without_parens(code: str):
 
 @pytest.mark.parametrize('code', SAMPLES_WITH_PARENTHESES)
 def test_error_with_parens(code: str):
-    config = DEFAULT_CONFIG._replace(mark_parentheses=False)
     assert_error(
         MarksVisitor,
         code,
         IncorrectMarkParenthesesStyle,
-        config=config,
+        config=_CONFIG_WITHOUT_PARENS,
         mark_name='foo',
         expected_parens='',
         actual_parens='()',

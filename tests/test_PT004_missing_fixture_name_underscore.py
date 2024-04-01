@@ -9,7 +9,7 @@ def test_ok_simple():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def _patch_something(mocker):
             mocker.patch('some.thing')
     """
@@ -20,7 +20,7 @@ def test_ok_with_return():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def _patch_something(mocker):
             if something:
                 return
@@ -33,7 +33,7 @@ def test_ok_with_yield():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def _activate_context():
             with context:
                 yield
@@ -48,7 +48,7 @@ def test_ok_abstract_with_import_abc():
         import pytest
 
         class BaseTest:
-            @pytest.fixture()
+            @pytest.fixture
             @abc.abstractmethod
             def my_fixture():
                 raise NotImplementedError
@@ -63,7 +63,7 @@ def test_ok_abstract_with_from_import():
         import pytest
 
         class BaseTest:
-            @pytest.fixture()
+            @pytest.fixture
             @abstractmethod
             def my_fixture():
                 raise NotImplementedError
@@ -75,7 +75,7 @@ def test_ok_ignoring_yield_from():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             yield from some_generator()
     """
@@ -86,7 +86,7 @@ def test_error_simple():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def patch_something(mocker):
             mocker.patch('some.thing')
     """
@@ -103,7 +103,7 @@ def test_error_with_yield():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         def activate_context():
             with context:
                 yield

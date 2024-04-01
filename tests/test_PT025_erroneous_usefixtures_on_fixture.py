@@ -21,7 +21,7 @@ def test_error_before():
         import pytest
 
         @pytest.mark.usefixtures('a')
-        @pytest.fixture()
+        @pytest.fixture
         def my_fixture():
             return 0
     """
@@ -37,7 +37,7 @@ def test_error_after():
     code = """
         import pytest
 
-        @pytest.fixture()
+        @pytest.fixture
         @pytest.mark.usefixtures('a')
         def my_fixture():
             return 0

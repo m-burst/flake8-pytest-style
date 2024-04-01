@@ -14,7 +14,7 @@ from flake8_pytest_style.config import (
 from flake8_pytest_style.plugin import PytestStylePlugin
 
 
-@pytest.fixture()
+@pytest.fixture
 def option_manager() -> OptionManager:
     manager = OptionManager(
         version=flake8.__version__,

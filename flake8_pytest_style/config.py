@@ -32,7 +32,7 @@ class Config(NamedTuple):
 
 
 DEFAULT_CONFIG = Config(
-    fixture_parentheses=True,
+    fixture_parentheses=False,
     raises_require_match_for=[
         'BaseException',
         'Exception',
@@ -45,5 +45,5 @@ DEFAULT_CONFIG = Config(
     parametrize_names_type=ParametrizeNamesType.TUPLE,
     parametrize_values_type=ParametrizeValuesType.LIST,
     parametrize_values_row_type=ParametrizeValuesRowType.TUPLE,
-    mark_parentheses=True,
+    mark_parentheses=False,
 )
