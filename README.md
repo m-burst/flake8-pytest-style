@@ -88,6 +88,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**2.1.0 - 2025-01-10**
+
 * support `reason=` kwarg in `pytest.fail` for [PT016]
 * add [PT028] (checks for default values in test functions)
 * add [PT029] (checks for `pytest.warns` without expected warning)
