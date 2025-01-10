@@ -83,6 +83,7 @@ MIT
 
 **Unreleased**
 
+* support `reason=` kwarg in `pytest.fail` for [PT016]
 * require at least Python 3.9
 * support Python 3.13
 
