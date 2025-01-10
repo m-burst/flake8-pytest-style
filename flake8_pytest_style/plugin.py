@@ -22,6 +22,7 @@ from .visitors import (
     PatchVisitor,
     RaisesVisitor,
     TFunctionsVisitor,
+    TryExceptVisitor,
     UnittestAssertionVisitor,
 )
 
@@ -41,6 +42,7 @@ class PytestStylePlugin(Plugin[Config]):
         ParametrizeVisitor,
         RaisesVisitor,
         TFunctionsVisitor,
+        TryExceptVisitor,
         UnittestAssertionVisitor,
     ]
 
