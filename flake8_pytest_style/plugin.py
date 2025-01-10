@@ -24,6 +24,7 @@ from .visitors import (
     TFunctionsVisitor,
     TryExceptVisitor,
     UnittestAssertionVisitor,
+    WarnsVisitor,
 )
 
 __version__ = '2.0.0'
@@ -44,6 +45,7 @@ class PytestStylePlugin(Plugin[Config]):
         TFunctionsVisitor,
         TryExceptVisitor,
         UnittestAssertionVisitor,
+        WarnsVisitor,
     ]
 
     @classmethod
@@ -96,6 +98,14 @@ class PytestStylePlugin(Plugin[Config]):
             help='Omit parentheses for @pytest.mark.foo decorators'
             ' without parameters. (Default: %(default)s)',
         )
+        option_manager.add_option(
+            '--pytest-warns-require-match-for',
+            comma_separated_list=True,
+            parse_from_config=True,
+            default=DEFAULT_CONFIG.warns_require_match_for,
+            help='List of warnings for which flake8-pytest-style requires'
+            ' a match= argument in pytest.warns(). (Default: %(default)s)',
+        )
 
     @classmethod
     def parse_options_to_config(  # pylint: disable=unused-argument
@@ -114,4 +124,5 @@ class PytestStylePlugin(Plugin[Config]):
                 options.pytest_parametrize_values_row_type
             ),
             mark_parentheses=not options.pytest_mark_no_parentheses,
+            warns_require_match_for=options.pytest_warns_require_match_for,
         )
