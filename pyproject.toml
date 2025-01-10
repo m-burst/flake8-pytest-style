@@ -1,13 +1,24 @@
-[tool.poetry]
+[project]
 name = "flake8-pytest-style"
 version = "2.0.0"
 description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
-authors = ["Mikhail Burshteyn <mdburshteyn@gmail.com>"]
+authors = [
+  { name = "Mikhail Burshteyn", email = "mdburshteyn@gmail.com" },
+]
 license = "MIT"
 readme = 'README.md'
+keywords = ["flake8", "pytest"]
+dynamic = [
+  "classifiers",
+  "dependencies",
+]
+requires-python = ">=3.9"
+
+[project.urls]
 repository = "https://github.com/m-burst/flake8-pytest-style"
 homepage = "https://pypi.org/project/flake8-pytest-style"
-keywords = ["flake8", "pytest"]
+
+[tool.poetry]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
@@ -21,7 +32,7 @@ classifiers = [
   "Topic :: Software Development :: Testing :: Unit",
 ]
 
-[tool.poetry.plugins."flake8.extension"]
+[project.entry-points."flake8.extension"]
 PT = 'flake8_pytest_style.plugin:PytestStylePlugin'
 
 [tool.poetry.dependencies]
