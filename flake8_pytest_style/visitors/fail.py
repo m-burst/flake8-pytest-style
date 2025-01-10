@@ -16,8 +16,13 @@ class FailVisitor(Visitor[Config]):
     def _check_fail_call(self, node: ast.Call) -> None:
         """Checks for PT016."""
         args = get_simple_call_args(node)
-        msg_argument = args.get_argument('msg', 0)
-        if not msg_argument or is_empty_string(msg_argument):
+        # Since pytest 7.0 the argument is named 'reason', and 'msg' is deprecated but
+        # supported (at the time of writing this code).  We check 'reason', then first
+        # positional argument, and then 'msg'.  The edge cases like
+        # `pytest.fail('foo', msg='bar')` and `pytest.fail(reason='foo', msg='bar')`
+        # are deliberately ignored.
+        message_argument = args.get_argument('reason', 0) or args.get_argument('msg')
+        if not message_argument or is_empty_string(message_argument):
             self.error_from_node(FailWithoutMessage, node)
 
     def visit_Assert(self, node: ast.Assert) -> None:

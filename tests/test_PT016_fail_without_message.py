@@ -16,12 +16,22 @@ def test_ok_arg():
 def test_ok_kwarg():
     code = """
         def test_xxx():
+            pytest.fail(reason='this is a failure')
+    """
+    assert_not_error(FailVisitor, code)
+
+
+def test_ok_kwarg_legacy():
+    code = """
+        def test_xxx():
             pytest.fail(msg='this is a failure')
     """
     assert_not_error(FailVisitor, code)
 
 
-@pytest.mark.parametrize('args', ['', '""', 'f""', 'msg=""', 'msg=f""'])
+@pytest.mark.parametrize(
+    'args', ['', '""', 'f""', 'reason=""', 'reason=f""', 'msg=""', 'msg=f""']
+)
 def test_error(args):
     code = f"""
         def test_xxx():
