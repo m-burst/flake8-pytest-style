@@ -18,15 +18,15 @@ jobs:
           - 3.13
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
       - uses: snok/install-poetry@v1
         with:
-          version: 1.8.2
+          version: 2.0.0
 
       - name: Show environment info
         run: |
@@ -36,7 +36,7 @@ jobs:
           poetry config --list
 
       - name: Setup dependencies cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-${{ matrix.python-version }}-poetry-${{ hashFiles('poetry.lock') }}
