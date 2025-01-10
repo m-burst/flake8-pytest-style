@@ -85,6 +85,7 @@ MIT
 **Unreleased**
 
 * support `reason=` kwarg in `pytest.fail` for [PT016]
+* add [PT028] (checks for default values in test functions)
 * require at least Python 3.9
 * support Python 3.13
 
