@@ -6,6 +6,7 @@ from .marks import MarksVisitor
 from .parametrize import ParametrizeVisitor
 from .patch import PatchVisitor
 from .raises import RaisesVisitor
+from .t_functions import TFunctionsVisitor
 
 __all__ = (
     'AssertionVisitor',
@@ -16,5 +17,6 @@ __all__ = (
     'ParametrizeVisitor',
     'PatchVisitor',
     'RaisesVisitor',
+    'TFunctionsVisitor',
     'UnittestAssertionVisitor',
 )

@@ -148,3 +148,10 @@ class UseFixturesWithoutParameters(Error):
 class UnittestRaisesAssertion(Error):
     code = 'PT027'
     message = "use pytest.raises() instead of unittest-style '{assertion}'"
+
+
+# This should be named `TestFunctionArgumentWithDefault`,
+# but this way it is easier to avoid confusion with the `Test` prefix in pytest.
+class TFunctionArgumentWithDefault(Error):
+    code = 'PT028'
+    message = 'test function {name} has default value for argument {arg}, remove it'
