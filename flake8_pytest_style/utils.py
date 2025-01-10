@@ -72,6 +72,11 @@ def is_raises_call(node: ast.Call) -> bool:
     return get_qualname(node.func) == 'pytest.raises'
 
 
+def is_warns_call(node: ast.Call) -> bool:
+    """Checks if given call is to `pytest.warns`."""
+    return get_qualname(node.func) == 'pytest.warns'
+
+
 def is_fail_call(node: ast.Call) -> bool:
     """Checks if given call is to `pytest.fail`."""
     return get_qualname(node.func) == 'pytest.fail'
@@ -83,6 +88,14 @@ def is_raises_with(node: ast.With) -> bool:
         if isinstance(item.context_expr, ast.Call) and is_raises_call(
             item.context_expr
         ):
+            return True
+    return False
+
+
+def is_warns_with(node: ast.With) -> bool:
+    """Checks that a given `with` statement has a `pytest.warns` context."""
+    for item in node.items:
+        if isinstance(item.context_expr, ast.Call) and is_warns_call(item.context_expr):
             return True
     return False
 

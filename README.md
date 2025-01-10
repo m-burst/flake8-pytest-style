@@ -44,6 +44,9 @@ Currently the following errors are reported:
 | [PT026] | useless pytest.mark.usefixtures without parameters | 
 | [PT027] | use pytest.raises() instead of unittest-style '{assertion}' |
 | [PT028] | test function {name} has default value for argument {arg}, remove it |
+| [PT029] | set the expected warning in pytest.warns() |
+| [PT030] | pytest.warns({warning}) is too broad, set the match parameter or use a more specific warning <br> (configurable by `pytest-warns-require-match-for`) |
+| [PT031] | pytest.warns() block should contain a single simple statement |
 
 ## Installation
 
@@ -59,6 +62,7 @@ The plugin has the following configuration options:
 * `pytest-parametrize-values-row-type` &mdash; see [PT007]
 * `pytest-raises-require-match-for` &mdash; see [PT011]
 * `pytest-mark-no-parentheses` &mdash; see [PT023]
+* `pytest-warns-require-match-for` &mdash; see [PT030]
 
 ## For developers
 
@@ -86,6 +90,9 @@ MIT
 
 * support `reason=` kwarg in `pytest.fail` for [PT016]
 * add [PT028] (checks for default values in test functions)
+* add [PT029] (checks for `pytest.warns` without expected warning)
+* add [PT030] (checks for too broad `pytest.warns` clauses)
+* add [PT031] (checks for multiple statements in `pytest.warns` blocks)
 * require at least Python 3.9
 * support Python 3.13
 
@@ -259,3 +266,6 @@ MIT
 [PT026]: /docs/rules/PT026.md
 [PT027]: /docs/rules/PT027.md
 [PT028]: /docs/rules/PT028.md
+[PT029]: /docs/rules/PT029.md
+[PT030]: /docs/rules/PT030.md
+[PT031]: /docs/rules/PT031.md

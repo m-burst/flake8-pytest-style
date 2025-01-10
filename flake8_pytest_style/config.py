@@ -25,6 +25,7 @@ class ParametrizeValuesRowType(Enum):
 class Config(NamedTuple):
     fixture_parentheses: bool
     raises_require_match_for: List[str]
+    warns_require_match_for: List[str]
     parametrize_names_type: ParametrizeNamesType
     parametrize_values_type: ParametrizeValuesType
     parametrize_values_row_type: ParametrizeValuesRowType
@@ -42,6 +43,7 @@ DEFAULT_CONFIG = Config(
         'EnvironmentError',
         'socket.error',
     ],
+    warns_require_match_for=['Warning', 'UserWarning', 'DeprecationWarning'],
     parametrize_names_type=ParametrizeNamesType.TUPLE,
     parametrize_values_type=ParametrizeValuesType.LIST,
     parametrize_values_row_type=ParametrizeValuesRowType.TUPLE,

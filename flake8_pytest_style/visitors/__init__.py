@@ -8,6 +8,7 @@ from .patch import PatchVisitor
 from .raises import RaisesVisitor
 from .t_functions import TFunctionsVisitor
 from .try_except import TryExceptVisitor
+from .warns import WarnsVisitor
 
 __all__ = (
     'AssertionVisitor',
@@ -21,4 +22,5 @@ __all__ = (
     'TFunctionsVisitor',
     'TryExceptVisitor',
     'UnittestAssertionVisitor',
+    'WarnsVisitor',
 )

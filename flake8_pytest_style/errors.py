@@ -155,3 +155,21 @@ class UnittestRaisesAssertion(Error):
 class TFunctionArgumentWithDefault(Error):
     code = 'PT028'
     message = 'test function {name} has default value for argument {arg}, remove it'
+
+
+class WarnsWithoutException(Error):
+    code = 'PT029'
+    message = 'set the expected warning in pytest.warns()'
+
+
+class WarnsTooBroad(Error):
+    code = 'PT030'
+    message = (
+        'pytest.warns({warning}) is too broad,'
+        ' set the match parameter or use a more specific warning'
+    )
+
+
+class WarnsWithMultipleStatements(Error):
+    code = 'PT031'
+    message = 'pytest.warns() block should contain a single simple statement'
