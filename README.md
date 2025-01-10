@@ -43,6 +43,7 @@ Currently the following errors are reported:
 | [PT025] | pytest.mark.usefixtures has no effect on fixtures |
 | [PT026] | useless pytest.mark.usefixtures without parameters | 
 | [PT027] | use pytest.raises() instead of unittest-style '{assertion}' |
+| [PT028] | test function {name} has default value for argument {arg}, remove it |
 
 ## Installation
 
@@ -256,3 +257,4 @@ MIT
 [PT025]: /docs/rules/PT025.md
 [PT026]: /docs/rules/PT026.md
 [PT027]: /docs/rules/PT027.md
+[PT028]: /docs/rules/PT028.md
