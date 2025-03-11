@@ -88,7 +88,7 @@ MIT
 
 **Unreleased**
 
-...
+* add [PT032] (checks for callable form of `pytest.fail`, `pytest.warns` and `pytest.deprecated_call`)
 
 **2.1.0 - 2025-01-10**
 
@@ -273,3 +273,4 @@ MIT
 [PT029]: /docs/rules/PT029.md
 [PT030]: /docs/rules/PT030.md
 [PT031]: /docs/rules/PT031.md
+[PT032]: /docs/rules/PT032.md

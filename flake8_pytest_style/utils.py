@@ -77,6 +77,11 @@ def is_warns_call(node: ast.Call) -> bool:
     return get_qualname(node.func) == 'pytest.warns'
 
 
+def is_deprecatedcall_call(node: ast.Call) -> bool:
+    """Checks if given call is to `pytest.deprecated_call`."""
+    return get_qualname(node.func) == 'pytest.deprecated_call'
+
+
 def is_fail_call(node: ast.Call) -> bool:
     """Checks if given call is to `pytest.fail`."""
     return get_qualname(node.func) == 'pytest.fail'
