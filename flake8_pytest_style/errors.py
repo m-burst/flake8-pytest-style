@@ -173,3 +173,8 @@ class WarnsTooBroad(Error):
 class WarnsWithMultipleStatements(Error):
     code = 'PT031'
     message = 'pytest.warns() block should contain a single simple statement'
+
+
+class CallableRaisesWarnsDeprecatedcall(Error):
+    code = 'PT032'
+    message = 'pytest.{name}() should be used in its context-manager form'
