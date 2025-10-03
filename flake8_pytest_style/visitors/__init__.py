@@ -1,4 +1,7 @@
 from .assertion import AssertionVisitor, UnittestAssertionVisitor
+from .callable_raises_warns_deprecatedcall import (
+    CallableRaisesWarnsDeprecatedcallVisitor,
+)
 from .fail import FailVisitor
 from .fixtures import FixturesVisitor
 from .imports import ImportsVisitor
@@ -12,6 +15,7 @@ from .warns import WarnsVisitor
 
 __all__ = (
     'AssertionVisitor',
+    'CallableRaisesWarnsDeprecatedcallVisitor',
     'FailVisitor',
     'FixturesVisitor',
     'ImportsVisitor',

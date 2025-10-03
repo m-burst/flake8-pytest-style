@@ -14,6 +14,7 @@ from .config import (
 )
 from .visitors import (
     AssertionVisitor,
+    CallableRaisesWarnsDeprecatedcallVisitor,
     FailVisitor,
     FixturesVisitor,
     ImportsVisitor,
@@ -35,6 +36,7 @@ class PytestStylePlugin(Plugin[Config]):
     version = __version__
     visitors = [
         AssertionVisitor,
+        CallableRaisesWarnsDeprecatedcallVisitor,
         FailVisitor,
         FixturesVisitor,
         ImportsVisitor,
