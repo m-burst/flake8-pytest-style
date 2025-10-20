@@ -209,7 +209,7 @@ def is_empty_string(node: ast.AST) -> bool:
     """
 
     # empty string literal
-    if isinstance(node, ast.Str) and not node.s:
+    if isinstance(node, ast.Constant) and node.value == "":
         return True
 
     # empty f-string
