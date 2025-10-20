@@ -1,6 +1,6 @@
 import ast
 
-from flake8_plugin_utils import Visitor, is_none
+from flake8_plugin_utils import Visitor
 
 from flake8_pytest_style.config import Config
 from flake8_pytest_style.errors import (
@@ -12,6 +12,7 @@ from flake8_pytest_style.utils import (
     get_qualname,
     get_simple_call_args,
     is_empty_string,
+    is_none,
     is_nontrivial_with_statement,
     is_raises_call,
     is_raises_with,
