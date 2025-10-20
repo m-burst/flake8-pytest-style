@@ -1,6 +1,6 @@
 [project]
 name = "flake8-pytest-style"
-version = "2.1.0"
+version = "2.2.0"
 description = "A flake8 plugin checking common style issues or inconsistencies with pytest-based tests."
 authors = [
   { name = "Mikhail Burshteyn", email = "mdburshteyn@gmail.com" },

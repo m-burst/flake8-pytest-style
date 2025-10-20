@@ -88,6 +88,10 @@ MIT
 
 **Unreleased**
 
+...
+
+**2.2.0 - 2025-10-20**
+
 * require at least Python 3.10
 * support Python 3.14
 
