@@ -7,19 +7,19 @@ def enum_choices(enum: Type[Enum]) -> List[Any]:
 
 
 class ParametrizeNamesType(Enum):
-    CSV = 'csv'
-    TUPLE = 'tuple'
-    LIST = 'list'
+    CSV = "csv"
+    TUPLE = "tuple"
+    LIST = "list"
 
 
 class ParametrizeValuesType(Enum):
-    TUPLE = 'tuple'
-    LIST = 'list'
+    TUPLE = "tuple"
+    LIST = "list"
 
 
 class ParametrizeValuesRowType(Enum):
-    TUPLE = 'tuple'
-    LIST = 'list'
+    TUPLE = "tuple"
+    LIST = "list"
 
 
 class Config(NamedTuple):
@@ -35,15 +35,15 @@ class Config(NamedTuple):
 DEFAULT_CONFIG = Config(
     fixture_parentheses=False,
     raises_require_match_for=[
-        'BaseException',
-        'Exception',
-        'ValueError',
-        'IOError',
-        'OSError',
-        'EnvironmentError',
-        'socket.error',
+        "BaseException",
+        "Exception",
+        "ValueError",
+        "IOError",
+        "OSError",
+        "EnvironmentError",
+        "socket.error",
     ],
-    warns_require_match_for=['Warning', 'UserWarning', 'DeprecationWarning'],
+    warns_require_match_for=["Warning", "UserWarning", "DeprecationWarning"],
     parametrize_names_type=ParametrizeNamesType.TUPLE,
     parametrize_values_type=ParametrizeValuesType.LIST,
     parametrize_values_row_type=ParametrizeValuesRowType.TUPLE,

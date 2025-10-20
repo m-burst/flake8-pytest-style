@@ -30,7 +30,7 @@ def test_ok_different_error_from_config():
     assert_not_error(WarnsVisitor, code, config=DEFAULT_CONFIG)
 
 
-@pytest.mark.parametrize('warning', ['Warning', 'UserWarning'])
+@pytest.mark.parametrize("warning", ["Warning", "UserWarning"])
 def test_error_no_argument_given(warning):
     code = f"""
         import pytest
@@ -49,7 +49,7 @@ def test_error_no_argument_given(warning):
     )
 
 
-@pytest.mark.parametrize('match', ['None', '""', 'f""'])
+@pytest.mark.parametrize("match", ["None", '""', 'f""'])
 def test_error_match_is_empty(match):
     code = f"""
         import pytest
@@ -64,5 +64,5 @@ def test_error_match_is_empty(match):
         code,
         WarnsTooBroad,
         config=DEFAULT_CONFIG,
-        warning='UserWarning',
+        warning="UserWarning",
     )

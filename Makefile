@@ -18,13 +18,12 @@ lint:
 	poetry run flake8 --jobs 4 --statistics --show-source $(CODE) tests scripts
 	poetry run pylint --jobs 4 --rcfile=setup.cfg $(CODE)
 	poetry run mypy $(CODE) tests scripts
-	poetry run black --skip-string-normalization --check $(CODE) tests scripts
+	poetry run black --check $(CODE) tests scripts
 	poetry run pytest --dead-fixtures --dup-fixtures
 
 format:
 	poetry run isort $(CODE) tests scripts
-	poetry run black --skip-string-normalization $(CODE) tests scripts
-	poetry run unify --in-place --recursive $(CODE) tests scripts
+	poetry run black $(CODE) tests scripts
 
 bump_major:
 	poetry run bumpversion major

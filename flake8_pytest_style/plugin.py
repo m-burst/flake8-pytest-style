@@ -27,11 +27,11 @@ from .visitors import (
     WarnsVisitor,
 )
 
-__version__ = '2.1.0'
+__version__ = "2.1.0"
 
 
 class PytestStylePlugin(Plugin[Config]):
-    name = 'flake8-pytest-style'
+    name = "flake8-pytest-style"
     version = __version__
     visitors = [
         AssertionVisitor,
@@ -51,60 +51,60 @@ class PytestStylePlugin(Plugin[Config]):
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:
         option_manager.add_option(
-            '--pytest-fixture-no-parentheses',
-            action='store_true',
+            "--pytest-fixture-no-parentheses",
+            action="store_true",
             parse_from_config=True,
             default=not DEFAULT_CONFIG.fixture_parentheses,
-            help='Omit parentheses for @pytest.fixture decorators'
-            ' without parameters. (Default: %(default)s)',
+            help="Omit parentheses for @pytest.fixture decorators"
+            " without parameters. (Default: %(default)s)",
         )
         option_manager.add_option(
-            '--pytest-raises-require-match-for',
+            "--pytest-raises-require-match-for",
             comma_separated_list=True,
             parse_from_config=True,
             default=DEFAULT_CONFIG.raises_require_match_for,
-            help='List of exceptions for which flake8-pytest-style requires'
-            ' a match= argument in pytest.raises(). (Default: %(default)s)',
+            help="List of exceptions for which flake8-pytest-style requires"
+            " a match= argument in pytest.raises(). (Default: %(default)s)",
         )
         option_manager.add_option(
-            '--pytest-parametrize-names-type',
+            "--pytest-parametrize-names-type",
             choices=enum_choices(ParametrizeNamesType),
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_names_type.value,
-            help='Preferred type for multiple parameter names in'
-            ' @pytest.mark.parametrize. (Default: %(default)s)',
+            help="Preferred type for multiple parameter names in"
+            " @pytest.mark.parametrize. (Default: %(default)s)",
         )
         option_manager.add_option(
-            '--pytest-parametrize-values-type',
+            "--pytest-parametrize-values-type",
             choices=enum_choices(ParametrizeValuesType),
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_values_type.value,
-            help='Preferred type for values in @pytest.mark.parametrize.'
-            ' (Default: %(default)s)',
+            help="Preferred type for values in @pytest.mark.parametrize."
+            " (Default: %(default)s)",
         )
         option_manager.add_option(
-            '--pytest-parametrize-values-row-type',
+            "--pytest-parametrize-values-row-type",
             choices=enum_choices(ParametrizeValuesRowType),
             parse_from_config=True,
             default=DEFAULT_CONFIG.parametrize_values_row_type.value,
-            help='Preferred type for each row in @pytest.mark.parametrize'
-            ' in case of multiple parameters. (Default: %(default)s)',
+            help="Preferred type for each row in @pytest.mark.parametrize"
+            " in case of multiple parameters. (Default: %(default)s)",
         )
         option_manager.add_option(
-            '--pytest-mark-no-parentheses',
-            action='store_true',
+            "--pytest-mark-no-parentheses",
+            action="store_true",
             parse_from_config=True,
             default=not DEFAULT_CONFIG.mark_parentheses,
-            help='Omit parentheses for @pytest.mark.foo decorators'
-            ' without parameters. (Default: %(default)s)',
+            help="Omit parentheses for @pytest.mark.foo decorators"
+            " without parameters. (Default: %(default)s)",
         )
         option_manager.add_option(
-            '--pytest-warns-require-match-for',
+            "--pytest-warns-require-match-for",
             comma_separated_list=True,
             parse_from_config=True,
             default=DEFAULT_CONFIG.warns_require_match_for,
-            help='List of warnings for which flake8-pytest-style requires'
-            ' a match= argument in pytest.warns(). (Default: %(default)s)',
+            help="List of warnings for which flake8-pytest-style requires"
+            " a match= argument in pytest.warns(). (Default: %(default)s)",
         )
 
     @classmethod

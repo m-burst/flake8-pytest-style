@@ -82,7 +82,7 @@ def test_error_with_return():
         FixturesVisitor,
         code,
         IncorrectFixtureNameUnderscore,
-        name='_my_fixture',
+        name="_my_fixture",
         config=DEFAULT_CONFIG,
     )
 
@@ -100,7 +100,7 @@ def test_error_with_yield():
         FixturesVisitor,
         code,
         IncorrectFixtureNameUnderscore,
-        name='_activate_context',
+        name="_activate_context",
         config=DEFAULT_CONFIG,
     )
 
@@ -123,6 +123,6 @@ def test_error_with_conditional_yield_from():
         FixturesVisitor,
         code,
         IncorrectFixtureNameUnderscore,
-        name='_activate_context',
+        name="_activate_context",
         config=DEFAULT_CONFIG,
     )

@@ -21,7 +21,7 @@ class FailVisitor(Visitor[Config]):
         # positional argument, and then 'msg'.  The edge cases like
         # `pytest.fail('foo', msg='bar')` and `pytest.fail(reason='foo', msg='bar')`
         # are deliberately ignored.
-        message_argument = args.get_argument('reason', 0) or args.get_argument('msg')
+        message_argument = args.get_argument("reason", 0) or args.get_argument("msg")
         if not message_argument or is_empty_string(message_argument):
             self.error_from_node(FailWithoutMessage, node)
 

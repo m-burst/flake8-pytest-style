@@ -25,7 +25,7 @@ def test_error_arg():
         def test_xxx(_fixture):
             pass
     """
-    assert_error(TFunctionsVisitor, code, FixtureParamWithoutValue, name='_fixture')
+    assert_error(TFunctionsVisitor, code, FixtureParamWithoutValue, name="_fixture")
 
 
 def test_error_kwonly():
@@ -33,4 +33,4 @@ def test_error_kwonly():
         def test_xxx(*, _fixture):
             pass
     """
-    assert_error(TFunctionsVisitor, code, FixtureParamWithoutValue, name='_fixture')
+    assert_error(TFunctionsVisitor, code, FixtureParamWithoutValue, name="_fixture")

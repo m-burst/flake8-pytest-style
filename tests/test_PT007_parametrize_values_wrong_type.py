@@ -9,22 +9,22 @@ from flake8_pytest_style.config import (
 from flake8_pytest_style.errors import ParametrizeValuesWrongType
 from flake8_pytest_style.visitors import ParametrizeVisitor
 
-VALUES_LIST = ['a', 'b', 'c']
-VALUES_TUPLE = ('a', 'b', 'c')
-VALUES_LIST_OF_LISTS = [['a', 'b'], ['c', 'd']]
-VALUES_LIST_OF_TUPLES = [('a', 'b'), ('c', 'd')]
-VALUES_TUPLE_OF_LISTS = (['a', 'b'], ['c', 'd'])
-VALUES_TUPLE_OF_TUPLES = (('a', 'b'), ('c', 'd'))
-VALUES_LIST_OF_MIXED = [['a', 'b'], ('c', 'd')]
-VALUES_TUPLE_OF_MIXED = (['a', 'b'], ('c', 'd'))
+VALUES_LIST = ["a", "b", "c"]
+VALUES_TUPLE = ("a", "b", "c")
+VALUES_LIST_OF_LISTS = [["a", "b"], ["c", "d"]]
+VALUES_LIST_OF_TUPLES = [("a", "b"), ("c", "d")]
+VALUES_TUPLE_OF_LISTS = (["a", "b"], ["c", "d"])
+VALUES_TUPLE_OF_TUPLES = (("a", "b"), ("c", "d"))
+VALUES_LIST_OF_MIXED = [["a", "b"], ("c", "d")]
+VALUES_TUPLE_OF_MIXED = (["a", "b"], ("c", "d"))
 
 
 def _get_expected_type_str(values_cfg_type, rows_cfg_type):
-    return f'{values_cfg_type.value} of {rows_cfg_type.value}s'
+    return f"{values_cfg_type.value} of {rows_cfg_type.value}s"
 
 
 @pytest.mark.parametrize(
-    ('values_cfg_type', 'values'),
+    ("values_cfg_type", "values"),
     [
         (ParametrizeValuesType.LIST, VALUES_LIST),
         (ParametrizeValuesType.TUPLE, VALUES_TUPLE),
@@ -44,7 +44,7 @@ def test_ok_single(values_cfg_type, values):
 
 
 @pytest.mark.parametrize(
-    ('values_cfg_type', 'rows_cfg_type', 'values'),
+    ("values_cfg_type", "rows_cfg_type", "values"),
     [
         (
             ParametrizeValuesType.LIST,
@@ -85,7 +85,7 @@ def test_ok_multiple(values_cfg_type, rows_cfg_type, values):
 
 
 @pytest.mark.parametrize(
-    ('values_cfg_type', 'values'),
+    ("values_cfg_type", "values"),
     [
         (ParametrizeValuesType.LIST, VALUES_TUPLE),
         (ParametrizeValuesType.TUPLE, VALUES_LIST),
@@ -125,13 +125,13 @@ def test_error_single_tuple_as_decorator():
         ParametrizeVisitor,
         code,
         ParametrizeValuesWrongType,
-        expected_type='list',
+        expected_type="list",
         config=DEFAULT_CONFIG,
     )
 
 
 @pytest.mark.parametrize(
-    ('values_cfg_type', 'rows_cfg_type', 'values'),
+    ("values_cfg_type", "rows_cfg_type", "values"),
     [
         (
             ParametrizeValuesType.LIST,
@@ -217,9 +217,9 @@ def test_error_multiple(values_cfg_type, rows_cfg_type, values):
     )
 
 
-@pytest.mark.parametrize('values_cfg_type', list(ParametrizeValuesType))
-@pytest.mark.parametrize('rows_cfg_type', list(ParametrizeValuesRowType))
-@pytest.mark.parametrize('values', [VALUES_LIST_OF_MIXED, VALUES_TUPLE_OF_MIXED])
+@pytest.mark.parametrize("values_cfg_type", list(ParametrizeValuesType))
+@pytest.mark.parametrize("rows_cfg_type", list(ParametrizeValuesRowType))
+@pytest.mark.parametrize("values", [VALUES_LIST_OF_MIXED, VALUES_TUPLE_OF_MIXED])
 def test_error_multiple_mixed(values_cfg_type, rows_cfg_type, values):
     code = f"""
         import pytest

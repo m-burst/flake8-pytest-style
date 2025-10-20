@@ -1208,32 +1208,7 @@ files = [
     {file = "typing_extensions-4.15.0.tar.gz", hash = "sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466"},
 ]
 
-[[package]]
-name = "unify"
-version = "0.5"
-description = "Modifies strings to all use the same (single/double) quote where possible."
-optional = false
-python-versions = "*"
-groups = ["dev"]
-files = [
-    {file = "unify-0.5.tar.gz", hash = "sha256:8ddce812b2457212b7598fe574c9e6eb3ad69710f445391338270c7f8a71723c"},
-]
-
-[package.dependencies]
-untokenize = "*"
-
-[[package]]
-name = "untokenize"
-version = "0.1.1"
-description = "Transforms tokens into original source code (while preserving whitespace)."
-optional = false
-python-versions = "*"
-groups = ["dev"]
-files = [
-    {file = "untokenize-0.1.1.tar.gz", hash = "sha256:3865dbbbb8efb4bb5eaa72f1be7f3e0be00ea8b7f125c69cbd1f5fda926f37a2"},
-]
-
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "ddba59300f3439db049fe8861428bff366acc82ebdd9c38d06fb599eb88b7f67"
+content-hash = "5a3dc5fad25f1506f9fd8c43195f9b5dc8f0085018f8ca318007741844ee949d"

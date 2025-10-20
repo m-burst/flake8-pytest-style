@@ -39,7 +39,7 @@ def test_error_only_args():
         FixturesVisitor,
         code,
         FixturePositionalArgs,
-        name='my_fixture',
+        name="my_fixture",
         config=DEFAULT_CONFIG,
     )
 
@@ -56,6 +56,6 @@ def test_error_mixed():
         FixturesVisitor,
         code,
         FixturePositionalArgs,
-        name='my_fixture',
+        name="my_fixture",
         config=DEFAULT_CONFIG,
     )

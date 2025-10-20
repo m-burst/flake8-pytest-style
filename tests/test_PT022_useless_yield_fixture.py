@@ -37,6 +37,6 @@ def test_error():
         FixturesVisitor,
         code,
         UselessYieldFixture,
-        name='my_fixture',
+        name="my_fixture",
         config=DEFAULT_CONFIG,
     )

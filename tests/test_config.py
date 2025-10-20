@@ -18,7 +18,7 @@ from flake8_pytest_style.plugin import PytestStylePlugin
 def option_manager() -> OptionManager:
     manager = OptionManager(
         version=flake8.__version__,
-        plugin_versions='',  # Not necessary in tests
+        plugin_versions="",  # Not necessary in tests
         parents=[],
         formatter_names=[],
     )
@@ -43,46 +43,46 @@ def test_parse_default(option_manager):
 
 def test_parse_raises_require_match_for(option_manager):
     config = parse_options(
-        option_manager, ['--pytest-raises-require-match-for', 'ValueError,TypeError']
+        option_manager, ["--pytest-raises-require-match-for", "ValueError,TypeError"]
     )
-    assert config.raises_require_match_for == ['ValueError', 'TypeError']
+    assert config.raises_require_match_for == ["ValueError", "TypeError"]
 
 
 def test_parse_fixture_parentheses(option_manager):
-    config = parse_options(option_manager, ['--pytest-fixture-no-parentheses'])
+    config = parse_options(option_manager, ["--pytest-fixture-no-parentheses"])
     assert config.fixture_parentheses is False
 
 
-@pytest.mark.parametrize('value', list(ParametrizeNamesType))
+@pytest.mark.parametrize("value", list(ParametrizeNamesType))
 def test_parse_parametrize_names_type(option_manager, value):
     config = parse_options(
-        option_manager, ['--pytest-parametrize-names-type', value.value]
+        option_manager, ["--pytest-parametrize-names-type", value.value]
     )
     assert config.parametrize_names_type is value
 
 
-@pytest.mark.parametrize('value', list(ParametrizeValuesType))
+@pytest.mark.parametrize("value", list(ParametrizeValuesType))
 def test_parse_parametrize_values_type(option_manager, value):
     config = parse_options(
-        option_manager, ['--pytest-parametrize-values-type', value.value]
+        option_manager, ["--pytest-parametrize-values-type", value.value]
     )
     assert config.parametrize_values_type is value
 
 
-@pytest.mark.parametrize('value', list(ParametrizeValuesRowType))
+@pytest.mark.parametrize("value", list(ParametrizeValuesRowType))
 def test_parse_parametrize_values_row_type(option_manager, value):
     config = parse_options(
-        option_manager, ['--pytest-parametrize-values-row-type', value.value]
+        option_manager, ["--pytest-parametrize-values-row-type", value.value]
     )
     assert config.parametrize_values_row_type is value
 
 
 @pytest.mark.parametrize(
-    'args',
+    "args",
     [
-        ['--pytest-parametrize-names-type', 'str'],
-        ['--pytest-parametrize-values-type', 'str'],
-        ['--pytest-parametrize-values-row-type', 'str'],
+        ["--pytest-parametrize-names-type", "str"],
+        ["--pytest-parametrize-values-type", "str"],
+        ["--pytest-parametrize-values-row-type", "str"],
     ],
 )
 def test_parse_invalid_enum_values(option_manager, args):

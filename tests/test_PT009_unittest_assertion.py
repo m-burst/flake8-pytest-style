@@ -22,5 +22,5 @@ def test_error():
             self.assertEqual(1, 1)
     """
     assert_error(
-        UnittestAssertionVisitor, code, UnittestAssertion, assertion='assertEqual'
+        UnittestAssertionVisitor, code, UnittestAssertion, assertion="assertEqual"
     )

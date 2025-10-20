@@ -24,7 +24,7 @@ class WarnsVisitor(Visitor[Config]):
         Checks for violations regarding `pytest.warns` call args (PT029 and PT030).
         """
         args = get_simple_call_args(node)
-        warning = args.get_argument('expected_warning', position=0)
+        warning = args.get_argument("expected_warning", position=0)
         if not warning:
             self.error_from_node(WarnsWithoutException, node)
             return
@@ -32,7 +32,7 @@ class WarnsVisitor(Visitor[Config]):
         warning_name = get_qualname(warning)
         if warning_name not in self.config.warns_require_match_for:
             return
-        match = args.get_argument('match')
+        match = args.get_argument("match")
         if match is None or is_none(match) or is_empty_string(match):
             self.error_from_node(WarnsTooBroad, node, warning=warning_name)
 

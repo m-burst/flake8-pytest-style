@@ -32,8 +32,8 @@ def test_error_posonly():
         TFunctionsVisitor,
         code,
         TFunctionArgumentWithDefault,
-        name='test_xxx',
-        arg='posonly2',
+        name="test_xxx",
+        arg="posonly2",
     )
 
 
@@ -46,8 +46,8 @@ def test_error_arg():
         TFunctionsVisitor,
         code,
         TFunctionArgumentWithDefault,
-        name='test_xxx',
-        arg='arg2',
+        name="test_xxx",
+        arg="arg2",
     )
 
 
@@ -60,8 +60,8 @@ def test_error_kwonly():
         TFunctionsVisitor,
         code,
         TFunctionArgumentWithDefault,
-        name='test_xxx',
-        arg='kwonly2',
+        name="test_xxx",
+        arg="kwonly2",
     )
 
 
@@ -84,18 +84,18 @@ def test_error_multiple():
 
     assert isinstance(posonly_error, TFunctionArgumentWithDefault)
     assert posonly_error.message == TFunctionArgumentWithDefault.formatted_message(
-        name='test_xxx', arg='posonly'
+        name="test_xxx", arg="posonly"
     )
     assert posonly_error.lineno == 3
 
     assert isinstance(arg_error, TFunctionArgumentWithDefault)
     assert arg_error.message == TFunctionArgumentWithDefault.formatted_message(
-        name='test_xxx', arg='arg'
+        name="test_xxx", arg="arg"
     )
     assert arg_error.lineno == 5
 
     assert isinstance(kwonly_error, TFunctionArgumentWithDefault)
     assert kwonly_error.message == TFunctionArgumentWithDefault.formatted_message(
-        name='test_xxx', arg='kwonly'
+        name="test_xxx", arg="kwonly"
     )
     assert kwonly_error.lineno == 7
