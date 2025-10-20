@@ -42,8 +42,7 @@ flake8-plugin-utils = "^1.3.2"
 [tool.poetry.group.dev.dependencies]
 black = "^25.9.0"
 bump2version = "^1.0.1"
-# TODO remove upper bound when migrated to ast.Constant
-mypy = ">=1.17,<1.18.1"
+mypy = ">=1.18.2"
 pylint = "^4.0.1"
 pytest = "^8.4.2"
 pytest-cov = "^7.0.0"
