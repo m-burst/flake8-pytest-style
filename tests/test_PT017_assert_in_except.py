@@ -29,5 +29,5 @@ def test_error():
                 assert e.message, 'blah blah'
     """
     assert_error(
-        TryExceptVisitor, code, AssertInExcept, name='e', config=DEFAULT_CONFIG
+        TryExceptVisitor, code, AssertInExcept, name="e", config=DEFAULT_CONFIG
     )

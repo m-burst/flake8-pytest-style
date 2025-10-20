@@ -52,8 +52,8 @@ class FixturesVisitor(Visitor[Config]):
                 self.error_from_node(
                     IncorrectFixtureParenthesesStyle,
                     fixture_decorator,
-                    expected_parens='()',
-                    actual_parens='',
+                    expected_parens="()",
+                    actual_parens="",
                 )
             return
 
@@ -65,8 +65,8 @@ class FixturesVisitor(Visitor[Config]):
             self.error_from_node(
                 IncorrectFixtureParenthesesStyle,
                 fixture_decorator,
-                expected_parens='',
-                actual_parens='()',
+                expected_parens="",
+                actual_parens="()",
             )
 
         if fixture_decorator.args:
@@ -76,9 +76,9 @@ class FixturesVisitor(Visitor[Config]):
 
         for keyword in fixture_decorator.keywords:
             if (
-                keyword.arg == 'scope'
+                keyword.arg == "scope"
                 and isinstance(keyword.value, ast.Str)
-                and keyword.value.s == 'function'
+                and keyword.value.s == "function"
             ):
                 self.error_from_node(
                     ExtraneousScopeFunction, fixture_decorator, name=fixture_func.name
@@ -101,12 +101,12 @@ class FixturesVisitor(Visitor[Config]):
             if isinstance(child, ast.YieldFrom):
                 has_yield_from = True
 
-        if has_return_with_value and node.name.startswith('_'):
+        if has_return_with_value and node.name.startswith("_"):
             self.error_from_node(IncorrectFixtureNameUnderscore, node, name=node.name)
         elif (
             not has_return_with_value
             and not has_yield_from
-            and not node.name.startswith('_')
+            and not node.name.startswith("_")
         ):
             # we shouldn't fire PT004 if we found a `yield from` because
             # there is no adequate way to determine whether a value is actually yielded
@@ -120,13 +120,13 @@ class FixturesVisitor(Visitor[Config]):
 
     def _check_fixture_addfinalizer(self, node: AnyFunctionDef) -> None:
         """Checks for PT021."""
-        if 'request' not in get_all_argument_names(node.args):
+        if "request" not in get_all_argument_names(node.args):
             return
 
         for child in walk_without_nested_functions(node):  # pragma: no branch
             if (
                 isinstance(child, ast.Call)
-                and get_qualname(child.func) == 'request.addfinalizer'
+                and get_qualname(child.func) == "request.addfinalizer"
             ):
                 self.error_from_node(FixtureFinalizerCallback, child)
                 return
@@ -138,13 +138,13 @@ class FixturesVisitor(Visitor[Config]):
         for mark in marks:
             mark_name = get_mark_name(mark)
             if (
-                mark_name == 'asyncio'
+                mark_name == "asyncio"
                 and UnnecessaryAsyncioMarkOnFixture not in reported_errors
             ):
                 self.error_from_node(UnnecessaryAsyncioMarkOnFixture, mark)
                 reported_errors.add(UnnecessaryAsyncioMarkOnFixture)
             if (
-                mark_name == 'usefixtures'
+                mark_name == "usefixtures"
                 and ErroneousUseFixturesOnFixture not in reported_errors
             ):
                 self.error_from_node(ErroneousUseFixturesOnFixture, mark)

@@ -6,13 +6,13 @@ from flake8_pytest_style.visitors.imports import ImportsVisitor
 
 
 @pytest.mark.parametrize(
-    'code',
+    "code",
     [
-        'import pytest',
-        'import pytest as pytest',
-        'from notpytest import fixture',
-        'from . import fixture',
-        'from .pytest import fixture',
+        "import pytest",
+        "import pytest as pytest",
+        "from notpytest import fixture",
+        "from . import fixture",
+        "from .pytest import fixture",
     ],
 )
 def test_ok(code):
@@ -20,11 +20,11 @@ def test_ok(code):
 
 
 @pytest.mark.parametrize(
-    'code',
+    "code",
     [
-        'import pytest as other_name',
-        'from pytest import fixture',
-        'from pytest import fixture as other_name',
+        "import pytest as other_name",
+        "from pytest import fixture",
+        "from pytest import fixture as other_name",
     ],
 )
 def test_error(code):

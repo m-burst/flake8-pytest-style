@@ -16,7 +16,7 @@ class TFunctionsVisitor(Visitor[Config]):
         # intentionally not looking at posonlyargs because pytest passes everything
         # as kwargs, so declaring fixture args as positional-only will fail anyway
         for arg in node.args.args + node.args.kwonlyargs:
-            if arg.arg.startswith('_'):
+            if arg.arg.startswith("_"):
                 # The error is raised at the position of `node` (function call),
                 # not `arg`, to preserve backwards compatibility.
                 self.error_from_node(FixtureParamWithoutValue, node, name=arg.arg)

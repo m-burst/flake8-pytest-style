@@ -27,8 +27,8 @@ class MarksVisitor(Visitor[Config]):
                     IncorrectMarkParenthesesStyle,
                     mark_decorator,
                     mark_name=get_mark_name(mark_decorator),
-                    expected_parens='()',
-                    actual_parens='',
+                    expected_parens="()",
+                    actual_parens="",
                 )
             return
 
@@ -41,8 +41,8 @@ class MarksVisitor(Visitor[Config]):
                 IncorrectMarkParenthesesStyle,
                 mark_decorator,
                 mark_name=get_mark_name(mark_decorator.func),
-                expected_parens='',
-                actual_parens='()',
+                expected_parens="",
+                actual_parens="()",
             )
 
     def _check_useless_usefixtures(
@@ -50,7 +50,7 @@ class MarksVisitor(Visitor[Config]):
     ) -> None:
         """Checks for PT026."""
 
-        if get_mark_name(mark_decorator) != 'usefixtures':
+        if get_mark_name(mark_decorator) != "usefixtures":
             return
 
         has_parameters = isinstance(mark_decorator, ast.Call) and bool(

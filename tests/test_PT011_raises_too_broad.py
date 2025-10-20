@@ -28,7 +28,7 @@ def test_ok_different_error_from_config():
     assert_not_error(RaisesVisitor, code, config=DEFAULT_CONFIG)
 
 
-@pytest.mark.parametrize('exception', ['ValueError', 'socket.error'])
+@pytest.mark.parametrize("exception", ["ValueError", "socket.error"])
 def test_error_no_argument_given(exception):
     code = f"""
         import pytest
@@ -46,7 +46,7 @@ def test_error_no_argument_given(exception):
     )
 
 
-@pytest.mark.parametrize('match', ['None', '""', 'f""'])
+@pytest.mark.parametrize("match", ["None", '""', 'f""'])
 def test_error_match_is_empty(match):
     code = f"""
         import pytest
@@ -60,5 +60,5 @@ def test_error_match_is_empty(match):
         code,
         RaisesTooBroad,
         config=DEFAULT_CONFIG,
-        exception='ValueError',
+        exception="ValueError",
     )

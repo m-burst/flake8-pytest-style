@@ -7,7 +7,7 @@ from typing import List, Set, Type, TypeVar
 
 from flake8_pytest_style.plugin import PytestStylePlugin
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def _collect_subclasses(modules: List[ModuleType], base_class: Type[T]) -> Set[Type[T]]:
@@ -33,7 +33,7 @@ def test_plugin_has_all_visitors():
     )
     visitor_modules = [
         importlib.import_module(
-            f'{visitors_package.__name__}.{visitor_module_info.name}'
+            f"{visitors_package.__name__}.{visitor_module_info.name}"
         )
         for visitor_module_info in visitor_module_infos
     ]

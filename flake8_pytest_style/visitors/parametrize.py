@@ -32,7 +32,7 @@ class ParametrizeVisitor(Visitor[Config]):
         multiple_names: Optional[bool] = None
         found_type: Optional[ParametrizeNamesType] = None
         if isinstance(names, ast.Str):
-            if ',' in names.s:
+            if "," in names.s:
                 found_type = ParametrizeNamesType.CSV
                 multiple_names = True
             else:
@@ -41,7 +41,7 @@ class ParametrizeVisitor(Visitor[Config]):
             multiple_names = len(names.elts) > 1
             if not multiple_names:
                 self.error_from_node(
-                    ParametrizeNamesWrongType, node, expected_type='string'
+                    ParametrizeNamesWrongType, node, expected_type="string"
                 )
             elif isinstance(names, ast.Tuple):
                 found_type = ParametrizeNamesType.TUPLE
@@ -58,8 +58,8 @@ class ParametrizeVisitor(Visitor[Config]):
     def _get_expected_values_type_str(self, multiple_names: Optional[bool]) -> str:
         if multiple_names:
             return (
-                f'{self.config.parametrize_values_type.value}'
-                f' of {self.config.parametrize_values_row_type.value}s'
+                f"{self.config.parametrize_values_type.value}"
+                f" of {self.config.parametrize_values_row_type.value}s"
             )
         return self.config.parametrize_values_type.value
 

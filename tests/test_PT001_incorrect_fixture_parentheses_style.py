@@ -55,8 +55,8 @@ def test_error_without_parens():
         code,
         IncorrectFixtureParenthesesStyle,
         config=_CONFIG_WITH_PARENS,
-        expected_parens='()',
-        actual_parens='',
+        expected_parens="()",
+        actual_parens="",
     )
 
 
@@ -73,6 +73,6 @@ def test_error_with_parens():
         code,
         IncorrectFixtureParenthesesStyle,
         config=_CONFIG_WITHOUT_PARENS,
-        expected_parens='',
-        actual_parens='()',
+        expected_parens="",
+        actual_parens="()",
     )

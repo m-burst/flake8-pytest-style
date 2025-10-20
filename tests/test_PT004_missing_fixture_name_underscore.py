@@ -94,7 +94,7 @@ def test_error_simple():
         FixturesVisitor,
         code,
         MissingFixtureNameUnderscore,
-        name='patch_something',
+        name="patch_something",
         config=DEFAULT_CONFIG,
     )
 
@@ -112,6 +112,6 @@ def test_error_with_yield():
         FixturesVisitor,
         code,
         MissingFixtureNameUnderscore,
-        name='activate_context',
+        name="activate_context",
         config=DEFAULT_CONFIG,
     )

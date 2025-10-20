@@ -18,7 +18,7 @@ SAMPLES_WITHOUT_PARENTHESES = [
             def test_something():
                 pass
         """,
-        id='function',
+        id="function",
     ),
     pytest.param(
         """
@@ -29,7 +29,7 @@ SAMPLES_WITHOUT_PARENTHESES = [
                 def test_something():
                     pass
         """,
-        id='class',
+        id="class",
     ),
     pytest.param(
         """
@@ -40,7 +40,7 @@ SAMPLES_WITHOUT_PARENTHESES = [
                 def test_something():
                     pass
         """,
-        id='method',
+        id="method",
     ),
     pytest.param(
         """
@@ -52,7 +52,7 @@ SAMPLES_WITHOUT_PARENTHESES = [
                     def test_something():
                         pass
         """,
-        id='nested_class',
+        id="nested_class",
     ),
     pytest.param(
         """
@@ -64,7 +64,7 @@ SAMPLES_WITHOUT_PARENTHESES = [
                     def test_something():
                         pass
         """,
-        id='nested_class_method',
+        id="nested_class_method",
     ),
 ]
 
@@ -77,7 +77,7 @@ SAMPLES_WITH_PARENTHESES = [
             def test_something():
                 pass
         """,
-        id='function',
+        id="function",
     ),
     pytest.param(
         """
@@ -88,7 +88,7 @@ SAMPLES_WITH_PARENTHESES = [
                 def test_something():
                     pass
         """,
-        id='class',
+        id="class",
     ),
     pytest.param(
         """
@@ -99,7 +99,7 @@ SAMPLES_WITH_PARENTHESES = [
                 def test_something():
                     pass
         """,
-        id='method',
+        id="method",
     ),
     pytest.param(
         """
@@ -111,7 +111,7 @@ SAMPLES_WITH_PARENTHESES = [
                     def test_something():
                         pass
         """,
-        id='nested_class',
+        id="nested_class",
     ),
     pytest.param(
         """
@@ -123,12 +123,12 @@ SAMPLES_WITH_PARENTHESES = [
                     def test_something():
                         pass
         """,
-        id='nested_class_method',
+        id="nested_class_method",
     ),
 ]
 
 
-@pytest.mark.parametrize('mark_parentheses', [True, False])
+@pytest.mark.parametrize("mark_parentheses", [True, False])
 def test_ok_with_parameters_regardless_of_config(mark_parentheses: bool):
     code = """
         import pytest
@@ -141,37 +141,37 @@ def test_ok_with_parameters_regardless_of_config(mark_parentheses: bool):
     assert_not_error(MarksVisitor, code, config=config)
 
 
-@pytest.mark.parametrize('code', SAMPLES_WITHOUT_PARENTHESES)
+@pytest.mark.parametrize("code", SAMPLES_WITHOUT_PARENTHESES)
 def test_ok_without_parens(code: str):
     assert_not_error(MarksVisitor, code, config=_CONFIG_WITHOUT_PARENS)
 
 
-@pytest.mark.parametrize('code', SAMPLES_WITH_PARENTHESES)
+@pytest.mark.parametrize("code", SAMPLES_WITH_PARENTHESES)
 def test_ok_with_parens(code: str):
     assert_not_error(MarksVisitor, code, config=_CONFIG_WITH_PARENS)
 
 
-@pytest.mark.parametrize('code', SAMPLES_WITHOUT_PARENTHESES)
+@pytest.mark.parametrize("code", SAMPLES_WITHOUT_PARENTHESES)
 def test_error_without_parens(code: str):
     assert_error(
         MarksVisitor,
         code,
         IncorrectMarkParenthesesStyle,
         config=_CONFIG_WITH_PARENS,
-        mark_name='foo',
-        expected_parens='()',
-        actual_parens='',
+        mark_name="foo",
+        expected_parens="()",
+        actual_parens="",
     )
 
 
-@pytest.mark.parametrize('code', SAMPLES_WITH_PARENTHESES)
+@pytest.mark.parametrize("code", SAMPLES_WITH_PARENTHESES)
 def test_error_with_parens(code: str):
     assert_error(
         MarksVisitor,
         code,
         IncorrectMarkParenthesesStyle,
         config=_CONFIG_WITHOUT_PARENS,
-        mark_name='foo',
-        expected_parens='',
-        actual_parens='()',
+        mark_name="foo",
+        expected_parens="",
+        actual_parens="()",
     )

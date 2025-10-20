@@ -7,7 +7,7 @@ from flake8_pytest_style.errors import IncorrectPytestImport
 
 
 def _is_pytest_or_subpackage(imported_name: str) -> bool:
-    return imported_name == 'pytest' or imported_name.startswith('pytest.')
+    return imported_name == "pytest" or imported_name.startswith("pytest.")
 
 
 class ImportsVisitor(Visitor[Config]):

@@ -15,7 +15,7 @@ def test_ok():
     assert_not_error(WarnsVisitor, code, config=DEFAULT_CONFIG)
 
 
-@pytest.mark.parametrize('maybe_async', ['', 'async '])
+@pytest.mark.parametrize("maybe_async", ["", "async "])
 def test_ok_trivial_with(maybe_async):
     code = f"""
         async def test_something():
@@ -37,7 +37,7 @@ def test_error_multiple_statements():
 
 
 @pytest.mark.parametrize(
-    'statement', ['if', 'for i in', 'async for i in', 'while', 'with', 'async with']
+    "statement", ["if", "for i in", "async for i in", "while", "with", "async with"]
 )
 def test_error_complex_statement(statement):
     code = f"""

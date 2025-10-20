@@ -11,18 +11,18 @@ from flake8_pytest_style.utils import (
 )
 
 _PATCH_NAMESPACES = (
-    'mocker',
-    'class_mocker',
-    'module_mocker',
-    'package_mocker',
-    'session_mocker',
-    'mock',
-    'unittest.mock',
+    "mocker",
+    "class_mocker",
+    "module_mocker",
+    "package_mocker",
+    "session_mocker",
+    "mock",
+    "unittest.mock",
 )
-_PATCH_NAMES = ('patch',) + tuple(
-    f'{namespace}.patch' for namespace in _PATCH_NAMESPACES
+_PATCH_NAMES = ("patch",) + tuple(
+    f"{namespace}.patch" for namespace in _PATCH_NAMESPACES
 )
-_PATCH_OBJECT_NAMES = tuple(f'{name}.object' for name in _PATCH_NAMES)
+_PATCH_OBJECT_NAMES = tuple(f"{name}.object" for name in _PATCH_NAMES)
 
 
 class PatchVisitor(Visitor[Config]):
@@ -34,10 +34,10 @@ class PatchVisitor(Visitor[Config]):
         :param new_arg_number: number of `new` positional argument of patch func
         """
         args = get_simple_call_args(node)
-        if args.get_argument('return_value') is not None:
+        if args.get_argument("return_value") is not None:
             return
 
-        new_arg = args.get_argument('new', new_arg_number)
+        new_arg = args.get_argument("new", new_arg_number)
         if not isinstance(new_arg, ast.Lambda):
             return
 

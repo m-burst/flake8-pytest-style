@@ -17,15 +17,15 @@ def test_ok():
 
 
 @pytest.mark.parametrize(
-    'condition',
+    "condition",
     [
-        'something and something_else',
-        'something and something_else and something_third',
-        'something and not something_else',
-        'something and (something_else or something_third)',
-        'not (something or something_else)',
-        'not (something or something_else or something_third)',
-        'not (something or something_else and something_third)',
+        "something and something_else",
+        "something and something_else and something_third",
+        "something and not something_else",
+        "something and (something_else or something_third)",
+        "not (something or something_else)",
+        "not (something or something_else or something_third)",
+        "not (something or something_else and something_third)",
     ],
 )
 def test_error(condition):

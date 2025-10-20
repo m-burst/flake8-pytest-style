@@ -30,7 +30,7 @@ def test_ok_kwarg_legacy():
 
 
 @pytest.mark.parametrize(
-    'args', ['', '""', 'f""', 'reason=""', 'reason=f""', 'msg=""', 'msg=f""']
+    "args", ["", '""', 'f""', 'reason=""', 'reason=f""', 'msg=""', 'msg=f""']
 )
 def test_error(args):
     code = f"""
