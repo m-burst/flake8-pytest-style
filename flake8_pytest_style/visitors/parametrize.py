@@ -31,8 +31,8 @@ class ParametrizeVisitor(Visitor[Config]):
 
         multiple_names: Optional[bool] = None
         found_type: Optional[ParametrizeNamesType] = None
-        if isinstance(names, ast.Str):
-            if "," in names.s:
+        if isinstance(names, ast.Constant) and isinstance(names.value, str):
+            if "," in names.value:
                 found_type = ParametrizeNamesType.CSV
                 multiple_names = True
             else:

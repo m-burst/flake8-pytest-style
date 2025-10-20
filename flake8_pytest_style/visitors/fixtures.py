@@ -77,8 +77,8 @@ class FixturesVisitor(Visitor[Config]):
         for keyword in fixture_decorator.keywords:
             if (
                 keyword.arg == "scope"
-                and isinstance(keyword.value, ast.Str)
-                and keyword.value.s == "function"
+                and isinstance(keyword.value, ast.Constant)
+                and keyword.value.value == "function"
             ):
                 self.error_from_node(
                     ExtraneousScopeFunction, fixture_decorator, name=fixture_func.name

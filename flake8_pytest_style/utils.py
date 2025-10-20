@@ -2,8 +2,6 @@ import ast
 from collections import deque
 from typing import Dict, Iterator, List, NamedTuple, Optional, Tuple, Union
 
-from flake8_plugin_utils.utils import is_false, is_none
-
 AnyFunctionDef = Union[ast.AsyncFunctionDef, ast.FunctionDef]
 AnyDecoratorTarget = Union[ast.ClassDef, AnyFunctionDef]
 
@@ -203,13 +201,24 @@ def get_mark_name(node: ast.AST) -> str:
     return qualname[len(mark_prefix) :]  # noqa: E203
 
 
+def is_none(node: ast.AST) -> bool:
+    """
+    Checks if the node is a constant representing the value `None`.
+
+    Drop-in replacement for `flake8_plugin_utils.utils.is_none` without using
+    removed `ast.NameConstant` class.
+    """
+
+    return isinstance(node, ast.Constant) and node.value is None
+
+
 def is_empty_string(node: ast.AST) -> bool:
     """
     Checks if the node is a constant empty string.
     """
 
     # empty string literal
-    if isinstance(node, ast.Str) and not node.s:
+    if isinstance(node, ast.Constant) and node.value == "":
         return True
 
     # empty f-string
@@ -261,12 +270,8 @@ def is_falsy_constant(node: ast.AST) -> bool:
     Checks if the node is a constant with a falsy value.
     """
 
-    # None or False constant
-    if is_none(node) or is_false(node):
-        return True
-
-    # zero literal
-    if isinstance(node, ast.Num) and not node.n:
+    # constant node: None, False, zero, empty string (not f-string)
+    if isinstance(node, ast.Constant) and not node.value:
         return True
 
     return _is_empty_iterable(node)
