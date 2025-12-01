@@ -351,14 +351,14 @@ flake8-plugin-utils = ">=1.0,<2.0"
 
 [[package]]
 name = "flake8-bugbear"
-version = "25.10.21"
+version = "25.11.29"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "flake8_bugbear-25.10.21-py3-none-any.whl", hash = "sha256:f1c5654f9d9d3e62e90da1f0335551fdbc565c51749713177dbcfb9edb105405"},
-    {file = "flake8_bugbear-25.10.21.tar.gz", hash = "sha256:2876afcaed8bfb3464cf33e3ec42cc3bec0a004165b84400dc3392b0547c2714"},
+    {file = "flake8_bugbear-25.11.29-py3-none-any.whl", hash = "sha256:9bf15e2970e736d2340da4c0a70493db964061c9c38f708cfe1f7b2d87392298"},
+    {file = "flake8_bugbear-25.11.29.tar.gz", hash = "sha256:b5d06710f3d26e595541ad303ad4d5cb52578bd4bccbb2c2c0b2c72e243dafc8"},
 ]
 
 [package.dependencies]
