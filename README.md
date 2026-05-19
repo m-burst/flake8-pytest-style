@@ -64,6 +64,45 @@ The plugin has the following configuration options:
 * `pytest-mark-no-parentheses` &mdash; see [PT023]
 * `pytest-warns-require-match-for` &mdash; see [PT030]
 
+## Usage as a pre-commit hook
+
+This plugin is a [flake8](https://flake8.pycqa.org/) extension, so it runs
+through flake8 rather than as a standalone tool. There are two ways to use it
+with [pre-commit](https://pre-commit.com/).
+
+### Via the flake8 hook (recommended)
+
+Add the plugin as an `additional_dependencies` of the official flake8 hook.
+This keeps full control over which `PT` codes are enabled through your normal
+flake8 configuration:
+
+```yaml
+repos:
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-pytest-style==2.2.0
+```
+
+### Via this repository's hook
+
+This repository also exposes its own hook. It installs the plugin and runs
+flake8 for you:
+
+```yaml
+repos:
+  - repo: https://github.com/m-burst/flake8-pytest-style
+    rev: 2.2.0
+    hooks:
+      - id: flake8-pytest-style
+```
+
+Note that this still runs all installed flake8 checks (just flake8 + this
+plugin in an isolated environment); enable or disable individual `PT` codes
+via your flake8 config as usual.
+
 ## For developers
 
 ### Install deps and setup pre-commit hook
