@@ -10,7 +10,7 @@
 
 ## Description
 
-A `flake8` plugin checking common style issues or inconsistencies with `pytest`-based tests.
+A [`flake8`](https://flake8.pycqa.org/) plugin checking common style issues or inconsistencies with `pytest`-based tests.
 
 Currently the following errors are reported:
 
@@ -48,13 +48,43 @@ Currently the following errors are reported:
 | [PT030] | pytest.warns({warning}) is too broad, set the match parameter or use a more specific warning <br> (configurable by `pytest-warns-require-match-for`) |
 | [PT031] | pytest.warns() block should contain a single simple statement |
 
-## Installation
+## Installation and usage
 
-    pip install flake8-pytest-style
+### As a dependency
+
+Install the plugin using the package manager of your choice, e.g.
+
+```bash
+uv add --group dev flake8-pytest-style
+# or
+poetry add --group dev flake8-pytest-style
+# or
+pip install flake8-pytest-style
+```
+
+and then run `flake8` as you normally would.
+
+### As a pre-commit hook
+
+The plugin is a `flake8` extension, not a standalone tool. To use it with
+[pre-commit](https://pre-commit.com/), add the plugin to the
+`additional_dependencies` section of the official `flake8` hook:
+
+```yaml
+repos:
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-pytest-style==2.2.0
+```
 
 ## Configuration
 
-The plugin has the following configuration options:
+The plugin is configured via [`flake8` configuration](https://flake8.pycqa.org/en/latest/user/configuration.html)
+file and/or CLI options. Specific errors can be selected or ignored; 
+there are also the following plugin-specific configuration options:
 
 * `pytest-fixture-no-parentheses` &mdash; see [PT001]
 * `pytest-parametrize-names-type` &mdash; see [PT006]
