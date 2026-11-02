@@ -1079,18 +1079,18 @@ testing = ["process-tests", "pytest-xdist", "virtualenv"]
 
 [[package]]
 name = "pytest-deadfixtures"
-version = "3.1.0"
+version = "4.0.0"
 description = "A simple plugin to list unused fixtures in pytest"
 optional = false
-python-versions = "*"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "pytest_deadfixtures-3.1.0-py2.py3-none-any.whl", hash = "sha256:898ba131c7472bd05551b73e2b99a51898fc3b8255c0589cf8b3c3c804e8f502"},
-    {file = "pytest_deadfixtures-3.1.0.tar.gz", hash = "sha256:a8010e771183176fa9d918c8c49293ca5568597c8e1453ed2bbd41bcee67bde5"},
+    {file = "pytest_deadfixtures-4.0.0-py3-none-any.whl", hash = "sha256:4d00d80ac5dae8a2c707e915f68c10e0121acc7c2f001844f394e7dc94db533c"},
+    {file = "pytest_deadfixtures-4.0.0.tar.gz", hash = "sha256:0ea8cb729774b91332eecdfd85508d3d5562a4ecc762b668f422c9f7c6d0802d"},
 ]
 
 [package.dependencies]
-pytest = ">=7.0.0"
+pytest = ">=9.0"
 
 [[package]]
 name = "pytest-mock"
@@ -1362,4 +1362,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "16d38c3fa6f6020c4825b86ac0df2ccac262af6d3122b57e04a9e277e53efe00"
+content-hash = "50f72fab60ef63adde103159cb8bc4f401334629bedce2c24b32b6585e35a5ba"
