@@ -173,3 +173,11 @@ class WarnsTooBroad(Error):
 class WarnsWithMultipleStatements(Error):
     code = "PT031"
     message = "pytest.warns() block should contain a single simple statement"
+
+
+class XfailWithoutStrict(Error):
+    code = "PT032"
+    message = (
+        "set the `strict` parameter explicitly"
+        " (strict=True or strict=False) in @pytest.mark.xfail"
+    )
